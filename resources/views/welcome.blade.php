@@ -14,6 +14,7 @@
   <meta name="keywords" content="">
   <!-- meta character set -->
   <meta charset="UTF-8">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Site Title -->
   <title>{{ config('app.name', 'Market Konveksi')}}</title>
   <!--
@@ -48,14 +49,13 @@
               <div class="row single-slide align-items-center d-flex">
                 <div class="col-lg-5 col-md-6">
                   <div class="banner-content">
-                    <h1>Nike New <br>Collection!</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
+                    <h1>Marketplace <br>Konveksi!</h1>
+                    <p>Tempat vendor - vendor konveksi terpercaya yang dapat anda pesan secara online.</p>
                   </div>
                 </div>
                 <div class="col-lg-7">
                   <div class="banner-img">
-                    <img class="img-fluid" src="img/banner/banner-img.png" alt="">
+                    <img class="img-fluid" src="img/banner/girl.png" alt="">
                   </div>
                 </div>
               </div>
@@ -63,16 +63,10 @@
               <div class="row single-slide">
                 <div class="col-lg-5">
                   <div class="banner-content">
-                    <h1>Nike New <br>Collection!</h1>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation.</p>
-                    <div class="add-bag d-flex align-items-center">
-                      <a class="add-btn" href=""><span class="lnr lnr-cross"></span></a>
-                      <span class="add-text text-uppercase">Add to Bag</span>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-lg-7">
+                   <h1>Marketplace <br>Konveksi!</h1>
+                   <p>Tempat vendor - vendor konveksi terpercaya yang dapat anda pesan secara online.</p>
+                 </div>
+                 <div class="col-lg-7">
                   <div class="banner-img">
                     <img class="img-fluid" src="img/banner/banner-img.png" alt="">
                   </div>
