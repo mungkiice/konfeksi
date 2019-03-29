@@ -22,18 +22,11 @@
                         <div class="col-md-12 form-group">
                             <input type="text" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'">
                             @if ($errors->has('email'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('email') }}</strong>
-                            </span>
+                            <strong class="error-message-form">{{ $errors->first('email') }}</strong>
                             @endif
                         </div>
                         <div class="col-md-12 form-group">
                             <input type="password" class="form-control" id="pass" name="password" placeholder="Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password'">
-                            @if ($errors->has('password'))
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $errors->first('password') }}</strong>
-                            </span>
-                            @endif
                         </div>
                         <div class="col-md-12 form-group">
                             <div class="creat_account">
@@ -42,7 +35,7 @@
                             </div>
                         </div>
                         <div class="col-md-12 form-group">
-                            <button type="submit" value="submit" class="primary-btn">Login</button>
+                            <button type="submit" value="submit" class="primary-btn">Masuk</button>
                             <a href="/password/request">Lupa Password?</a>
                         </div>  
                     </form>

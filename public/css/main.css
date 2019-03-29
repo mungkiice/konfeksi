@@ -7,6 +7,9 @@
 /* Wide Mobile Layout: 480px */
 /* Section Gaps css
 ============================================================================================ */
+.error-message-form{
+  color: red;
+}
 .no-padding {
   padding: 0; }
 
