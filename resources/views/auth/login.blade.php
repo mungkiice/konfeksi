@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-lg-6">
                 <div class="login_box_img">
-                    <img class="img-fluid" src="img/login.jpg" alt="">
+                    <img class="img-fluid" src="/img/login.jpg" alt="">
                     <div class="hover">
                         <h4>Belum punya akun?</h4>
                         <p>Segera buat akun baru dan dapatkan hak akses untuk segala fitur.</p>

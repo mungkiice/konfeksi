@@ -38,7 +38,7 @@
               <li class="nav-item"><a href="/orders" class="nav-link">Pesanan Saya</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">Muhammad Iqbal Kurniawan</a>
+                aria-expanded="false">{{ Auth::user()->name }}</a>
                 <ul class="dropdown-menu">
                   <li class="nav-item"><a class="nav-link" href="/changePassword">Ubah Password</a></li>
                   <li class="nav-item"><a class="nav-link"  onclick="event.preventDefault();
