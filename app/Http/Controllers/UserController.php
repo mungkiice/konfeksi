@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -32,5 +33,17 @@ class UserController extends Controller
 			return redirect('/vendor/dashboard')->with('flash', 'password berhasil diubah');
 		}
 		return back()->with('flash', 'password berhasil diubah');
+	}
+
+	public function listMember()
+	{
+		$members = User::where('role', 'Member')->get();
+		return view('admin.members', compact('members'));
+	}
+
+	public function listvendor()
+	{
+		$vendors = User::where('role', 'Vendor')->get();
+		return view('admin.vendors', compact('vendors'));
 	}
 }

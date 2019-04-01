@@ -35,6 +35,8 @@ Route::prefix('admin')->group(function(){
 	Route::get('/dashboard', 'DashboardController@adminDashboard')->middleware('role:admin');	
 	Route::get('/jeniskain', 'JenisKainController@index')->middleware('role:admin');
 	Route::put('/jeniskain/{jenisKainId}', 'JenisKainController@update')->middleware('role:admin');
+	Route::get('/members', 'UserController@listMember')->middleware('role:admin');
+	Route::get('/vendors', 'UserController@listVendor')->middleware('role:admin');
 });
 
 

@@ -40,8 +40,20 @@
       </a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" href="/admin/members">
+        <i class="menu-icon fa fa-group"></i>
+        <span class="menu-title">Member</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/admin/vendors">
+        <i class="menu-icon fa fa-home"></i>
+        <span class="menu-title">Vendor</span>
+      </a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" href="/admin/jeniskain">
-        <i class="menu-icon fa fa-pencil-square-o"></i>
+        <i class="menu-icon fa fa-pencil-square"></i>
         <span class="menu-title">Info Jenis Kain</span>
       </a>
     </li>
