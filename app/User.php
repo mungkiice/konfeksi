@@ -4,11 +4,12 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, CanResetPassword;
 
     /**
      * The attributes that are mass assignable.
@@ -16,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone_number'
+        'nama', 'email', 'password', 'nomor_telepon'
     ];
 
     /**
@@ -36,4 +37,24 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function hasRole($role)
+    {
+        return strtolower($this->role) == $role;
+    }
+
+    public function isVendor()
+    {
+        return $this->role == 'Vendor';
+    }
+
+    public function isAdmin()
+    {
+        return $this->role == 'Admin';
+    }
+
+    public function vendor()
+    {
+        return $this->hasOne(Vendor::class);
+    }
 }

@@ -3,7 +3,7 @@
       <nav class="navbar navbar-expand-lg navbar-light main_box">
         <div class="container">
           <!-- Brand and toggle get grouped for better mobile display -->
-          <a class="navbar-brand logo_h" href="index.html"><img src="img/logo.png" alt=""></a>
+          <a class="navbar-brand logo_h" href="index.html"><img src="/img/logo.png" alt=""></a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
           aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="icon-bar"></span>
@@ -38,9 +38,9 @@
               <li class="nav-item"><a href="/orders" class="nav-link">Pesanan Saya</a></li>
               <li class="nav-item submenu dropdown">
                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">{{ Auth::user()->name }}</a>
+                aria-expanded="false">{{ Auth::user()->nama }}</a>
                 <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="/changePassword">Ubah Password</a></li>
+                  <li class="nav-item"><a class="nav-link" href="/user/password/edit">Ubah Password</a></li>
                   <li class="nav-item"><a class="nav-link"  onclick="event.preventDefault();
                   document.getElementById('logout-form').submit();">Logout</a></li>
                   <form id="logout-form" action="/logout" method="POST" style="display: none;">
@@ -53,11 +53,11 @@
               <li class="nav-item"><a href="/register" class="nav-link">Register</a></li>
               @endif
             </ul>
-            <ul class="nav navbar-nav navbar-right">
-              <!--               <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li> -->
+<!--             <ul class="nav navbar-nav navbar-right">
+                            <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
               <li class="nav-item">
                 <button class="search"><span class="lnr lnr-magnifier" id="search"></span></button>
-              </li>
+              </li> -->
             </ul>
           </div>
         </div>

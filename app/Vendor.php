@@ -2,9 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 class Vendor extends Model
 {
-    //
+    public function ulasans()
+    {
+    	return $this->hasMany(Ulasan::class);
+    }
 }

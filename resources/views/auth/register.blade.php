@@ -20,9 +20,9 @@
                     <form class="row login_form" action="/register" method="post" id="contactForm" novalidate="novalidate">
                         @csrf
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="name" name="name" placeholder="Nama" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nama'">
-                            @if ($errors->has('name'))
-                            <strong class="error-message-form">{{ $errors->first('name') }}</strong>
+                            <input type="text" class="form-control" id="nama" name="nama" placeholder="Nama" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nama'">
+                            @if ($errors->has('nama'))
+                            <strong class="error-message-form">{{ $errors->first('nama') }}</strong>
                             @endif
                         </div>
                         <div class="col-md-12 form-group">
@@ -41,9 +41,9 @@
                             <input type="password" class="form-control" id="pass_c" name="password_confirmation" placeholder="Konfirmasi Password" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Konfirmasi Password'">
                         </div>
                         <div class="col-md-12 form-group">
-                            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Nomor Telepon" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nomor Telepon'">
-                            @if ($errors->has('phone_number'))
-                            <strong class="error-message-form">{{ $errors->first('phone_number') }}</strong>
+                            <input type="text" class="form-control" id="nomor_telepon" name="nomor_telepon" placeholder="Nomor Telepon" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Nomor Telepon'">
+                            @if ($errors->has('nomor_telepon'))
+                            <strong class="error-message-form">{{ $errors->first('nomor_telepon') }}</strong>
                             @endif
                         </div>
                         <div class="col-md-12 form-group">

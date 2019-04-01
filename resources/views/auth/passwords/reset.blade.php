@@ -1,65 +1,34 @@
 @extends('layouts.app')
-
+@section('page', 'Reset Password')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+<section class="tracking_box_area section_gap">
+    <div class="container">
+        <div class="tracking_box_inner">
+            <p style="text-align: center;">Pastikan untuk menjaga keamanan informasi pribadi anda.</p>
+            <form class="row tracking_form" action="/password/reset" method="post" novalidate="novalidate" style="margin: auto;">
+                @csrf
 
-                <div class="card-body">
-                    <form method="POST" action="{{ route('password.update') }}">
-                        @csrf
-
-                        <input type="hidden" name="token" value="{{ $token }}">
-
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ $email ?? old('email') }}" required autofocus>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password" class="col-md-4 col-form-label text-md-right">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="password-confirm" class="col-md-4 col-form-label text-md-right">{{ __('Confirm Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Reset Password') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                <input type="hidden" name="token" value="{{ $token }}">
+                <div class="col-md-12 form-group">
+                    <input type="email" class="form-control" id="email" name="email" placeholder="Email" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email'" value="{{ $email ?? old('email') }}">
+                    @if ($errors->has('email'))
+                    <strong class="error-message-form">{{ $errors->first('email') }}</strong>
+                    @endif
                 </div>
-            </div>
+                <div class="col-md-12 form-group">
+                    <input type="password" class="form-control" id="password" name="password" placeholder="Password Baru" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Password Baru'">
+                    @if ($errors->has('password'))
+                    <strong class="error-message-form">{{ $errors->first('password') }}</strong>
+                    @endif
+                </div>
+                <div class="col-md-12 form-group">
+                    <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Konfirmasi Password Baru" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Konfirmasi Password Baru'">
+                </div>
+                <div class="col-md-12 form-group">
+                    <button type="submit" value="submit" class="primary-btn">Simpan</button>
+                </div>
+            </form>
         </div>
     </div>
-</div>
+</section>
 @endsection

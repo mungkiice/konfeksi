@@ -94,17 +94,17 @@
           </div>
           <div class="row">
             <!-- single product -->
+            @foreach($jenisKains as $jenisKain)
             <div class="col-lg-4 col-md-6">
               <div class="single-product">
-                <img class="img-fluid" src="img/product/p1.jpg" alt="">
+                <img class="img-fluid" src="/storage/{{$jenisKain->image->path}}" alt="">
                 <div class="product-details">
-                  <h4 class="mb-20">Definition 01</h4>
-                  <p style="text-align: justify;">Recently, the US Federal government banned online casinos from operating in America by making it illegal to
-                    transfer money to them through any US bank or payment system. As a result of this law, most of the popular
-                  online casino networks</p>
+                  <h4 class="mb-20">{{$jenisKain->nama}}</h4>
+                  <p style="text-align: justify;">{{$jenisKain->deskripsi}}</p>
                 </div>
               </div>
             </div>
+            @endforeach
           </div>
         </div>
       </div>

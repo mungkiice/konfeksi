@@ -9,7 +9,13 @@ class VendorController extends Controller
 {
     public function index()
     {
-    	$vendors = Vendor::all();
+    	$vendors = Vendor::where('valid', 1)->get();
     	return view('vendors', compact('vendors'));
+    }
+
+    public function show($vendorId)
+    {
+    	$vendor = Vendor::find($vendorId);
+    	return view('vendor');
     }
 }

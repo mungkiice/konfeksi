@@ -16,8 +16,9 @@ class CreateVendorsTable extends Migration
         Schema::create('vendors', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
-            $table->string('address');
-            $table->text('description');
+            $table->string('alamat');
+            $table->text('deskripsi');
+            $table->boolean('valid')->default(false);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
