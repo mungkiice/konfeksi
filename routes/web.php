@@ -29,6 +29,7 @@ Route::post('/register/vendor', 'Auth\RegisterController@vendorRegister');
 
 Route::get('/vendors', 'VendorController@index');
 Route::get('/vendors/{vendorId}', 'VendorController@show');
+Route::get('/produk/{produkId}', 'ProdukController@show');
 
 Route::prefix('admin')->group(function(){
 	Route::get('/dashboard', 'DashboardController@adminDashboard')->middleware('role:admin');	

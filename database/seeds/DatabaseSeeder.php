@@ -40,7 +40,18 @@ class DatabaseSeeder extends Seeder
                 'subject_id' => $vendor->id,
                 'subject_type' => get_class($vendor)
             ]);
-        })
+            factory('App\Ulasan', 5)->create([
+                'vendor_id' => $vendor->id
+            ]);
+        });
+
+        $ulasans = Ulasan::all();
+        $ulasans->each(function($ulasan){
+            factory('App\File')->states('image')->create([
+                'subject_id' => $ulasan->id,
+                'subject_type' => get_class($ulasan)
+            ]);
+        });
 
         factory('App\JenisKain', 6)->create();
     	$jeniskains = JenisKain::all();
