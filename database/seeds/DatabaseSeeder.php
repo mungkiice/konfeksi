@@ -1,6 +1,7 @@
 <?php
 
 use App\JenisKain;
+use App\Ulasan;
 use App\Vendor;
 use Illuminate\Database\Seeder;
 
@@ -20,9 +21,13 @@ class DatabaseSeeder extends Seeder
         factory('App\User')->create([
             'email' => 'member@gmail.com',
         ]);
-        factory('App\User')->create([
+        $vendor = factory('App\User')->create([
             'email' => 'vendor@gmail.com',
             'role' => 'Vendor'
+        ]);
+
+        factory('App\Vendor')->create([
+            'user_id' => $vendor->id
         ]);
 
         $users = factory('App\User', 8)->create([

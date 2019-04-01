@@ -19,7 +19,7 @@ class CreateKomplainsTable extends Migration
             $table->string('deskripsi');
             $table->timestamps();
 
-            $table->foreign('pesanan_id')->references('id')->on('pesanans');
+            $table->foreign('pesanan_id')->references('id')->on('pesanans')->onDelete('cascade');
         });
     }
 

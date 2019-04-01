@@ -22,7 +22,7 @@ class CreatePenawaransTable extends Migration
             $table->enum('status', ['terkirim', 'ditolak', 'diterima'])->default('terkirim');
             $table->timestamps();
 
-            $table->foreign('pesanan_id')->references('id')->on('pesanans');
+            $table->foreign('pesanan_id')->references('id')->on('pesanans')->onDelete('cascade');
         });
     }
 

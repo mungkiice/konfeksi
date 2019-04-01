@@ -24,8 +24,8 @@ class CreatePesanansTable extends Migration
             $table->string('alamat')->nullable();
             $table->timestamps();
         
-            $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('produk_id')->references('id')->on('produks');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('produk_id')->references('id')->on('produks')->onDelete('cascade');
         });
     }
 

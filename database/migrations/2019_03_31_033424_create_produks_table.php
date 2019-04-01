@@ -20,7 +20,7 @@ class CreateProduksTable extends Migration
             $table->text('deskripsi');
             $table->timestamps();
 
-            $table->foreign('vendor_id')->references('id')->on('vendors');
+            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
         });
     }
 
