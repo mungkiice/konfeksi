@@ -8,4 +8,9 @@ class Vendor extends Model
     {
     	return $this->hasMany(Ulasan::class);
     }
+
+    public function image()
+    {
+    	return $this->morphOne(File::class, 'subject');
+    }
 }

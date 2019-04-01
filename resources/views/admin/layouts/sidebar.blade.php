@@ -34,26 +34,26 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{Auth::user()->isAdmin() ? '/admin/dashboard' : '/vendor/dashboard'}}">
-        <i class="menu-icon fa fa-dashboard"></i>
+      <a class="nav-link" href="{{Auth::user()->isAdmin() ? '/admin' : '/vendor'}}">
+        <i class="menu-icon mdi mdi-view-dashboard"></i>
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/admin/members">
-        <i class="menu-icon fa fa-group"></i>
+        <i class="menu-icon mdi mdi-account-multiple"></i>
         <span class="menu-title">Member</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/admin/vendors">
-        <i class="menu-icon fa fa-home"></i>
+        <i class="menu-icon mdi mdi-account-network"></i>
         <span class="menu-title">Vendor</span>
       </a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/admin/jeniskain">
-        <i class="menu-icon fa fa-pencil-square"></i>
+        <i class="menu-icon mdi mdi-newspaper"></i>
         <span class="menu-title">Info Jenis Kain</span>
       </a>
     </li>

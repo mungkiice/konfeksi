@@ -17,10 +17,10 @@ class UserController extends Controller
 
 	public function changePassword(Request $request)
 	{
-        Validator::extend('old_password', function ($attribute, $value, $parameters, $validator) {
-            return Hash::check($value, current($parameters));
-        }, 'The old password is wrong');
-        $user = Auth::user();
+		Validator::extend('old_password', function ($attribute, $value, $parameters, $validator) {
+			return Hash::check($value, current($parameters));
+		}, 'The old password is wrong');
+		$user = Auth::user();
 		$this->validate($request, [
 			'old_password' => 'required|old_password:' . $user->password,
 			'new_password' => 'required|confirmed'
@@ -37,13 +37,34 @@ class UserController extends Controller
 
 	public function listMember()
 	{
-		$members = User::where('role', 'Member')->get();
-		return view('admin.members', compact('members'));
+		$users = User::where('role', 'Member')->get();
+		return view('admin.members', compact('users'));
 	}
 
 	public function listvendor()
 	{
-		$vendors = User::where('role', 'Vendor')->get();
-		return view('admin.vendors', compact('vendors'));
+		$users = User::where('role', 'Vendor')->get();
+		return view('admin.vendors', compact('users'));
+	}
+
+	public function destroyMember($userId)
+	{
+		$user = User::find($userId);
+		if($user != null){
+			$user->delete();
+		}
+		return back()->with('flash', 'member berhasil dihapus');	
+	}
+
+	public function destroyVendor($userId)
+	{
+		$user = User::find($userId);
+		if($user != null){
+			if($user->vendor != null){				
+				$user->vendor->delete();
+			}
+			$user->delete();
+		}
+		return back()->with('flash', 'vendor berhasil dihapus');
 	}
 }
