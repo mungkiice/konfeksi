@@ -7,7 +7,7 @@ $factory->define(App\Ulasan::class, function (Faker $faker) {
         'user_id' => function(){
         	return factory('App\User')->create()->id;
         },
-        'rating' => $faker->numberBetween(1, 6),
+        'rating' => $faker->numberBetween(1, 5),
         'komentar' => $faker->sentence
     ];
 });

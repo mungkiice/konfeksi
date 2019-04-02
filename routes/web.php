@@ -33,15 +33,34 @@ Route::get('/produk/{produkId}', 'ProdukController@show');
 
 Route::prefix('admin')->group(function(){
 	Route::get('/', 'DashboardController@adminDashboard')->middleware('role:admin');	
-	Route::get('/jeniskain', 'JenisKainController@index')->middleware('role:admin');
+	Route::get('/jeniskain', 'JenisKainController@index')->middleware('role:admin');	
+	Route::get('/jeniskain/create', 'JenisKainController@create')->middleware('role:admin');
+	Route::post('/jeniskain/create', 'JenisKainController@store')->middleware('role:admin');
 	Route::put('/jeniskain/{jenisKainId}', 'JenisKainController@update')->middleware('role:admin');
-	Route::get('/members', 'UserController@listMember')->middleware('role:admin');
-	Route::delete('/members/{userId}', 'UserController@destroyMember')->middleware('role:admin');
-	Route::get('/vendors', 'UserController@listVendor')->middleware('role:admin');
-	Route::delete('/vendors/{userId}', 'UserController@destroyVendor')->middleware('role:admin');
+	Route::delete('/jeniskain/{jenisKainId}', 'JenisKainController@destroy')->middleware('role:admin');
+
+	Route::get('/member', 'UserController@listMember')->middleware('role:admin');
+	Route::delete('/member/{userId}', 'UserController@destroyMember')->middleware('role:admin');
+	
+	Route::get('/vendor', 'UserController@listVendor')->middleware('role:admin');
+	Route::delete('/vendor/{userId}', 'UserController@destroyVendor')->middleware('role:admin');
 });
 
 
 Route::prefix('vendor')->group(function(){
 	Route::get('/', 'DashboardController@adminDashboard')->middleware('role:vendor');	
+	Route::get('/produk', 'ProdukController@index')->middleware('role:vendor');
+	Route::post('/produk', 'ProdukController@store')->middleware('role:vendor');
+	Route::get('/produk/create', 'ProdukController@create')->middleware('role:vendor');
+	Route::get('/produk/{produkId}/edit', 'ProdukController@edit')->middleware('role:vendor');
+	Route::put('/produk/{produkId}', 'ProdukController@update')->middleware('role:vendor');
+	Route::delete('/produk/{produkId}', 'ProdukController@destroy')->middleware('role:vendor');
+	Route::post('/produk/{produkId}/tambahGambar', 'ProdukController@addImage')->middleware('role:vendor');
+	Route::delete('/produk/{produkId}/{gambarId}/hapusGambar', 'ProdukController@deleteImage')->middleware('role:vendor');
+
+	Route::get('/ulasan', 'UlasanController@index')->middleware('role:vendor');
+
+	Route::get('/komplain', 'KomplainController@index')->middleware('role:vendor');
+
+	Route::get('/pesanan', 'PesananController@index')->middleware('role:vendor');
 });

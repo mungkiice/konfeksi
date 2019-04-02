@@ -13,4 +13,14 @@ class Vendor extends Model
     {
     	return $this->morphOne(File::class, 'subject');
     }
+
+    public function user()
+    {
+    	return $this->belongsTo(User::class);
+    }
+
+    public function produks()
+    {
+    	return $this->hasMany(Produk::class);
+    }
 }

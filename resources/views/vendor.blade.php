@@ -22,17 +22,12 @@
 			</div>
 			<div class="col-lg-5 offset-lg-1">
 				<div class="s_product_text">
-					<h3>Konveksi Abu Janda</h3>
+					<h3>{{$vendor->user->nama}}</h3>
 					<ul class="list">
-						<li><a class="active" href="#"><span style="width: 120px;">Alamat</span> : Jalan Sumbersari 2 No.51 Lowokwaru</a></li>
-						<li><a href="#"><span style="width: 120px;">Nomor Telepon</span> : 081289596040</a></li>
+						<li><a class="active" href="#" disabled><span style="width: 120px;">Alamat</span> : {{$vendor->alamat}}</a></li>
+						<li><a class="active" href="#" disabled><span style="width: 120px;">Nomor Telepon</span> : {{$vendor->user->nomor_telepon}}</a></li>
 					</ul>
-					<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-					proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+					<p>{{$vendor->deskripsi}}</p>
 
 				</div>
 			</div>
@@ -53,21 +48,17 @@
 		<div class="tab-content" id="myTabContent">
 			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 				<div class="row">
+					@foreach($vendor->produks as $produk)
 					<div class="col-lg-3 col-md-4">
 						<div class="single-product" style="height: 350px; overflow: hidden;">
 							<img class="img-fluid" src="/img/product/p1.jpg" alt="">
 							<div class="product-details">
-								<h6>addidas New Hammer sole
-								for Sports person</h6>
-								<p style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-									tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-									quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-									consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-									cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-								proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+								<h6>{{$produk->nama}}</h6>
+								<p style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{$produk->deskripsi}}</p>
 							</div>
 						</div>
 					</div>
+					@endforeach
 				</div>
 			</div>
 			<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
@@ -76,61 +67,71 @@
 						<div class="row total_rate">
 							<div class="col-6">
 								<div class="box_total">
-									<h5>Overall</h5>
-									<h4>4.0</h4>
-									<h6>(03 Reviews)</h6>
+									<h5>Keseluruhan</h5>
+									<h4>{{floor($vendor->ulasans()->avg('rating'))}}</h4>
+									<h6>({{$vendor->ulasans()->count()}} Ulasan)</h6>
 								</div>
 							</div>
 							<div class="col-6">
 								<div class="rating_list">
-									<h3>Based on 3 Reviews</h3>
+									<h3>Berdasarkan {{$vendor->ulasans()->count()}} Ulasan</h3>
 									<ul class="list">
-										<li><a href="#">5 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-										<li><a href="#">4 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i	class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-										<li><a href="#">3 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-										<li><a href="#">2 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
-										<li><a href="#">1 Star <i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i> 01</a></li>
+										<li><a href="#">5 Star 
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i> {{$vendor->ulasans()->where('rating', 5)->count()}}</a>
+										</li>
+										<li><a href="#">4 Star 
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i> {{$vendor->ulasans()->where('rating', 4)->count()}}</a>
+										</li>
+										<li><a href="#">3 Star 
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i> {{$vendor->ulasans()->where('rating', 3)->count()}}</a>
+										</li>
+										<li><a href="#">2 Star 
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i> {{$vendor->ulasans()->where('rating', 2)->count()}}</a>
+										</li>
+										<li><a href="#">1 Star 
+											<i class="fa fa-star"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i>
+											<i class="fa fa-star-o"></i> {{$vendor->ulasans()->where('rating', 1)->count()}}</a>
+										</li>
 									</ul>
 								</div>
 							</div>
 						</div>
 						<div class="review_list">
+							@foreach($vendor->ulasans()->latest()->take(5)->get() as $ulasan)
 							<div class="review_item">
 								<div class="media">
 									<div class="d-flex">
 										<img src="img/product/review-1.png" alt="">
 									</div>
 									<div class="media-body">
-										<h4>Blae Ruiz</h4>
+										<h4>{{$ulasan->user->nama}}</h4>
+										@for ($i = 0; $i < $ulasan->rating; $i++)
 										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
+										@endfor
 									</div>
 								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-									dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-								commodo</p>
+								<p>{{$ulasan->komentar}}</p>
 							</div>
-							<div class="review_item">
-								<div class="media">
-									<div class="d-flex">
-										<img src="img/product/review-2.png" alt="">
-									</div>
-									<div class="media-body">
-										<h4>Blake Ruiz</h4>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-										<i class="fa fa-star"></i>
-									</div>
-								</div>
-								<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-									dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-								commodo</p>
-							</div>
+							@endforeach
 						</div>
 					</div>
 					<div class="col-lg-6">

@@ -16,6 +16,6 @@ class VendorController extends Controller
     public function show($vendorId)
     {
     	$vendor = Vendor::find($vendorId);
-    	return view('vendor');
+    	return view('vendor', compact('vendor'));
     }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\JenisKain;
+use App\Produk;
 use App\Ulasan;
 use App\Vendor;
 use Illuminate\Database\Seeder;
@@ -47,6 +48,17 @@ class DatabaseSeeder extends Seeder
             ]);
             factory('App\Ulasan', 5)->create([
                 'vendor_id' => $vendor->id
+            ]);
+            factory('App\Produk', 8)->create([
+                'vendor_id' => $vendor->id
+            ]);
+        });
+
+        $produks = Produk::all();
+        $produks->each(function($produk){
+            factory('App\File', 3)->states('image')->create([
+                'subject_id' => $produk->id,
+                'subject_type' => get_class($produk)
             ]);
         });
 
