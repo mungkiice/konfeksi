@@ -41,30 +41,13 @@ class UserController extends Controller
 		return view('admin.members', compact('users'));
 	}
 
-	public function listvendor()
-	{
-		$users = User::where('role', 'Vendor')->get();
-		return view('admin.vendors', compact('users'));
-	}
 
-	public function destroyMember($userId)
-	{
-		$user = User::find($userId);
-		if($user != null){
-			$user->delete();
-		}
-		return back()->with('flash', 'member berhasil dihapus');	
-	}
-
-	public function destroyVendor($userId)
-	{
-		$user = User::find($userId);
-		if($user != null){
-			if($user->vendor != null){				
-				$user->vendor->delete();
-			}
-			$user->delete();
-		}
-		return back()->with('flash', 'vendor berhasil dihapus');
-	}
+    public function destroyMember($userId)
+    {
+        $user = User::find($userId);
+        if($user != null){
+            $user->delete();
+        }
+        return back()->with('flash', 'member berhasil dihapus');    
+    }
 }

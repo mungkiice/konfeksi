@@ -29,7 +29,9 @@ Route::post('/register/vendor', 'Auth\RegisterController@vendorRegister');
 
 Route::get('/vendors', 'VendorController@index');
 Route::get('/vendors/{vendorId}', 'VendorController@show');
-Route::get('/produk/{produkId}', 'ProdukController@show');
+Route::get('/produks/{produkId}', 'ProdukController@show');
+Route::get('/pesan/{produkId}', 'PesananController@create');
+Route::post('/pesan', 'PesananController@store');
 
 Route::prefix('admin')->group(function(){
 	Route::get('/', 'DashboardController@adminDashboard')->middleware('role:admin');	
@@ -42,8 +44,11 @@ Route::prefix('admin')->group(function(){
 	Route::get('/member', 'UserController@listMember')->middleware('role:admin');
 	Route::delete('/member/{userId}', 'UserController@destroyMember')->middleware('role:admin');
 	
-	Route::get('/vendor', 'UserController@listVendor')->middleware('role:admin');
-	Route::delete('/vendor/{userId}', 'UserController@destroyVendor')->middleware('role:admin');
+	Route::get('/vendor', 'VendorController@listVendor')->middleware('role:admin');
+	Route::post('/vendor/{vendorId}', 'VendorController@validation')->middleware('role:admin');
+	Route::delete('/vendor/{vendorId}', 'VendorController@destroy')->middleware('role:admin');
+
+	Route::get('/file', 'FileController@index')->middleware('role:admin');
 });
 
 
