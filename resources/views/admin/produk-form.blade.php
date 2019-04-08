@@ -1,73 +1,12 @@
 @extends('admin.layouts.app')
 
 @section('custom-css')
-<style>
-	.images {
-		display: flex;
-		flex-wrap:  wrap;
-		margin-top: 20px;
-	}
-	.images .img,
-	.images .pic {
-		flex-basis: 31%;
-		margin-bottom: 10px;
-		border-radius: 4px;
-	}
-	.images .img {
-		width: 112px;
-		height: 93px;
-		background-size: cover;
-		margin-right: 10px;
-		background-position: center;
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		cursor: pointer;
-		position: relative;
-		overflow: hidden;
-	}
-	.images .img:nth-child(3n) {
-		margin-right: 0;
-	}
-	.images .img span {
-		display: none;
-		text-transform: capitalize;
-		z-index: 2;
-	}
-	.images .img::after {
-		content: '';
-		width: 100%;
-		height: 100%;
-		transition: opacity .1s ease-in;
-		border-radius: 4px;
-		opacity: 0;
-		position: absolute;
-	}
-	.images .img:hover::after {
-		display: block;
-		background-color: #000;
-		opacity: .5;
-	}
-	.images .img:hover span {
-		display: block;
-		color: #fff;
-	}
-	.images .pic {
-		background-color: #F5F7FA;
-		align-self: center;
-		text-align: center;
-		padding: 40px 0;
-		text-transform: uppercase;
-		color: #848EA1;
-		font-size: 12px;
-		cursor: pointer;
-	}
-</style>
+<link rel="stylesheet" href="{{ asset('assets/vendors/summernote/dist/summernote-bs4.css') }}">
 @endsection
 
 @section('content')
 <div class="row">
-	<div class="col-md-6 grid-margin stretch-card">
+	<div class="col-md-12 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
 				<h4 class="card-title">Form Produk</h4>
@@ -83,6 +22,13 @@
 						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('gambar') }}</label>
 						@endif
 					</div> -->
+					<div class="form-group">
+						<label for="namaInput">Nama Produk</label>
+						<input type="text" class="form-control" id="namaINput" name="nama"> 
+						@if ($errors->has('nama'))
+						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('code') }}</label>
+						@endif
+					</div>
 					<div class="form-group">		
 						<label style="display: block;">Gambar Visual Produk</label>			
 						<input type="file" class="dropify" name="gambar" />
@@ -91,15 +37,14 @@
 						@endif
 					</div>
 					<div class="form-group">
-						<label for="namaInput">Nama Produk</label>
-						<input type="text" class="form-control" id="namaINput" name="nama"> 
-						@if ($errors->has('nama'))
-						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('code') }}</label>
-						@endif
-					</div>
-					<div class="form-group">
 						<label for="deskripsiInput">Deskripsi Produk</label> 
-						<textarea class="form-control" id="deskripsiInput" rows="4" name="deskripsi"></textarea> 
+						<!-- <textarea class="form-control" id="deskripsiInput" rows="4" name="deskripsi"></textarea>  -->
+						<div id="summernoteExample">
+							<h4>The standard Lorem Ipsum passage, used since the 1500s</h4>
+							<img src="{{ asset('assets/images/samples/300x300/1.jpg') }}" class="ml-2 mb-2 w-25" alt="sample image">
+							<p class="text-justify"> "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum." </p>
+							<p class="text-justify"> "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?" </p>
+						</div>
 						@if ($errors->has('deskripsi'))
 						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('deskripsi') }}</label>
 						@endif
@@ -120,85 +65,8 @@
 <script src="{{ asset('assets/js/shared/typeahead.js') }}"></script>
 <script src="{{ asset('assets/js/shared/select2.js') }}"></script>
 <script src="{{ asset('assets/js/shared/dropify.js') }}"></script>
-<script>
-	(function ($) {
-		$(document).ready(function () {
-
-			uploadImage()
-			submit()
-
-			var way = 0
-			var queue = []
-			var fullStock = 10
-			var speedCloseNoti = 1000
-
-			function uploadImage() {
-				var button = $('.images .pic')
-				var uploader = $('<input type="file" accept="image/*"/>')
-				var images = $('.images')
-				var i = 0;
-				button.on('click', function () {
-					// var uploader = $('<input type="file" accept="image/*"/>');
-					// images.prepend('<input id="file-'+i+'"  style="display:none" type="file" name="gambar[]"');	
-					// var uploader = $('#file-'+i);
-					uploader.click()
-				})
-
-				uploader.on('change', function () {
-					var reader = new FileReader()
-					reader.onload = function(event) {
-						images.prepend('<div class="img" style="background-image: url(\'' + event.target.result + '\');" rel="'+ event.target.result  +'"><span>remove</span></div>');
-						i++;
-						images.prepend('<input style="display:none" type="file" name="gambar[]" value="" url="'+event.target.result+'"/>');	
-					}
-					reader.readAsDataURL(uploader[0].files[0]);
-				})
-
-				images.on('click', '.img', function () {
-					$(this).remove()
-				})
-
-			}
-
-			function submit() {  
-				var button = $('#send')
-
-				button.on('click', function () {
-					if(!way) {
-						var deskripsi = $('#namaInput')
-						var deskripsi  = $('#deskripsiInput')
-						var images = $('.images .img')
-						var imageArr = []
-
-
-						for(var i = 0; i < images.length; i++) {
-							imageArr.push({url: $(images[i]).attr('rel')})
-						}
-
-						var newStock = {
-							title: title.val(),
-							category: cate.val(),
-							images: imageArr,
-							type: 1
-						}
-
-						saveToQueue(newStock)
-					} else {
-						var topic = $('#topic')
-						var message = $('#msg')
-
-						var newStock = {
-							title: topic.val(),
-							message: message.val(),
-							type: 2
-						}
-
-						saveToQueue(newStock)
-					}
-				})
-			}
-
-		})
-	})(jQuery)
-</script>
+<script src="{{ asset('assets/vendors/tinymce/tinymce.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/tinymce/themes/modern/theme.js') }}"></script>
+<script src="{{ asset('assets/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>
+<script src="{{ asset('assets/js/shared/editorDemo.js') }}"></script>
 @endsection

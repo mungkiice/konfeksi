@@ -96,9 +96,9 @@ Chart.defaults.global.tooltips.intersect = false;
       var current = location.pathname.split("/").slice(-1)[0].replace(/^\/|\/$/g, '');
       $('#sidebar >.nav > li:not(.not-navigation-link) a').each(function () {
         var $this = $(this);
-        if (current === "") {
+        if (current === "admin") {
           //for root url
-          if ($this.attr('href').indexOf("index.html") !== -1) {
+          if ($this.attr('href').indexOf() !== -1) {
             $(this).parents('.nav-item').last().addClass('active');
             if ($(this).parents('.sub-menu').length) {
               $(this).addClass('active');
@@ -111,7 +111,7 @@ Chart.defaults.global.tooltips.intersect = false;
             if ($(this).parents('.sub-menu').length) {
               $(this).addClass('active');
             }
-            if (current !== "index.html") {
+            if (current !== "admin" || current !== "vendor") {
               $(this).parents('.nav-item').last().find(".nav-link").attr("aria-expanded", "true");
               if ($(this).parents('.sub-menu').length) {
                 $(this).closest('.collapse').addClass('show');

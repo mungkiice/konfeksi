@@ -61,6 +61,18 @@
                             @endif
                         </div>
                         <div class="col-md-12 form-group">
+                            <textarea class="form-control" id="address" name="address" placeholder="Kota" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Alamat Konveksi'"></textarea>
+                            @if ($errors->has('address'))
+                            <strong class="error-message-form">{{ $errors->first('address') }}</strong>
+                            @endif
+                        </div>
+                        <div class="col-md-12 form-group">
+                            <textarea class="form-control" id="address" name="address" placeholder="Provinsi" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Alamat Konveksi'"></textarea>
+                            @if ($errors->has('address'))
+                            <strong class="error-message-form">{{ $errors->first('address') }}</strong>
+                            @endif
+                        </div>
+                        <div class="col-md-12 form-group">
                             <!-- <input type="text" class="form-control" id="description" name="description" placeholder="Deskripsi Konveksi" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Deskripsi Konveksi'"> -->
                             <textarea class="form-control" id="description" name="description" placeholder="Deskripsi Konveksi" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Deskripsi Konveksi'"></textarea>
                             @if ($errors->has('description'))

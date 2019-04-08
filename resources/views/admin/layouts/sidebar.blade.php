@@ -15,8 +15,6 @@
                   <span class="status-indicator online"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-left navbar-dropdown" aria-labelledby="UsersettingsDropdown">
-
-                  <a class="dropdown-item mt-2"> Manage Accounts </a>
                   @if(Auth::user()->isVendor())
                   <a class="dropdown-item" href="/user/password/edit"> Ubah Password </a>
                   @endif
@@ -52,6 +50,12 @@
         <span class="menu-title">Vendor</span>
       </a>
     </li>
+<!--     <li class="nav-item">
+      <a class="nav-link" href="/admin/file">
+        <i class="menu-icon mdi mdi-file-cloud"></i>
+        <span class="menu-title">File</span>
+      </a>
+    </li> -->
     <li class="nav-item">
       <a class="nav-link" href="/admin/jeniskain">
         <i class="menu-icon mdi mdi-newspaper"></i>
@@ -73,7 +77,7 @@
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/vendor/ulasan">
-        <i class="menu-icon mdi mdi-comment-check"></i>
+        <i class="menu-icon mdi mdi-star-circle"></i>
         <span class="menu-title">Ulasan</span>
       </a>
     </li>

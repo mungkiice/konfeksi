@@ -23,4 +23,9 @@ class Vendor extends Model
     {
     	return $this->hasMany(Produk::class);
     }
+
+    public function pesanans()
+    {
+        return $this->hasManyThrough(Pesanan::class, Produk::class);
+    }
 }

@@ -9,7 +9,8 @@ class ProdukController extends Controller
 {
     public function show($produkId)
     {
-    	return view('produk');
+        $produk = Produk::find($produkId);
+    	return view('produk', compact('produk'));
     }
 
     public function index()

@@ -39,7 +39,7 @@
 @endsection
 
 @section('custom-js')
-<script src="{{ asset('assets/js/shared/file-upload.js') }}"></script>
+<!-- <script src="{{ asset('assets/js/shared/file-upload.js') }}"></script> -->
 <script src="{{ asset('assets/js/shared/iCheck.js') }}"></script>
 <script src="{{ asset('assets/js/shared/typeahead.js') }}"></script>
 <script src="{{ asset('assets/js/shared/select2.js') }}"></script>
