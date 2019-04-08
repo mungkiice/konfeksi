@@ -16,7 +16,7 @@
     <meta charset="UTF-8">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Site Title -->
-    <title>{{config('app.name', 'Market Konveksi')}} | @yield('page')</title>
+    <title>{{config('app.name', 'Market Konfeksi')}} | @yield('page')</title>
 
     <!--
         CSS

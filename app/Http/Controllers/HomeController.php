@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\JenisKain;
+use App\Artikel;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -14,7 +14,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-    	$jenisKains = JenisKain::all();
-        return view('welcome', compact('jenisKains'));
+    	$artikels = Artikel::all();
+        return view('home', compact('artikels'));
     }
 }

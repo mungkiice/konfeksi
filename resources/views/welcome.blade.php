@@ -55,7 +55,7 @@
                 </div>
                 <div class="col-lg-7">
                   <div class="banner-img">
-                    <img class="img-fluid" src="img/banner/girl.png" alt="">
+                    <img class="img-fluid" src="img/banner/t-shirt.png" alt="">
                   </div>
                 </div>
               </div>
@@ -94,13 +94,13 @@
           </div>
           <div class="row">
             <!-- single product -->
-            @foreach($jenisKains as $jenisKain)
+            @foreach($artikels as $artikel)
             <div class="col-lg-4 col-md-6">
               <div class="single-product">
-                <img class="img-fluid" src="/storage/{{$jenisKain->image->path}}" alt="">
+                <img class="img-fluid" src="/storage/{{$artikel->gambar}}" alt="">
                 <div class="product-details">
-                  <h4 class="mb-20">{{$jenisKain->nama}}</h4>
-                  <p style="text-align: justify;">{{$jenisKain->deskripsi}}</p>
+                  <h4 class="mb-20">{{$artikel->judul}}</h4>
+                  <p style="text-align: justify;">{{$artikel->deskripsi}}</p>
                 </div>
               </div>
             </div>

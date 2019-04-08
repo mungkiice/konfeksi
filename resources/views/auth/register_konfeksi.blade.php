@@ -30,11 +30,11 @@
                     <div class="col-lg-4 mx-auto">
                       <h2 class="text-center mb-4">Register</h2>
                       <div class="auto-form-wrapper">
-                        <form action="/register" method="post">
+                        <form action="/register/konfeksi" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Nama Lengkap" name="nama">
+                                    <input type="text" class="form-control" placeholder="Nama Konfeksi" name="nama">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="mdi mdi-check-circle-outline"></i>
@@ -73,7 +73,7 @@
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
-                                    <input type="password" class="form-control" placeholder="Password Konfirmasi" name="password_confirmation">
+                                    <input type="password" class="form-control" placeholder="Konfirmasi Password" name="password_confirmation">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="mdi mdi-check-circle-outline"></i>
@@ -95,11 +95,44 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <div class="input-group" style="height: auto;">
+                                    <textarea class="form-control" rows="2" placeholder="Alamat Konfeksi" name="alamat" style="padding-top: 1rem; padding-bottom: 1rem; height: auto; line-height: 14px;"></textarea>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="mdi mdi-check-circle-outline"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                @if ($errors->has('alamat'))
+                                <p style="color: red;">{{ $errors->first('alamat') }}</p>
+                                @endif
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group" style="height: auto">
+                                    <textarea class="form-control" rows="4" placeholder="Deksripsi Konfeksi" name="deskripsi" style="padding-top: 1rem; padding-bottom: 1rem; height: auto; line-height: 14px;"></textarea>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="mdi mdi-check-circle-outline"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                @if ($errors->has('deskripsi'))
+                                <p style="color: red;">{{ $errors->first('deskripsi') }}</p>
+                                @endif
+                            </div>  
+                    <div class="form-group">        
+                        <label style="display: block;">Gambar Konfeksi</label>         
+                        <input type="file" class="dropify" name="gambar" />
+                        @if ($errors->has('gambar'))
+                        <label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('gambar') }}</label>
+                        @endif
+                    </div>
+                            <div class="form-group">
                                 <button type="submit" class="btn submit-btn btn-block" style="background-color: #FFA100; color: white;">Register</button>
                             </div>
                             <div class="text-block text-center my-3">
-                                <span class="text-small font-weight-semibold">Ingin mendaftarkan konfeksi anda ?</span>
-                                <a href="/register/konfeksi" class="text-black text-small">Buat akun konfeksi</a>
+                                <span class="text-small font-weight-semibold">Ingin mendaftar sebagai member ?</span>
+                                <a href="/register" class="text-black text-small">Buat akun member</a>
                             </div>
                             <div class="text-block text-center my-3">
                                 <span class="text-small font-weight-semibold">Sudah punya akun ?</span>
@@ -126,5 +159,7 @@
 <script src="{{ asset('assets/js/shared/settings.js') }}"></script>
 <script src="{{ asset('assets/js/shared/todolist.js') }}"></script>
 <!-- endinject -->
+<script src="{{ asset('assets/js/shared/dropify.js') }}"></script>
 </body>
 </html>
+

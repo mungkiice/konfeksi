@@ -26,13 +26,7 @@
 		<div class="container">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
-					<div class="s_Product_carousel">
-						@foreach($produk->images as $image)
-						<div class="single-prd-item">
-							<img class="img-fluid" src="/storage/{{$image->path}}" alt="">
-						</div>
-						@endforeach
-					</div>
+					<img class="img-fluid" src="/storage/{{$produk->gambar}}"></img>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">

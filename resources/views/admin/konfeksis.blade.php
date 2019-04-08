@@ -3,51 +3,66 @@
 @section('content')
 <div class="card">
 	<div class="card-body">
-		<h4 class="card-title">Data Produk</h4>
+		<h4 class="card-title">Data Vendor</h4>
 		<div class="row">
-			<a class="btn btn-success ml-3" href="/konfeksi/produk/create">Tambah Produk</a>
 			<div class="col-12">
 				<table id="order-listing" class="table">
 					<thead>
 						<tr>
 							<th>Nama</th>
-							<th>Deskripsi</th>
+							<th>Email</th>
+							<th>Nomor Telepon</th>
+							<th>Alamat</th>
+							<th>Valid</th>
 							<th>Gambar</th>
 							<th>Tindakan</th>
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($produks as $produk)
+						@foreach($users as $user)
 						<tr>
-							<td style="max-width: 100px; white-space: normal">
-								{{$produk->nama}}
+							<td style="white-space: normal">								
+								{{$user->nama}}
 							</td>
-							<td style="max-width: 200px; white-space: normal">
-								{{$produk->deskripsi}}
+							<td style="white-space: normal; max-width: 100px;">
+								{{$user->email}}
 							</td>
-							<td style="max-width: 80px;">
-								<img class="img-fluid" src="/storage/{{$produk->gambar}}" style="width: 100%; border-radius: 0; height: auto; margin: 0;">
+							<td style="white-space: normal">
+								{{$user->nomor_telepon}}
+							</td>
+							<td style="white-space: normal">
+								{{$user->konfeksi->alamat}}
 							</td>
 							<td>
-								<a class="btn btn-warning" href="/konfeksi/produk/{{$produk->id}}/edit" style="padding: 0.5rem;">Edit</a>
-								<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal-{{$produk->id}}" style="padding: 0.5rem;">Hapus</button>
+								@if($user->konfeksi->diverifikasi)
+								<label class="badge badge-success">Terverifikasi</label>
+								@else
+								<label class="badge badge-warning">Belum Diverifikasi</label>
+								@endif
+							</td>
+							<td style="max-width: 200px;">
+								<img src="/storage/{{$user->konfeksi->gambar}}" style="width: 100%; border-radius: 0; height: auto">
+							</td>
+							<td>
+								@if(!$user->konfeksi->diverifikasi)
+								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalVerif-{{$user->id}}" style="padding: 0.5rem;">Verifikasi</button>
+								@endif
 							</td>
 						</tr>
-						<div class="modal fade" id="deleteModal-{{$produk->id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModal" aria-hidden="true">
+						<div class="modal fade" id="modalVerif-{{$user->id}}" tabindex="-1" role="dialog" aria-labelledby="hapusModal" aria-hidden="true">
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title">Apa anda yakin akan menghapus "{{$produk->nama}}" ?</h5>
+										<h5 class="modal-title">Apakah anda yakin ingin verifikasi konfeksi "{{$user->nama}}" ?</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
 									<div class="modal-footer">
-										<form class="forms-sample" method="POST" action="/konfeksi/produk/{{$produk->id}}">
+										<form class="forms-sample" method="POST" action="/admin/konfeksi/{{$user->konfeksi->id}}">
 											@csrf
-											{{method_field('DELETE')}}
-											<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tidak</button>
-											<button type="submit" class="btn btn-danger" id="btn-update">Ya</button>
+											<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Kembali</button>
+											<button type="submit" class="btn btn-primary" id="btn-update">Ya</button>
 										</form>
 									</div>
 								</div>
@@ -90,9 +105,4 @@
 		});
 	})(jQuery);
 </script>
-<script src="{{ asset('assets/js/shared/file-upload.js') }}"></script>
-<script src="{{ asset('assets/js/shared/iCheck.js') }}"></script>
-<script src="{{ asset('assets/js/shared/typeahead.js') }}"></script>
-<script src="{{ asset('assets/js/shared/select2.js') }}"></script>
-<script src="{{ asset('assets/js/shared/owl-carousel.js') }}"></script>
 @endsection

@@ -9,9 +9,9 @@ class Ulasan extends Model
     	return $this->belongsTo(User::class);
     }
 
-    public function vendor()
+    public function konfeksi()
     {
-    	return $this->belongsTo(Vendor::class);
+    	return $this->belongsTo(Konfeksi::class);
     }
 
     public function image()

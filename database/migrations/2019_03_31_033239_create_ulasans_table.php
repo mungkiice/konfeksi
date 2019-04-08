@@ -16,13 +16,14 @@ class CreateUlasansTable extends Migration
         Schema::create('ulasans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
-            $table->bigInteger('vendor_id')->unsigned();
+            $table->bigInteger('konfeksi_id')->unsigned();
             $table->integer('rating');
-            $table->string('komentar');
+            $table->string('komentar')->nullable();
+            $table->string('gambar')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('vendor_id')->references('id')->on('vendors')->onDelete('cascade');
+            $table->foreign('konfeksi_id')->references('id')->on('konfeksis')->onDelete('cascade');
         });
     }
 

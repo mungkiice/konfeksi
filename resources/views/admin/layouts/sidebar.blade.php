@@ -15,7 +15,7 @@
                   <span class="status-indicator online"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-left navbar-dropdown" aria-labelledby="UsersettingsDropdown">
-                  @if(Auth::user()->isVendor())
+                  @if(Auth::user()->isKonfeksi())
                   <a class="dropdown-item" href="/user/password/edit"> Ubah Password </a>
                   @endif
                   <a class="dropdown-item" onclick="event.preventDefault();
@@ -32,62 +32,37 @@
       </div>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="{{Auth::user()->isAdmin() ? '/admin' : '/vendor'}}">
+      <a class="nav-link" href="{{Auth::user()->isAdmin() ? '/admin' : '/konfeksi'}}">
         <i class="menu-icon mdi mdi-view-dashboard"></i>
         <span class="menu-title">Dashboard</span>
       </a>
     </li>
     @if(Auth::user()->isAdmin())
     <li class="nav-item">
-      <a class="nav-link" href="/admin/member">
-        <i class="menu-icon mdi mdi-account-multiple"></i>
-        <span class="menu-title">Member</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/admin/vendor">
+      <a class="nav-link" href="/admin/konfeksi">
         <i class="menu-icon mdi mdi-account-network"></i>
-        <span class="menu-title">Vendor</span>
+        <span class="menu-title">Konfeksi</span>
       </a>
     </li>
-<!--     <li class="nav-item">
-      <a class="nav-link" href="/admin/file">
-        <i class="menu-icon mdi mdi-file-cloud"></i>
-        <span class="menu-title">File</span>
-      </a>
-    </li> -->
     <li class="nav-item">
-      <a class="nav-link" href="/admin/jeniskain">
+      <a class="nav-link" href="/admin/artikel">
         <i class="menu-icon mdi mdi-newspaper"></i>
-        <span class="menu-title">Info Jenis Kain</span>
+        <span class="menu-title">Artikel Jenis Kain</span>
       </a>
     </li>
     @else
     <li class="nav-item">
-      <a class="nav-link" href="/vendor/produk">
+      <a class="nav-link" href="/konfeksi/produk">
         <i class="menu-icon mdi mdi-tshirt-crew"></i>
         <span class="menu-title">Produk</span>
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="/vendor/pesanan">
+      <a class="nav-link" href="/konfeksi/pesanan">
         <i class="menu-icon mdi mdi-note-multiple"></i>
         <span class="menu-title">Pesanan</span>
       </a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/vendor/ulasan">
-        <i class="menu-icon mdi mdi-star-circle"></i>
-        <span class="menu-title">Ulasan</span>
-      </a>
-    </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/vendor/komplain">
-        <i class="menu-icon mdi mdi-comment-alert"></i>
-        <span class="menu-title">Komplain</span>
-      </a>
-    </li>
     @endif
-
   </ul>
 </nav>

@@ -15,7 +15,7 @@ class ProdukController extends Controller
 
     public function index()
     {
-    	$produks = Produk::where('vendor_id', auth()->user()->vendor->id)->get();
+    	$produks = auth()->user()->konfeksi->produks;
     	return view('admin.produks', compact('produks'));
     }
 
@@ -46,13 +46,6 @@ class ProdukController extends Controller
         ]);
 
         if($request->hasFile('gambar')){
-            // foreach ($request->gambar as $gambar) {
-            //     $path = $gambar->store('image', 'public');
-            //     $produk->images()->create([
-            //         'path' => $path,
-            //         'type' => 'img'
-            //     ]);
-            // }
             $path = $request->gambar->store('image', 'public');
             $produk->images()->create([
                 'path' => $path,
@@ -82,32 +75,5 @@ class ProdukController extends Controller
             $produk->delete();
         }
         return back()->with('flash', 'Produk berhasil dihapus');
-    }
-
-    public function addImage(Request $request, $produkId)
-    {
-        $produk = Produk::find($produkId);
-        if ($produk != null) {
-            if($request->hasFile('gambar')){
-                $path = $request->gambar->store('image', 'public');
-                $produk->images()->create([
-                    'path' => $path,
-                    'type' => 'img'
-                ]);
-            }
-        }
-
-        return back()->with('flash', 'Gambar berhasil ditambahkan');
-    }
-
-
-    public function deleteImage($produkId, $gambarId)
-    {
-        $produk = Produk::find($produkId);
-        if ($produk != null) {
-            optional($produk->images()->find($gambarId))->delete();
-        }
-
-        return back()->with('flash', 'Gambar berhasil dihapus');
     }
 }

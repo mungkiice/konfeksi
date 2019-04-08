@@ -16,10 +16,11 @@ class CreatePenawaransTable extends Migration
         Schema::create('penawarans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('pesanan_id')->unsigned();
-            $table->date('tenggat_waktu');
+            $table->date('tenggat_waktu')->nullable();
             $table->decimal('biaya', 13, 0);
-            $table->text('deskripsi');
+            $table->text('deskripsi')->nullable();
             $table->enum('status', ['terkirim', 'ditolak', 'diterima'])->default('terkirim');
+            $table->string('gambar')->nullable();
             $table->timestamps();
 
             $table->foreign('pesanan_id')->references('id')->on('pesanans')->onDelete('cascade');

@@ -8,6 +8,7 @@ $factory->define(App\Ulasan::class, function (Faker $faker) {
         	return factory('App\User')->create()->id;
         },
         'rating' => $faker->numberBetween(1, 5),
-        'komentar' => $faker->sentence
+        'komentar' => $faker->sentence,
+        'gambar' => 'ulasan/' . $faker->image('public/storage/ulasan', 800, 600, 'food', false),
     ];
 });

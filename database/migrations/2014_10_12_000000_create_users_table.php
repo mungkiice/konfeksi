@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->string('nomor_telepon');
             $table->enum('role', [
                 'Member',
-                'Vendor',
+                'Konfeksi',
                 'Admin'
             ])->default('Member');
             $table->rememberToken();

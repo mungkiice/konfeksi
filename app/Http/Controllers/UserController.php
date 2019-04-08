@@ -12,7 +12,7 @@ class UserController extends Controller
 {
 	public function showChangePasswordForm()
 	{
-		return view('change-password');
+		return view('ubah-password');
 	}
 
 	public function changePassword(Request $request)
@@ -29,25 +29,9 @@ class UserController extends Controller
 			'password' => bcrypt($request->new_password)
 		]);
 
-		if ($user->isVendor()) {
-			return redirect('/vendor/dashboard')->with('flash', 'password berhasil diubah');
+		if ($user->isKonfeksi()) {
+			return redirect('/konfeksi')->with('flash', 'password berhasil diubah');
 		}
-		return back()->with('flash', 'password berhasil diubah');
+		return redirect('/')->with('flash', 'password berhasil diubah');
 	}
-
-	public function listMember()
-	{
-		$users = User::where('role', 'Member')->get();
-		return view('admin.members', compact('users'));
-	}
-
-
-    public function destroyMember($userId)
-    {
-        $user = User::find($userId);
-        if($user != null){
-            $user->delete();
-        }
-        return back()->with('flash', 'member berhasil dihapus');    
-    }
 }

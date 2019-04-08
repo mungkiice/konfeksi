@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProduksTable extends Migration
+class CreateKonfirmasiPembayaransTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,11 @@ class CreateProduksTable extends Migration
      */
     public function up()
     {
-        Schema::create('produks', function (Blueprint $table) {
+        Schema::create('konfirmasi_pembayarans', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->bigInteger('konfeksi_id')->unsigned();
-            $table->string('nama');
-            $table->text('deskripsi');
+            $table->bigInteger('pesanan_id')->unsigned();
             $table->string('gambar');
             $table->timestamps();
-
-            $table->foreign('konfeksi_id')->references('id')->on('konfeksis')->onDelete('cascade');
         });
     }
 
@@ -32,7 +28,6 @@ class CreateProduksTable extends Migration
      */
     public function down()
     {
-        Schema::disableForeignKeyConstraints();
-        Schema::dropIfExists('produks');
+        Schema::dropIfExists('konfirmasi_pembayarans');
     }
 }

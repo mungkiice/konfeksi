@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -73,19 +74,39 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function showVendorRegistrationForm()
+    public function showKonfeksiRegistrationForm()
     {
-        return view('auth.register_vendor');
+        return view('auth.register_konfeksi');
     }
 
-    public function vendorRegister(Request $request)
+    public function konfeksiRegister(Request $request)
     {
         $this->validate($request, [
             'nama' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|confirmed',
             'nomor_telepon' => 'required',
-            'alamat' => 'required'
+            'alamat' => 'required',
+            'deskripsi' => 'required',
+            'gambar' => 'required|image|mimes:png,jpg,jpeg'
         ]);
+        $user = User::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'nomor_telepon' => $request->nomor_telepon,
+            'role' => 'Konfeksi'
+        ]);
+        $path = '';
+        if ($request->hasFile('gambar')) {
+            $path = $request->gambar->store('konfeksi', 'public');
+        }
+        $user->konfeksi()->create([
+            'alamat' => $request->alamat,
+            'deskripsi' => $request->deskripsi,
+            'gambar' => $path
+        ]);
+        $this->guard()->login($user);
+        return redirect('/konfeksi');
     }
 }

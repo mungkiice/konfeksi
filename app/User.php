@@ -17,7 +17,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'nama', 'email', 'password', 'nomor_telepon'
+        'nama', 'email', 'password', 'nomor_telepon', 'role'
     ];
 
     /**
@@ -43,9 +43,9 @@ class User extends Authenticatable
         return strtolower($this->role) == $role;
     }
 
-    public function isVendor()
+    public function isKonfeksi()
     {
-        return $this->role == 'Vendor';
+        return $this->role == 'Konfeksi';
     }
 
     public function isAdmin()
@@ -53,8 +53,13 @@ class User extends Authenticatable
         return $this->role == 'Admin';
     }
 
-    public function vendor()
+    public function konfeksi()
     {
-        return $this->hasOne(Vendor::class);
+        return $this->hasOne(Konfeksi::class);
+    }
+
+    public function pesanans()
+    {
+        return $this->hasMany(Pesanan::class);
     }
 }

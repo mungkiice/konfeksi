@@ -14,6 +14,16 @@
 	.form-alamat {
 		display: none;
 	}
+	input[type=number]::-webkit-inner-spin-button, 
+	input[type=number]::-webkit-outer-spin-button { 
+		-webkit-appearance: none; 
+		margin: 0; 
+	}
+	input[type=date]::-webkit-inner-spin-button, 
+	input[type=date]::-webkit-outer-spin-button { 
+		-webkit-appearance: none; 
+		margin: 0; 
+	}
 </style>
 @endsection
 
@@ -25,31 +35,74 @@
 				<div class="col-lg-3 col-md-3"></div>
 				<div class="col-lg-6 col-md-6">
 					<div class="comment-form">
-						<h4>Leave a Reply</h4>
-						<form action="#">
+						<h3 class="mb-30">Form Pemesanan</h3>
+						<form action="/pesan" method="POST" enctype="multipart/form-data">
+							@csrf
 							<div class="form-group">
 								<label for="inputNama">Produk</label>
 								<input id="inputNama" type="text" name="first_name" class="form-control" value="{{$produk->nama}}" disabled>
 								<input type="hidden" name="produk_id" value="{{$produk->id}}">
+								@if ($errors->has('produk_id'))
+								<p style="color: red;">{{ $errors->first('produk_id') }}</p>
+								@endif
 							</div>
 							<div class="form-group">		
-								<label style="display: block;">Gambar Visual Kain</label>			
-								<input type="file" class="dropify" name="gambar" />
-								@if ($errors->has('gambar'))
-								<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('image') }}</label>
+								<label style="display: block;">File Desain Pakaian</label>			
+								<input type="file" class="dropify" name="file_desain" />
+								@if ($errors->has('file_desain'))
+								<p style="color: red;">{{ $errors->first('file_desain') }}</p>
 								@endif
 							</div>
 							<div class="form-group">
-								<label for="inputNama">Jumlah Pakaian           </label>
-								<input id="inputNama" type="text" name="first_name" class="form-control">
+								<label for="inputNama">Jumlah Pakaian Setiap Ukuran</label>
+								<div class="row">
+									<div class="col-lg-3 col-md-3 mb-3">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">S</span>
+											</div>
+											<input type="number" class="form-control" placeholder="0" style="width: 1%; padding: 8px; text-align: right;" name="small">
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-3 mb-3">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">M</span>
+											</div>
+											<input type="number" class="form-control" placeholder="0" style="width: 1%; padding: 8px; text-align: right;" name="medium">
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-3 mb-3">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">L</span>
+											</div>
+											<input type="number" class="form-control" placeholder="0" style="width: 1%; padding: 8px; text-align: right;" name="large">
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-3 mb-3">
+										<div class="input-group">
+											<div class="input-group-prepend">
+												<span class="input-group-text">XL</span>
+											</div>
+											<input type="number" class="form-control" placeholder="0" style="width: 1%; padding: 8px; text-align: right;" name="extra_large">
+										</div>
+									</div>
+								</div>
 							</div>
 							<div class="form-group">
 								<label for="inputDeskripsi">Deskripsi Pesanan</label>
-								<textarea id="inputDeskripsi" class="form-control" rows="4"></textarea>
+								<textarea id="inputDeskripsi" class="form-control" rows="4" name="deskripsi"></textarea>
+								@if ($errors->has('deskripsi'))
+								<p style="color: red;">{{ $errors->first('deskripsi') }}</p>
+								@endif
 							</div>
 							<div class="form-group">
 								<label for="inputNama">Tenggat Waktu Pengerjaan</label>
-								<input id="inputNama" type="date" name="first_name" class="form-control">
+								<input id="inputNama" type="date" class="form-control" name="tenggat_waktu">
+								@if ($errors->has('tenggat_waktu'))
+								<p style="color: red;">{{ $errors->first('tenggat_waktu') }}</p>
+								@endif
 							</div>
 							<div class="form-group">
 								<!-- <label for="confirm-switch mb-3" style="font-size: 1.1rem;">Pengambilan Barang</label> -->
@@ -72,11 +125,9 @@
 								<label for="inputDeskripsi">Alamat Penerima Barang</label>
 								<textarea id="inputDeskripsi" class="form-control" rows="4" name="alamat"></textarea>
 							</div>
-							<button type="submit" class="genric-btn primary circle mt-4" style="float: right;">Kirim</button>
+							<button type="submit" class="genric-btn primary circle mt-4">Pesan</button>
 						</form>
 					</div>
-					<h3 class="mb-30">Form Pemesanan</h3>
-
 				</div>
 				<div class="col-lg-3 col-md-3"></div>
 			</div>
