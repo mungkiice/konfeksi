@@ -97,7 +97,7 @@
             @foreach($artikels as $artikel)
             <div class="col-lg-4 col-md-6">
               <div class="single-product">
-                <img class="img-fluid" src="/storage/{{$artikel->gambar}}" alt="">
+                <img class="img-fluid" src="/storage/{{$artikel->gambar}}" style="width: 100%; height: 200px;">
                 <div class="product-details">
                   <h4 class="mb-20">{{$artikel->judul}}</h4>
                   <p style="text-align: justify;">{{$artikel->deskripsi}}</p>

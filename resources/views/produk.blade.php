@@ -26,14 +26,14 @@
 		<div class="container">
 			<div class="row s_product_inner">
 				<div class="col-lg-6">
-					<img class="img-fluid" src="/storage/{{$produk->gambar}}"></img>
+					<img class="img-fluid" src="/storage/{{$produk->gambar}}" style="max-height: 400px; width: 50%; margin-left: 25%"></img>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
-						<h3>Jaket Parka</h3>
+						<h3>{{$produk->nama}}</h3>
 						<ul class="list mb-4">
-							<li><a class="active" href="#"><span style="width: 120px;">Vendor</span> : Konveksi Abu Janda</a></li>
-							<li><a href="#"><span style="width: 120px;">Nomor Telepon</span> : 081289596040</a></li>
+							<li><a class="active" href="#"><span style="width: 120px;">Vendor</span> : {{$produk->konfeksi->user->nama}}</a></li>
+							<li><a href="#"><span style="width: 120px;">Nomor Telepon</span> : {{$produk->konfeksi->user->nomor_telepon}}</a></li>
 						</ul>
 <!-- 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,

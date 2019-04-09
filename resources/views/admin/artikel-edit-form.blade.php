@@ -11,7 +11,7 @@
 					@method('PUT')
 					<div class="form-group">		
 						<label style="display: block;">Gambar Visual Kain</label>	
-						<img class="img-fluid" src="/storage/{{$artikel->gambar}}"></img>	
+						<img class="img-fluid" src="/storage/{{$artikel->gambar}}" style="width: 50%;margin-left: 25%;"></img>	
 						<input type="file" class="dropify" name="gambar" />
 						@if ($errors->has('gambar'))
 						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('gambar') }}</label>

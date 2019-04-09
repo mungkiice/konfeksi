@@ -52,7 +52,7 @@ class ArtikelController extends Controller
 		]);
 		$artikel = Artikel::find($artikelId);
 		if($artikel != null){
-			$path = false;
+			$path = null;
 			if ($request->hasFile('gambar')) {
 				$path = $request->gambar->store('artikel', 'public');
 			}

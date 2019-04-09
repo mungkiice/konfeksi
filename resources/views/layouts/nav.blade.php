@@ -14,26 +14,27 @@
         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
           <ul class="nav navbar-nav menu_nav ml-auto">
             <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
-              <li class="nav-item"><a href="/konfeksis" class="nav-link">Daftar Konfeksi</a></li>
-              @if(Auth::check())
-              <!-- <li class="nav-item"><a href="/orders" class="nav-link">Pesanan Saya</a></li> -->
-              <li class="nav-item submenu dropdown">
-                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-                aria-expanded="false">{{ Auth::user()->nama }}</a>
-                <ul class="dropdown-menu">
-                  <li class="nav-item"><a class="nav-link" href="/user/password/edit">Ubah Password</a></li>
-                  <li class="nav-item"><a class="nav-link"  onclick="event.preventDefault();
-                  document.getElementById('logout-form').submit();">Logout</a></li>
-                  <form id="logout-form" action="/logout" method="POST" style="display: none;">
-                    {{ csrf_field() }}
-                  </form>
-                </ul>
-              </li>
-              @else
-              <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
-              <li class="nav-item"><a href="/register" class="nav-link">Register</a></li>
-              @endif
-            </ul>
+            <li class="nav-item"><a href="/konfeksis" class="nav-link">Daftar Konfeksi</a></li>
+            @if(Auth::check())
+            <li class="nav-item"><a href="/pembayaran" class="nav-link">Konfirmasi Pembayaran</a></li>
+            <!-- <li class="nav-item"><a href="/orders" class="nav-link">Pesanan Saya</a></li> -->
+            <li class="nav-item submenu dropdown">
+              <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+              aria-expanded="false">{{ Auth::user()->nama }}</a>
+              <ul class="dropdown-menu">
+                <li class="nav-item"><a class="nav-link" href="/user/password/edit">Ubah Password</a></li>
+                <li class="nav-item"><a class="nav-link"  onclick="event.preventDefault();
+                document.getElementById('logout-form').submit();">Logout</a></li>
+                <form id="logout-form" action="/logout" method="POST" style="display: none;">
+                  {{ csrf_field() }}
+                </form>
+              </ul>
+            </li>
+            @else
+            <li class="nav-item"><a href="/login" class="nav-link">Login</a></li>
+            <li class="nav-item"><a href="/register" class="nav-link">Register</a></li>
+            @endif
+          </ul>
 <!--             <ul class="nav navbar-nav navbar-right">
                             <li class="nav-item"><a href="#" class="cart"><span class="ti-bag"></span></a></li>
               <li class="nav-item">

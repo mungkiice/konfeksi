@@ -18,6 +18,8 @@ class CreateStatusPesanansTable extends Migration
             $table->bigInteger('pesanan_id')->unsigned();
             $table->string('keterangan');
             $table->timestamps();
+
+            $table->foreign('pesanan_id')->references('id')->on('pesanans')->onDelete('cascade');
         });
     }
 
@@ -28,6 +30,7 @@ class CreateStatusPesanansTable extends Migration
      */
     public function down()
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('status_pesanans');
     }
 }

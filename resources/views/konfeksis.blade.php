@@ -8,7 +8,7 @@
 		@foreach($konfeksis as $konfeksi)
 		<div class="col-lg-3 col-md-4">
 			<div class="single-product" style="height: 410px; overflow: hidden;">
-				<img class="img-fluid" src="/storage/{{$konfeksi->gambar}}" alt="">
+				<img class="img-fluid" src="/storage/{{$konfeksi->gambar}}" style="width: 100%; height: 150px;">
 				<div class="product-details">
 					<a href="/konfeksis/{{$konfeksi->id}}" style="">
 						<h6>{{$konfeksi->user->nama}}</h6>

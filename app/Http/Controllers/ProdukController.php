@@ -53,19 +53,24 @@ class ProdukController extends Controller
             ]);
         }
 
-        return redirect('/vendor/produk')->with('flash', 'produk berhasil ditambahkan');
+        return redirect('/konfeksi/produk')->with('flash', 'produk berhasil ditambahkan');
     }
 
     public function update(Request $request, $produkId)
     {
         $produk = Produk::find($produkId);
         if($produk != null){
+            $path = null;
+            if ($request->hasFile('gambar')) {
+                $path = $request->gambar->store('produk', 'public');
+            }
             $produk->update([
-                'nama' => $request->nama,
-                'deskripsi' => $request->deskripsi
+                'nama' => $request->nama ?: $produk->nama,
+                'deskripsi' => $request->deskripsi ?: $produk->deskripsi,
+                'gambar' => $path ?: $produk->gambar
             ]);
         }
-    	return back()->with('flash', 'Produk hasil diperbarui');
+    	return redirect('/konfeksi/produk')->with('flash', 'Produk hasil diperbarui');
     }
 
     public function destroy($produkId)

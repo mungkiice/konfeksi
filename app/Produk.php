@@ -4,8 +4,8 @@ namespace App;
 
 class Produk extends Model
 {
-    public function images()
-    {
-    	return $this->morphMany(File::class, 'subject');
-    }
+	public function konfeksi()
+	{
+		return $this->belongsTo(Konfeksi::class);
+	}
 }

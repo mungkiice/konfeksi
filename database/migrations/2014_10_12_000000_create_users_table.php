@@ -24,7 +24,7 @@ class CreateUsersTable extends Migration
                 'Konfeksi',
                 'Admin'
             ])->default('Member');
-            $table->rememberToken();
+            // $table->rememberToken();
             $table->timestamps();
         });
     }
