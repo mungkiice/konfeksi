@@ -16,27 +16,29 @@ class PenawaranController extends Controller
 
     public function store(Request $request, $pesananId)
     {
-    	$pesanan = Pesanan::find($pesananId);
     	$this->validate($request, [
     		'biaya' => 'required|integer',
     		'gambar' => 'image|mimes:png,jpg,jpeg'
     	]);
-    	$path = '';
+
     	if ($request->hasFile('gambar')) {
     		$path = $request->gambar->store('pesanan', 'public');
     	}
-    	Penawaran::create([
+
+        $pesanan = Pesanan::find($pesananId);
+    	
+        Penawaran::create([
     		'pesanan_id' => $pesanan->id,
     		'tenggat_waktu' => $request->tenggat_waktu,
     		'biaya' => $request->biaya,
     		'deskripsi' => $request->deskripsi,
     		'gambar' => $path
     	]);
-    	
-        $pesanan->statusPesanans()->create([
-    		'keterangan' => 'menunggu konfirmasi penawaran'
-    	]);
+        StatusPesanan::create([
+            'pesanan_id' => $pesanan->id,
+            'keterangan' => 'menunggu konfirmasi penawaran'
+        ]);
 
-    	return redirect('/konfeksi')->with('flash', 'Penawaran berhasil dikirim');
+        return redirect('/konfeksi')->with('flash', 'Penawaran berhasil dikirim');
     }
 }
