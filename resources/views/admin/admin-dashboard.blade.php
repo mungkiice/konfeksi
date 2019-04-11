@@ -6,12 +6,12 @@
 			<div class="card-body">
 				<div class="clearfix">
 					<div class="float-left">
-						<i class="mdi mdi-star text-warning icon-lg"></i>
+						<i class="mdi mdi-home-assistant text-danger icon-lg"></i>
 					</div>
 					<div class="float-right">
-						<p class="mb-0 text-right">Rating</p>
+						<p class="mb-0 text-right">Total Konfeksi</p>
 						<div class="fluid-container">
-							<h3 class="font-weight-medium text-right mb-0">{{round(App\Ulasan::avg('rating'))}}</h3>
+							<h3 class="font-weight-medium text-right mb-0">{{App\Konfeksi::count()}}</h3>
 						</div>
 					</div>
 				</div>
@@ -26,12 +26,12 @@
 			<div class="card-body">
 				<div class="clearfix">
 					<div class="float-left">
-						<i class="mdi mdi-folder text-primary icon-lg"></i>
+						<i class="mdi mdi-account-multiple text-warning icon-lg"></i>
 					</div>
 					<div class="float-right">
-						<p class="mb-0 text-right">Total Penawaran</p>
+						<p class="mb-0 text-right">Total Member</p>
 						<div class="fluid-container">
-							<h3 class="font-weight-medium text-right mb-0">{{App\Penawaran::count()}}</h3>
+							<h3 class="font-weight-medium text-right mb-0">{{App\User::where('role', 'Member')->count()}}</h3>
 						</div>
 					</div>
 				</div>
@@ -46,10 +46,10 @@
 			<div class="card-body">
 				<div class="clearfix">
 					<div class="float-left">
-						<i class="mdi mdi-square-inc-cash text-success icon-lg"></i>
+						<i class="mdi mdi-sync text-success icon-lg"></i>
 					</div>
 					<div class="float-right">
-						<p class="mb-0 text-right">Total Pesanan</p>
+						<p class="mb-0 text-right">Total Transaksi</p>
 						<div class="fluid-container">
 							<h3 class="font-weight-medium text-right mb-0">{{App\Pesanan::count()}}</h3>
 						</div>

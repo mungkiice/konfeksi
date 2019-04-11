@@ -98,7 +98,15 @@ Chart.defaults.global.tooltips.intersect = false;
         var $this = $(this);
         if (current === "admin") {
           //for root url
-          if ($this.attr('href').indexOf() !== -1) {
+          if ($this.attr('href').slice(-1)[0].replace(/^\/|\/$/g, '') == 'n') {
+            $(this).parents('.nav-item').last().addClass('active');
+            if ($(this).parents('.sub-menu').length) {
+              $(this).addClass('active');
+            }
+          }
+        } else if (current === "konfeksi") {
+          //for root url
+          if ($this.attr('href').slice(-1)[0].replace(/^\/|\/$/g, '') == 'i') {
             $(this).parents('.nav-item').last().addClass('active');
             if ($(this).parents('.sub-menu').length) {
               $(this).addClass('active');
@@ -111,7 +119,7 @@ Chart.defaults.global.tooltips.intersect = false;
             if ($(this).parents('.sub-menu').length) {
               $(this).addClass('active');
             }
-            if (current !== "admin" || current !== "vendor") {
+            if (current !== "admin" || current !== "konfeksi") {
               $(this).parents('.nav-item').last().find(".nav-link").attr("aria-expanded", "true");
               if ($(this).parents('.sub-menu').length) {
                 $(this).closest('.collapse').addClass('show');

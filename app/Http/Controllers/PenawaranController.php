@@ -41,4 +41,38 @@ class PenawaranController extends Controller
 
         return redirect('/konfeksi')->with('flash', 'Penawaran berhasil dikirim');
     }
+
+    public function confirm($penawaranId)
+    {
+        $penawaran = Penawaran::find($penawaranId);
+        $penawaran->update([
+            'status' => 'diterima'
+        ]);
+        $pesanan = Pesanan::find($penawaran->pesanan_id);
+        $pesanan->update([
+            'biaya' => $penawaran->biaya,
+            'tenggat_waktu' => $penawaran->tenggat_waktu,
+            'deskripsi' => $penawaran->deskripsi
+        ]);
+        StatusPesanan::create([
+            'pesanan_id' => $pesanan->id,
+            'keterangan' => 'menunggu pembayaran DP'
+        ]);
+        return view('invoice')->with('flash', 'Penawaran berhasil disetujui.');
+    }
+
+    public function reject($penawaranId)
+    {
+                $penawaran = Penawaran::find($penawaranId);
+        $penawaran->update([
+            'status' => 'ditolak'
+        ]);
+        $pesanan = Pesanan::find($penawaran->pesanan_id);
+        $pesanan->update([
+            'biaya' => $penawaran->biaya,
+            'tenggat_waktu' => $penawaran->tenggat_waktu,
+            'deskripsi' => $penawaran->deskripsi
+        ]);
+        return back()->with('flash', 'Penawaran berhasil ditolak.');
+    }
 }

@@ -8,7 +8,7 @@ class DashboardController extends Controller
 {
     public function adminDashboard()
     {	
-    	return view('admin.dashboard');
+    	return view('admin.admin-dashboard');
     }
 
     public function konfeksiDashboard()
