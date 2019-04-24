@@ -22,6 +22,6 @@ $factory->define(User::class, function (Faker $faker) {
         'password' => '$2y$10$RRIIyCkawbUSVmyJ2Yc9/eSAuH4isXwFL0o7WaAs3KZvDYZ2O61zK', // secret
         'nomor_telepon' => $faker->tollFreePhoneNumber,
         'role' => 'Member',
-        'remember_token' => Str::random(10),
+        // 'remember_token' => Str::random(10),
     ];
 });

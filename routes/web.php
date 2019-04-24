@@ -11,6 +11,8 @@
 |
 */
 Route::get('/', 'HomeController@index')->name('home');
+Route::get('/email', 'HomeController@email');
+Route::get('/print', 'HomeController@showInvoice');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');
