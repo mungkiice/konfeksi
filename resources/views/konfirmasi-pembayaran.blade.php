@@ -12,16 +12,11 @@
                 <div class="col-lg-3 col-md-3"></div>
                 <div class="col-lg-6 col-md-6">
                     <div class="comment-form">
-                        <h3 class="mb-30">Form Konfirmasi Pembayaran</h3>
+                        <h3>Form Konfirmasi Pembayaran</h3>
+                        <h6>untuk pesanan #{{$pesanan->kode_pesanan}}</h6>
                         <form action="/pembayaran" method="POST" enctype="multipart/form-data">
                             @csrf
-                            <div class="form-group">
-                                <label for="inputNama">Kode Pesanan</label>
-                                <input type="text" name="kode_pesanan" class="form-control" placeholder="ex.12093812">
-                                @if ($errors->has('kode_pesanan'))
-                                <p style="color: red;">{{ $errors->first('kode_pesanan') }}</p>
-                                @endif
-                            </div>
+                            <input type="hidden" name="kode_pesanan" class="form-control" value="{{$pesanan->kode_pesanan}}">
                             <div class="form-group">        
                                 <label style="display: block;">Gambar Bukti Transfer</label>          
                                 <input type="file" class="dropify" name="gambar" />

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\PenawaranBaru;
 use App\Penawaran;
 use App\Pesanan;
+use App\StatusPesanan;
 use Illuminate\Http\Request;
 
 class PenawaranController extends Controller
@@ -12,6 +14,13 @@ class PenawaranController extends Controller
     {
     	$pesanan = Pesanan::find($pesananId);
     	return view('admin.penawaran-form', compact('pesanan'));
+    }
+
+    public function show($kodePesanan)
+    {
+        $pesanan = Pesanan::where('kode_pesanan', $kodePesanan)->first();
+        $penawaran = $pesanan->penawaran->first();
+        return view('penawaran', compact('penawaran'));
     }
 
     public function store(Request $request, $pesananId)
@@ -27,18 +36,18 @@ class PenawaranController extends Controller
 
         $pesanan = Pesanan::find($pesananId);
     	
-        Penawaran::create([
+        $penawaran = Penawaran::create([
     		'pesanan_id' => $pesanan->id,
     		'tenggat_waktu' => $request->tenggat_waktu,
     		'biaya' => $request->biaya,
     		'deskripsi' => $request->deskripsi,
     		'gambar' => $path
     	]);
-        StatusPesanan::create([
+        $statusPesanan = StatusPesanan::create([
             'pesanan_id' => $pesanan->id,
             'keterangan' => 'menunggu konfirmasi penawaran'
         ]);
-
+        $pesanan->user->notify(new PenawaranBaru($penawaran));
         return redirect('/konfeksi')->with('flash', 'Penawaran berhasil dikirim');
     }
 
@@ -58,7 +67,7 @@ class PenawaranController extends Controller
             'pesanan_id' => $pesanan->id,
             'keterangan' => 'menunggu pembayaran DP'
         ]);
-        return view('invoice')->with('flash', 'Penawaran berhasil disetujui.');
+        return view('invoice', compact('pesanan'))->with('flash', 'Penawaran berhasil disetujui.');
     }
 
     public function reject($penawaranId)

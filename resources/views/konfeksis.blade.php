@@ -17,39 +17,35 @@
 		z-index: 0;
 		background: #ffba00;
 	}
+	.helper{
+		display: inline-block;
+		vertical-align: middle;
+	}
 </style>
 @endsection
 
 @section('content')
 <div class="container" style="margin: 20px auto;">
-	<input type="text" id="search-form" class="form-control mb-4" placeholder="Cari Konfeksi" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Car Konfeksi'" onkeyup="filter()">
+	<input type="text" id="search-form" class="form-control mb-4" placeholder="Cari Konfeksi" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Cari Konfeksi'" onkeyup="filter()">
 	<div class="row" id="daftar-konfeksi" style="clear: both">
 		@foreach($konfeksis as $konfeksi)
 		<div class="col-lg-3 col-md-4 item-konfeksi">
-			<div class="single-product" style="height: 410px; overflow: hidden;">
-				<img class="img-fluid" src="/storage/{{$konfeksi->gambar}}" style="width: 100%; height: 150px;">
+			<div class="single-product" style="overflow: hidden;">
+				<div style="width: 100%; height: 150px; text-align: center">
+					<span class="helper"></span>
+					<img src="/storage/{{$konfeksi->gambar}}" style="vertical-align: middle;">
+				</div>
 				<div class="product-details">
 					<a href="/konfeksis/{{$konfeksi->id}}" style="">
 						<h6>{{$konfeksi->user->nama}}</h6>
 					</a>
 					<p style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{$konfeksi->deskripsi}}</p>
 					<div class="prd-bottom">
-						<a href="" class="social-info">
-							<span class="ti-star"></span>
-							<p class="hover-text">add to bag</p>
-						</a>
-						<a href="" class="social-info">
-							<span class="lnr lnr-heart"></span>
-							<p class="hover-text">Wishlist</p>
-						</a>
-						<a href="" class="social-info">
-							<span class="lnr lnr-sync"></span>
-							<p class="hover-text">compare</p>
-						</a>
-						<a href="" class="social-info">
-							<span class="lnr lnr-move"></span>
-							<p class="hover-text">view more</p>
-						</a>
+						@for ($i = 0; $i < 5; $i++)
+						<div class="social-info">
+							<span class="fa fa-star"></span>
+						</div>
+						@endfor
 					</div>
 				</div>
 			</div>

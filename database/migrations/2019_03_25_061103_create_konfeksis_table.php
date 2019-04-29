@@ -20,6 +20,9 @@ class CreateKonfeksisTable extends Migration
             $table->text('deskripsi');
             $table->string('gambar');
             $table->boolean('diverifikasi')->default(false);
+            $table->string('bank_nama');
+            $table->string('bank_nomor');
+            $table->string('bank_pemilik');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

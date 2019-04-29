@@ -7,18 +7,20 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 
-class KonfirmasiPembayaran extends Notification
+class Konfirmasi extends Notification
 {
     use Queueable;
-
+    public $konfirmasiPembayaran;
+    public $url;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($konfirmasiPembayaran)
     {
-        //
+        $this->konfirmasiPembayaran = $konfirmasiPembayaran;
+        $this->url = public_path('/storage/').$konfirmasiPembayaran->gambar;
     }
 
     /**
@@ -41,9 +43,10 @@ class KonfirmasiPembayaran extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        ->from('info@sometimes-it-wont-work.com', config('app.name'))
+        ->subject('Konfirmasi Pembayaran')
+        ->markdown('mail.bukti-bayar', ['konfirmasiPembayaran' => $this->konfirmasiPembayaran])
+        ->attach($this->url);
     }
 
     /**

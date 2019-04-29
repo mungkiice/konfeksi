@@ -10,15 +10,17 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class PenawaranMail extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $penawaran;
+    public $url;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($penawaran)
     {
-        //
+        $this->penawaran = $penawaran;
+        $this->url = '/';
     }
 
     /**
@@ -28,6 +30,6 @@ class PenawaranMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->markdown('mail.penawaran');
     }
 }

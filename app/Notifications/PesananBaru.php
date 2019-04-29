@@ -10,15 +10,17 @@ use Illuminate\Notifications\Messages\MailMessage;
 class PesananBaru extends Notification
 {
     use Queueable;
-
+    public $pesanan;
+    public $url;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($pesanan)
     {
-        //
+        $this->pesanan = $pesanan;
+        $this->url = config('app.url') . '/konfeksi/pesanan';
     }
 
     /**
@@ -41,9 +43,9 @@ class PesananBaru extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        ->from('info@sometimes-it-wont-work.com', config('app.name'))
+        ->subject('Pesanan Baru')
+        ->markdown('mail.pesanan', ['pesanan' => $this->pesanan, 'url' => $this->url]);
     }
 
     /**

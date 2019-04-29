@@ -7,11 +7,12 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class InvoiceMail extends Mailable
+class BuktiPemesananMail extends Mailable
 {
     use Queueable, SerializesModels;
     public $pesanan;
     public $pdf;
+
     /**
      * Create a new message instance.
      *
@@ -30,6 +31,6 @@ class InvoiceMail extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail-invoice-body')->attachData($this->pdf->output(), 'Konfeksi-Invoice.pdf', ['mime' => 'application/pdf']);
+        return $this->markdown('mail.invoice-body')->attachData($this->pdf->output(), 'Bukti-Pemesanan.pdf', ['mime' => 'application/pdf']);
     }
 }

@@ -35,23 +35,19 @@ class ProdukController extends Controller
     	$this->validate($request, [
             'nama' => 'required',
             'deskripsi' => 'required',
-            'gambar' => 'required|mimes:jpg,jpeg,png,gif,svg'
+            'gambar' => 'required|mimes:jpg,jpeg,png'
         ]);
-
-
-        $produk = Produk::create([
-            'vendor_id' => auth()->user()->vendor->id,
-            'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi
-        ]);
-
+        $path = '';
         if($request->hasFile('gambar')){
             $path = $request->gambar->store('image', 'public');
-            $produk->images()->create([
-                'path' => $path,
-                'type' => 'img'
-            ]);
         }
+
+        $produk = Produk::create([
+            'konfeksi_id' => auth()->user()->konfeksi->id,
+            'nama' => $request->nama,
+            'deskripsi' => $request->deskripsi,
+            'gambar' => $path
+        ]);
 
         return redirect('/konfeksi/produk')->with('flash', 'produk berhasil ditambahkan');
     }

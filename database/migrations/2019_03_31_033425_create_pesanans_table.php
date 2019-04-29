@@ -17,6 +17,7 @@ class CreatePesanansTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->bigInteger('produk_id')->unsigned();
+            $table->string('kode_pesanan')->unique();
             $table->date('tenggat_waktu');
             $table->decimal('biaya', 13, 0)->default(0);
             $table->text('deskripsi');

@@ -3,14 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\KonfirmasiPembayaran;
+use App\Notifications\Konfirmasi;
 use App\Pesanan;
 use Illuminate\Http\Request;
 
 class KonfirmasiPembayaranController extends Controller
 {
-    public function create()
+    public function create($pesananId)
     {
-    	return view('konfirmasi-pembayaran');
+        $pesanan = Pesanan::find($pesananId);
+    	return view('konfirmasi-pembayaran', compact('pesanan'));
     }
 
     public function store(Request $request)
@@ -23,10 +25,11 @@ class KonfirmasiPembayaranController extends Controller
     		$path = $request->gambar->store('pembayaran', 'public');
     	}
     	$pesanan = Pesanan::where('kode_pesanan', $request->kode_pesanan)->first();
-    	KonfirmasiPembayaran::create([
+    	$konfirmasiPembayaran = KonfirmasiPembayaran::create([
     		'pesanan_id' => $pesanan->id,
     		'gambar' => $path
     	]);
+        $pesanan->produk->konfeksi->user->notify(new Konfirmasi($konfirmasiPembayaran));
     	return redirect('/')->with('flash', 'Konfirmasi Pembayaran berhasil disimpan');
     }
 }

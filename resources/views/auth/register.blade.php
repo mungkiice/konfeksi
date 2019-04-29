@@ -37,7 +37,7 @@
                                     <input type="text" class="form-control" placeholder="Nama Lengkap" name="nama">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                     <input type="text" class="form-control" placeholder="Email" name="email">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                     <input type="password" class="form-control" placeholder="Password" name="password">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                                     <input type="password" class="form-control" placeholder="Password Konfirmasi" name="password_confirmation">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                                     <input type="number" class="form-control" placeholder="Nomor Telepon" name="nomor_telepon">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>

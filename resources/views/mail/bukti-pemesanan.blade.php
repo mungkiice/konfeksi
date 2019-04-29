@@ -1,11 +1,13 @@
-@extends('layouts.app')
-@section('page', 'Invoice')
-@section('custom-css')
-<link rel="stylesheet" href="/css/invoice.css" media="all" />
-@endsection
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+  <title>Konfeksi Invoice</title>
+    <link rel="shortcut icon" href="/img/fav.png">
+  <link rel="stylesheet" href="/css/invoice.css" media="all" />
 
-@section('content')
-<section class="tracking_box_area">  
+</head>
+<body>
   <header class="clearfix">
     <div id="logo">
       <img class="logo" src="/img/logo.png">
@@ -71,7 +73,7 @@
           <li>
             Silahkan melakukan pembayaran dengan melakukan transfer ke salah satu dari rekening Konfeksi :
             <ul>
-              <li>Bank {{$pesanan->produk->konfeksi->bank_nama}} : {{$pesanan->produk->konfeksi->bank_nomor}} a.n {{$pesanan->produk->konfeksi->bank_pemilik}}</li>
+              <li>Bank BCA : 192387198237 a.n Muhammad Iqbal Kurniawan</li>
             </ul>
           </li>
           <li>Foto/ pindai (scan)/ screenshot bukti transfer anda. Kami menganjurkan agar anda juga tetap menyimpan bukti transfer anda, sebagai bukti pembayaran.</li>
@@ -86,5 +88,9 @@
       </div>
     </div>
   </main>
-</section>
-@endsection
+  <footer>
+    <!-- Invoice was created on a computer and is valid without the signature and seal. -->
+    Invoice dibuat oleh komputer dan valid tanpa menggunakan cap atau tanda tangan.
+  </footer>
+</body>
+</html>

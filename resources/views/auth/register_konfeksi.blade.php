@@ -37,7 +37,7 @@
                                     <input type="text" class="form-control" placeholder="Nama Konfeksi" name="nama">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>
@@ -50,7 +50,7 @@
                                     <input type="text" class="form-control" placeholder="Email" name="email">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>
@@ -63,7 +63,7 @@
                                     <input type="password" class="form-control" placeholder="Password" name="password">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>
@@ -76,7 +76,7 @@
                                     <input type="password" class="form-control" placeholder="Konfirmasi Password" name="password_confirmation">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>
@@ -86,7 +86,7 @@
                                     <input type="number" class="form-control" placeholder="Nomor Telepon" name="nomor_telepon">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>
@@ -99,7 +99,7 @@
                                     <textarea class="form-control" rows="2" placeholder="Alamat Konfeksi" name="alamat" style="padding-top: 1rem; padding-bottom: 1rem; height: auto; line-height: 14px;"></textarea>
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>
@@ -112,7 +112,7 @@
                                     <textarea class="form-control" rows="4" placeholder="Deksripsi Konfeksi" name="deskripsi" style="padding-top: 1rem; padding-bottom: 1rem; height: auto; line-height: 14px;"></textarea>
                                     <div class="input-group-append">
                                         <span class="input-group-text">
-                                            <i class="mdi mdi-check-circle-outline"></i>
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                         </span>
                                     </div>
                                 </div>
@@ -120,13 +120,47 @@
                                 <p style="color: red;">{{ $errors->first('deskripsi') }}</p>
                                 @endif
                             </div>  
-                    <div class="form-group">        
-                        <label style="display: block;">Gambar Konfeksi</label>         
-                        <input type="file" class="dropify" name="gambar" />
-                        @if ($errors->has('gambar'))
-                        <label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('gambar') }}</label>
-                        @endif
-                    </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Bank" name="bank_nama">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <!-- <i class="mdi mdi-check-circle-outline"></i> -->
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control" placeholder="Nomor Rek" name="bank_nomor">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text">
+                                                    <!-- <i class="mdi mdi-check-circle-outline"></i> -->
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" class="form-control" placeholder="Atas Nama Rekening" name="bank_pemilik">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">        
+                                <label style="display: block;">Gambar Konfeksi</label>         
+                                <input type="file" class="dropify" name="gambar" />
+                                @if ($errors->has('gambar'))
+                                <label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('gambar') }}</label>
+                                @endif
+                            </div>
                             <div class="form-group">
                                 <button type="submit" class="btn submit-btn btn-block" style="background-color: #FFA100; color: white;">Register</button>
                             </div>

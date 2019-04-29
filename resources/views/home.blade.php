@@ -16,7 +16,7 @@
   <meta charset="UTF-8">
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <!-- Site Title -->
-  <title>{{ config('app.name', 'Market Konveksi')}}</title>
+  <title>{{ config('app.name', 'Market Konfeksi')}}</title>
   <!--
     CSS
     ============================================= -->
@@ -49,8 +49,8 @@
               <div class="row single-slide align-items-center d-flex">
                 <div class="col-lg-5 col-md-6">
                   <div class="banner-content">
-                    <h1>Marketplace <br>Konveksi!</h1>
-                    <p>Tempat vendor - vendor konveksi terpercaya yang dapat anda pesan secara online.</p>
+                    <h1>Marketplace <br>Konfeksi!</h1>
+                    <p>Tempat vendor - vendor konfeksi terpercaya yang dapat anda pesan secara online.</p>
                   </div>
                 </div>
                 <div class="col-lg-7">
@@ -60,19 +60,19 @@
                 </div>
               </div>
               <!-- single-slide -->
-              <div class="row single-slide">
-                <div class="col-lg-5">
+              <div class="row single-slide align-items-center d-flex">
+                <div class="col-lg-5 col-md-6">
                   <div class="banner-content">
-                   <h1>Marketplace <br>Konveksi!</h1>
-                   <p>Tempat vendor - vendor konveksi terpercaya yang dapat anda pesan secara online.</p>
-                 </div>
-                 <div class="col-lg-7">
+                    <h1>Marketplace <br>Konfeksi!</h1>
+                    <p>Tempat vendor - vendor konfeksi terpercaya yang dapat anda pesan secara online.</p>
+                  </div>
+                </div>
+                <div class="col-lg-7">
                   <div class="banner-img">
                     <img class="img-fluid" src="img/banner/t-shirt.png" alt="">
                   </div>
                 </div>
               </div>
-            </div>
           </div>
         </div>
       </div>

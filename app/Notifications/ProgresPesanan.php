@@ -2,23 +2,31 @@
 
 namespace App\Notifications;
 
+use App\Mail\BuktiPemesananMail;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Bus\Queueable;
-use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use Illuminate\Notifications\Notification;
+use Illuminate\Support\Facades\Mail;
 
 class ProgresPesanan extends Notification
 {
     use Queueable;
-
+    public $statusPesanan;
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($statusPesanan)
     {
-        //
+        $this->statusPesanan = $statusPesanan;
+        $pesanan = $statusPesanan->pesanan;
+        if ($pesanan->statusPesanans()->count() == 4) {
+            $pdf = PDF::loadView('mail.bukti-pemesanan', compact('pesanan'));
+            Mail::to($pesanan->user)->send(new BuktiPemesananMail($pesanan, $pdf));
+        }   
     }
 
     /**
@@ -41,9 +49,9 @@ class ProgresPesanan extends Notification
     public function toMail($notifiable)
     {
         return (new MailMessage)
-                    ->line('The introduction to the notification.')
-                    ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!');
+        ->from('info@sometimes-it-wont-work.com', config('app.name'))
+        ->subject('Progres Pesanan #'. $this->statusPesanan->pesanan->kode_pesanan)
+        ->markdown('mail.progres', ['statusPesanan' => $this->statusPesanan]);
     }
 
     /**

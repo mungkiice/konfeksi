@@ -88,7 +88,10 @@ class RegisterController extends Controller
             'nomor_telepon' => 'required',
             'alamat' => 'required',
             'deskripsi' => 'required',
-            'gambar' => 'required|image|mimes:png,jpg,jpeg'
+            'gambar' => 'required|image|mimes:png,jpg,jpeg',
+            'bank_nama' => 'required',
+            'bank_nomor' => 'required',
+            'bank_pemilik' => 'required'
         ]);
         $user = User::create([
             'nama' => $request->nama,
@@ -104,7 +107,10 @@ class RegisterController extends Controller
         $user->konfeksi()->create([
             'alamat' => $request->alamat,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $path
+            'gambar' => $path,
+            'bank_nama' => strtoupper($request->bank_nama),
+            'bank_nomor' => $request->bank_nomor,
+            'bank_pemilik' => $request->bank_pemilik
         ]);
         $this->guard()->login($user);
         return redirect('/konfeksi');

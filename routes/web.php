@@ -12,11 +12,13 @@
 */
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/email', 'HomeController@email');
-Route::get('/print', 'HomeController@showInvoice');
+Route::get('print', function () {
+    return new App\Mail\PenawaranMail();
+});
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');
-Route::post('/logout', 'Auth\LoginController@logout');
+Route::post('/logout', 'Auth\LoginController@logout')->middleware('role:member,admin,konfeksi');
 Route::get('/user/password/edit', 'UserController@showChangePasswordForm');
 Route::post('/user/password/edit', 'UserController@changePassword');
 Route::get('/register', 'Auth\RegisterController@showRegistrationForm');
@@ -28,10 +30,14 @@ Route::post('/register/konfeksi', 'Auth\RegisterController@konfeksiRegister');
 Route::get('/konfeksis', 'KonfeksiController@index');
 Route::get('/konfeksis/{konfeksiId}', 'KonfeksiController@show');
 Route::get('/produks/{produkId}', 'ProdukController@show');
-Route::get('/pembayaran', 'KonfirmasiPembayaranController@create');
-Route::post('/pembayaran', 'KonfirmasiPembayaranController@store');
-Route::get('/pesan/{produkId}', 'PesananController@create');
-Route::post('/pesan', 'PesananController@store');
+Route::get('/pembayaran/{pesananId}', 'KonfirmasiPembayaranController@create')->middleware('role:member');
+Route::post('/pembayaran', 'KonfirmasiPembayaranController@store')->middleware('role:member');
+Route::get('/pesan/{produkId}', 'PesananController@create')->middleware('role:member');
+Route::post('/pesan', 'PesananController@store')->middleware('role:member');
+Route::get('/pesanansaya', 'PesananController@indexMember')->middleware('role:member');
+Route::get('/penawaran/{kodePesanan}', 'PenawaranController@show')->middleware('role:member');
+Route::post('/penawaran/{penawaranId}/terima', 'PenawaranController@confirm')->middleware('role:member');
+Route::post('/penawaran/{penawaranId}/tolak', 'PenawaranController@reject')->middleware('role:member');
 
 Route::prefix('admin')->group(function(){
 	Route::get('/', 'DashboardController@adminDashboard')->middleware('role:admin');	

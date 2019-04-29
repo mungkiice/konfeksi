@@ -11,7 +11,6 @@
 					<thead>
 						<tr>
 							<th>Nama</th>
-							<th>Deskripsi</th>
 							<th>Gambar</th>
 							<th>Tindakan</th>
 						</tr>
@@ -19,14 +18,11 @@
 					<tbody>
 						@foreach($produks as $produk)
 						<tr>
-							<td style="max-width: 100px; white-space: normal">
+							<td>
 								{{$produk->nama}}
 							</td>
-							<td style="max-width: 200px; white-space: normal">
-								{{$produk->deskripsi}}
-							</td>
-							<td style="max-width: 80px;">
-								<img class="img-fluid" src="/storage/{{$produk->gambar}}" style="width: 100%; border-radius: 0; height: auto; margin: 0;">
+							<td>
+								<img class="img-fluid" src="/storage/{{$produk->gambar}}" style="width: 200px; border-radius: 0; height: auto; margin: 0;">
 							</td>
 							<td>
 								<a class="btn btn-warning" href="/konfeksi/produk/{{$produk->id}}/edit" style="padding: 0.5rem;">Edit</a>

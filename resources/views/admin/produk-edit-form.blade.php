@@ -1,8 +1,12 @@
 @extends('admin.layouts.app')
 
+@section('custom-css')
+<link rel="stylesheet" href="{{ asset('assets/vendors/summernote/dist/summernote-bs4.css') }}">
+@endsection
+
 @section('content')
 <div class="row">
-	<div class="col-lg-6 col-md-6 grid-margin">
+	<div class="col-lg-12 col-md-12 grid-margin">
 		<div class="card">
 			<div class="card-body">
 				<h4 class="card-title">Form Jenis Kain</h4>
@@ -11,7 +15,7 @@
 					@method('PUT')
 					<div class="form-group">		
 						<label style="display: block;">Gambar Produk</label>	
-						<img class="img-fluid mb-2" src="/storage/{{$produk->gambar}}" style="width: 50%;margin-left: 25%;"></img>	
+						<img class="img-fluid mb-2" src="/storage/{{$produk->gambar}}" style="width: 25%;margin-left: 37%;"></img>	
 						<input type="file" class="dropify" name="gambar" />
 						@if ($errors->has('gambar'))
 						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('gambar') }}</label>
@@ -26,7 +30,7 @@
 					</div>
 					<div class="form-group">
 						<label for="deskripsiInput">Deskripsi Produk</label> 
-						<textarea class="form-control" id="deskripsiInput" rows="4" name="deskripsi">{{$produk->deskripsi}}</textarea> 
+						<textarea id="summernoteExample" name="deskripsi">{{$produk->deskripsi}}</textarea> 
 						@if ($errors->has('deskripsi'))
 						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('deskripsi') }}</label>
 						@endif
@@ -46,4 +50,8 @@
 <script src="{{ asset('assets/js/shared/typeahead.js') }}"></script>
 <script src="{{ asset('assets/js/shared/select2.js') }}"></script>
 <script src="{{ asset('assets/js/shared/dropify.js') }}"></script>
+<script src="{{ asset('assets/vendors/tinymce/tinymce.min.js') }}"></script>
+<script src="{{ asset('assets/vendors/tinymce/themes/modern/theme.js') }}"></script>
+<script src="{{ asset('assets/vendors/summernote/dist/summernote-bs4.min.js') }}"></script>
+<script src="{{ asset('assets/js/shared/editorDemo.js') }}"></script>
 @endsection

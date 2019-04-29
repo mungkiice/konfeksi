@@ -34,7 +34,7 @@
                                 <input type="text" class="form-control" placeholder="Email" name="email">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
-                                        <i class="mdi mdi-check-circle-outline"></i>
+                                        <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                     </span>
                                 </div>
                             </div>
@@ -48,7 +48,7 @@
                                 <input type="password" class="form-control" placeholder="******" name="password">
                                 <div class="input-group-append">
                                     <span class="input-group-text">
-                                        <i class="mdi mdi-check-circle-outline"></i>
+                                        <!-- <i class="mdi mdi-check-circle-outline"></i> -->
                                     </span>
                                 </div>
                             </div>

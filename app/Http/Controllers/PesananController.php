@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Notifications\PesananBaru;
+use App\Notifications\ProgresPesanan;
 use App\Pesanan;
 use App\Produk;
 use App\StatusPesanan;
@@ -14,6 +16,12 @@ class PesananController extends Controller
 		// $pesanans = auth()->user()->konfeksi->pesanans;
 		$pesanans = Pesanan::all();
 		return view('admin.pesanans', compact('pesanans'));
+	}
+
+	public function indexMember()
+	{
+		$pesanans = auth()->user()->pesanans;
+		return view('pesanan', compact('pesanans'));
 	}
 
 	public function create($produkId)
@@ -53,6 +61,7 @@ class PesananController extends Controller
 			'pesanan_id' => $pesanan->id,
 			'keterangan' => 'Menunggu respon dari konfeksi'
 		]);
+		$pesanan->produk->konfeksi->user->notify(new PesananBaru($pesanan));
 		return redirect('/')->with('flash', 'Pesanan berhasil dikirim');
 	}
 
@@ -63,11 +72,11 @@ class PesananController extends Controller
 			'keterangan' => 'required'
 		]);
 
-		StatusPesanan::create([
+		$statusPesanan = StatusPesanan::create([
 			'pesanan_id' => $pesanan->id,
 			'keterangan' => $request->keterangan
 		]);
-
+		$pesanan->user->notify(new ProgresPesanan($statusPesanan));
 		return back()->with('flash', 'Status Pesanan berhasil disimpan.');
 	}
 }
