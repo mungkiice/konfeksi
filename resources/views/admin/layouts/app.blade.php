@@ -71,6 +71,7 @@
   <script src="{{ asset('assets/js/shared/todolist.js') }}"></script>
   <!-- endinject -->
   <!-- swal popup -->
+  @yield('custom-js')
   <script>
     (function($) {
       showSwal = function(type, message) {
@@ -137,6 +138,5 @@
     showSwal('flash', "{{session('flash')}}");
   </script>
   @endif
-  @yield('custom-js')
 </body>
 </html>

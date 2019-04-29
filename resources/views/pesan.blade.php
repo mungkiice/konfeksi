@@ -98,12 +98,15 @@
 								@endif
 							</div>
 							<div class="form-group">
+								<p style="text-align: left">* regular </p>
+							</div>
+							<!-- <div class="form-group">
 								<label for="inputNama">Tenggat Waktu Pengerjaan</label>
 								<input id="inputNama" type="date" class="form-control" name="tenggat_waktu">
 								@if ($errors->has('tenggat_waktu'))
 								<p style="color: red;">{{ $errors->first('tenggat_waktu') }}</p>
 								@endif
-							</div>
+							</div> -->
 							<div class="form-group">
 								<!-- <label for="confirm-switch mb-3" style="font-size: 1.1rem;">Pengambilan Barang</label> -->
 								<div class="switch-wrap d-flex justify-content-between">
@@ -140,8 +143,7 @@
 <script src="{{ asset('assets/vendors/js/vendor.bundle.addons.js') }}"></script>
 <script src="{{ asset('assets/js/shared/dropify.js') }}"></script>
 <script>
-
-	$("input[type='radio']").change(function(){
+	$("input[type='radio'][name='is_expedition']").change(function(){
 		if ($(this).attr('id') == 'switch-ambil' && $(this).is(':checked')) {
 			$('.form-alamat').hide();
 		}else{

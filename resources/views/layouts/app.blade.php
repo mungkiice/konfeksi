@@ -18,9 +18,6 @@
     <!-- Site Title -->
     <title>{{config('app.name', 'Market Konfeksi')}} | @yield('page')</title>
 
-    <!--
-        CSS
-        ============================================= -->
     <link rel="stylesheet" href="/css/linearicons.css">
     <link rel="stylesheet" href="/css/owl.carousel.css">
     <link rel="stylesheet" href="/css/themify-icons.css">
@@ -29,11 +26,17 @@
     <link rel="stylesheet" href="/css/nouislider.min.css">
     <link rel="stylesheet" href="/css/bootstrap.css">
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.addons.css') }}">
     @yield('custom-css')
 </head>
 
 <body>
-
+    <div id="flash-message" style="text-align: center;width: 100%;z-index: 10; ">
+        <strong id="flash-header"></strong> <span id="flash-body"></span>
+        <button type="button" class="close" onclick="document.getElementById('flash-message').style.display = 'none';">
+            <span class="glyphicon glyphicon-remove"></span>
+        </button>
+    </div>
     <!-- Start Header Area -->
     @include('layouts.nav')
     <!-- End Header Area -->
@@ -61,7 +64,7 @@
 
     <script src="/js/vendor/jquery-2.2.4.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
     <script src="/js/vendor/bootstrap.min.js"></script>
     <script src="/js/jquery.ajaxchimp.min.js"></script>
     <script src="/js/jquery.nice-select.min.js"></script>
@@ -73,5 +76,73 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
     <script src="/js/gmaps.min.js"></script>
     <script src="/js/main.js"></script>
+    <script src="{{ asset('assets/vendors/js/vendor.bundle.addons.js') }}"></script>
+    <script>
+        (function($) {
+          showSwal = function(type, message) {
+            'use strict';
+            if (type === 'flash') {
+              swal({
+                title: 'Sukses!',
+                text: message,
+                icon: 'success',
+                timer: 2000,
+                button: false
+            })
+
+          }else if (type === 'confirmation') {
+              swal({
+                title: 'Konfirmasi',
+                text: message,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3f51b5',
+                cancelButtonColor: '#ff4081',
+                confirmButtonText: 'Great ',
+                buttons: {
+                  cancel: {
+                    text: "Cancel",
+                    value: null,
+                    visible: true,
+                    className: "btn btn-danger",
+                    closeModal: true,
+                },
+                confirm: {
+                    text: "OK",
+                    value: true,
+                    visible: true,
+                    className: "btn btn-primary",
+                    closeModal: true
+                }
+            }
+        })
+          } else if (type === 'custom-html') {
+              swal({
+                content: {
+                  element: "input",
+                  attributes: {
+                    placeholder: "Type your password",
+                    type: "password",
+                    class: 'form-control'
+                },
+            },
+            button: {
+              text: "OK",
+              value: true,
+              visible: true,
+              className: "btn btn-primary"
+          }
+      })
+          }
+      }
+
+  })(jQuery);
+</script>
+@if(session("flash"))
+<script type="text/javascript">
+    showSwal('flash', "{{session('flash')}}");
+</script>
+@endif
+@yield('custom-js')
 </body>
 </html>
