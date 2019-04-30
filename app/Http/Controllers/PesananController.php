@@ -56,7 +56,7 @@ class PesananController extends Controller
 			'alamat' => $request->alamat,
 			'jumlah' => json_encode($jumlah)
 		]);
-		StatusPesanan::create([
+		$statusPesanan = StatusPesanan::create([
 			'pesanan_id' => $pesanan->id,
 			'keterangan' => 'menunggu respon dari konfeksi'
 		]);

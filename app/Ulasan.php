@@ -13,9 +13,4 @@ class Ulasan extends Model
     {
     	return $this->belongsTo(Konfeksi::class);
     }
-
-    public function image()
-    {
-    	return $this->morphOne(File::class, 'subject');
-    }
 }

@@ -63,7 +63,7 @@ class PenawaranController extends Controller
             'tenggat_waktu' => $penawaran->tenggat_waktu,
             'deskripsi' => $penawaran->deskripsi
         ]);
-        StatusPesanan::create([
+        $statusPesanan = StatusPesanan::create([
             'pesanan_id' => $pesanan->id,
             'keterangan' => 'menunggu pembayaran DP'
         ]);
@@ -82,7 +82,7 @@ class PenawaranController extends Controller
             'tenggat_waktu' => $penawaran->tenggat_waktu,
             'deskripsi' => $penawaran->deskripsi
         ]);
-        StatusPesanan::create([
+        $statusPesanan = StatusPesanan::create([
             'pesanan_id' => $pesanan->id,
             'keterangan' => 'penawaran ditolak',
         ]);
