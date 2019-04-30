@@ -21,7 +21,7 @@ class PenawaranBaru extends Notification
     public function __construct($penawaran)
     {
         $this->penawaran = $penawaran;
-        $this->url = config('app.url') . '/penawaran';
+        $this->url = config('app.url') . '/pesanansaya';
     }
 
     /**

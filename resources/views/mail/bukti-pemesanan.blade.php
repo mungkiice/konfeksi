@@ -3,14 +3,14 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
   <title>Konfeksi Invoice</title>
-    <link rel="shortcut icon" href="/img/fav.png">
-  <link rel="stylesheet" href="/css/invoice.css" media="all" />
+  <link rel="shortcut icon" href="img/fav.png">
+  <link rel="stylesheet" href="css/invoice-mail.css" media="all" />
 
 </head>
 <body>
   <header class="clearfix">
     <div id="logo">
-      <img class="logo" src="/img/logo.png">
+      <img class="logo" src="img/logo.png">
     </div>
     <h1>INVOICE #{{ $pesanan->kode_pesanan }}</h1>
     <div id="project">

@@ -34,7 +34,6 @@ class PesananController extends Controller
 	{
 		$this->validate($request, [
 			'produk_id' => 'required|exists:produks,id',
-			'tenggat_waktu' => 'required',
 			'deskripsi' => 'required',
 			'file_desain' => 'required'
 		]);
@@ -59,7 +58,7 @@ class PesananController extends Controller
 		]);
 		StatusPesanan::create([
 			'pesanan_id' => $pesanan->id,
-			'keterangan' => 'Menunggu respon dari konfeksi'
+			'keterangan' => 'menunggu respon dari konfeksi'
 		]);
 		$pesanan->produk->konfeksi->user->notify(new PesananBaru($pesanan));
 		return redirect('/')->with('flash', 'Pesanan berhasil dikirim');

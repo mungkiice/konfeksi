@@ -72,11 +72,11 @@
     <script src="/js/nouislider.min.js"></script>
     <script src="/js/jquery.magnific-popup.min.js"></script>
     <script src="/js/owl.carousel.min.js"></script>
+    <script src="{{ asset('assets/vendors/js/vendor.bundle.addons.js') }}"></script>
     <!--gmaps Js-->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCjCGmQ0Uq4exrzdcL6rvxywDDOvfAu6eE"></script>
     <script src="/js/gmaps.min.js"></script>
     <script src="/js/main.js"></script>
-    <script src="{{ asset('assets/vendors/js/vendor.bundle.addons.js') }}"></script>
     <script>
         (function($) {
           showSwal = function(type, message) {

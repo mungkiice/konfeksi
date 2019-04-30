@@ -35,14 +35,14 @@ class PenawaranController extends Controller
     	}
 
         $pesanan = Pesanan::find($pesananId);
-    	
+        
         $penawaran = Penawaran::create([
-    		'pesanan_id' => $pesanan->id,
-    		'tenggat_waktu' => $request->tenggat_waktu,
-    		'biaya' => $request->biaya,
-    		'deskripsi' => $request->deskripsi,
-    		'gambar' => $path
-    	]);
+          'pesanan_id' => $pesanan->id,
+          'tenggat_waktu' => $request->tenggat_waktu,
+          'biaya' => $request->biaya,
+          'deskripsi' => $request->deskripsi,
+          'gambar' => $path
+      ]);
         $statusPesanan = StatusPesanan::create([
             'pesanan_id' => $pesanan->id,
             'keterangan' => 'menunggu konfirmasi penawaran'
@@ -72,7 +72,7 @@ class PenawaranController extends Controller
 
     public function reject($penawaranId)
     {
-                $penawaran = Penawaran::find($penawaranId);
+        $penawaran = Penawaran::find($penawaranId);
         $penawaran->update([
             'status' => 'ditolak'
         ]);
@@ -82,6 +82,10 @@ class PenawaranController extends Controller
             'tenggat_waktu' => $penawaran->tenggat_waktu,
             'deskripsi' => $penawaran->deskripsi
         ]);
-        return back()->with('flash', 'Penawaran berhasil ditolak.');
+        StatusPesanan::create([
+            'pesanan_id' => $pesanan->id,
+            'keterangan' => 'penawaran ditolak',
+        ]);
+        return redirect('/pesanansaya')->with('flash', 'Penawaran berhasil ditolak.');
     }
 }

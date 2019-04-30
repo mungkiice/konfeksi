@@ -42,6 +42,7 @@
 							<label for="inputDeskripsi">Deskripsi</label>
 							<textarea id="inputDeskripsi" class="form-control" rows="4" name="deskripsi">{{ $penawaran->deskripsi }}</textarea>
 						</div>
+						@if($penawaran->status == 'terkirim')
 						<form co method="POST" action="/penawaran/{{$penawaran->id}}/terima" style="display: inline-block;">
 							@csrf
 							<button type="submit" class="genric-btn primary circle mt-4">Terima</button>
@@ -50,6 +51,7 @@
 							@csrf
 							<button type="submit" class="genric-btn gray_btn circle mt-4">Tolak</button>
 						</form>
+						@endif
 					</div>
 				</div>
 				<div class="col-lg-3 col-md-3"></div>

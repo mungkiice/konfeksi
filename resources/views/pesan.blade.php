@@ -3,7 +3,6 @@
 @section('page', 'Pemesanan')
 
 @section('custom-css')
-<link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.addons.css') }}">
 <style>
 	.form-group label{
 		font-size: 1.1rem;
@@ -98,17 +97,26 @@
 								@endif
 							</div>
 							<div class="form-group">
-								<p style="text-align: left">* regular </p>
+								<p style="text-align: left;color: red;margin-bottom: 0">* Pesanan regular, tanggal selesai ditentukan konfeksi</p>
+								<p style="text-align: left;color: red">* Pesanan express, pelanggan dapat menentukan tanggal selesai</p>
 							</div>
-							<!-- <div class="form-group">
-								<label for="inputNama">Tenggat Waktu Pengerjaan</label>
-								<input id="inputNama" type="date" class="form-control" name="tenggat_waktu">
-								@if ($errors->has('tenggat_waktu'))
-								<p style="color: red;">{{ $errors->first('tenggat_waktu') }}</p>
-								@endif
-							</div> -->
 							<div class="form-group">
-								<!-- <label for="confirm-switch mb-3" style="font-size: 1.1rem;">Pengambilan Barang</label> -->
+								<div class="switch-wrap d-flex justify-content-between">
+									<p>Paket ekspres</p>
+									<div class="confirm-switch">
+										<input type="checkbox" id="switch-express" name="is_express">
+										<label for="switch-express"></label>
+									</div>
+								</div>
+								<div class="form-express" style="display: none;">
+									<label for="inputNama">Tenggat Waktu Pengerjaan</label>
+									<input id="inputNama" type="date" class="form-control" name="tenggat_waktu">
+									@if ($errors->has('tenggat_waktu'))
+									<p style="color: red;">{{ $errors->first('tenggat_waktu') }}</p>
+									@endif
+								</div>
+							</div>
+							<div class="form-group">
 								<div class="switch-wrap d-flex justify-content-between">
 									<p>Barang diambil dilokasi konveksi</p>
 									<div class="primary-switch">
@@ -123,10 +131,10 @@
 										<label for="switch-dikirim"></label>
 									</div>
 								</div>
-							</div>
-							<div class="form-group form-alamat">
-								<label for="inputDeskripsi">Alamat Penerima Barang</label>
-								<textarea id="inputDeskripsi" class="form-control" rows="4" name="alamat"></textarea>
+								<div class="form-alamat">
+									<label for="inputDeskripsi">Alamat Penerima Barang</label>
+									<textarea id="inputDeskripsi" class="form-control" rows="4" name="alamat"></textarea>
+								</div>
 							</div>
 							<button type="submit" class="genric-btn primary circle mt-4">Pesan</button>
 						</form>
@@ -140,7 +148,7 @@
 @endsection
 
 @section('custom-js')
-<script src="{{ asset('assets/vendors/js/vendor.bundle.addons.js') }}"></script>
+<script src="{{ asset('assets/js/shared/formpickers.js') }}"></script>
 <script src="{{ asset('assets/js/shared/dropify.js') }}"></script>
 <script>
 	$("input[type='radio'][name='is_expedition']").change(function(){
@@ -148,6 +156,13 @@
 			$('.form-alamat').hide();
 		}else{
 			$('.form-alamat').show();
+		}
+	});
+	$("input[type='checkbox'][name='is_express']").change(function(){
+		if ($(this).attr('id') == 'switch-express' && $(this).is(':checked')) {
+			$('.form-express').show();
+		}else{
+			$('.form-express').hide();
 		}
 	});
 </script>

@@ -45,18 +45,22 @@
 								</div>
 							</td>
 							<td>
+								@if($pesanan->tenggat_waktu)
 								<h5>{{date('d M Y', strtotime($pesanan->tenggat_waktu))}}</h5>
+								@endif
 							</td>
 							<td>
-								@foreach($pesanan->statusPesanans as $status)
-								{{ $status->keterangan }}
+								@foreach($pesanan->statusPesanans()->latest()->get() as $status)
+								- {{ $status->keterangan }} <br>
 								@endforeach
 							</td>
 							<td style="width: 200px;">
-								@if($pesanan->statusPesanans()->count() == 2)
+								@if($pesanan->penawaran->status == 'terkirim')
 								<a href="/penawaran/{{ $pesanan->kode_pesanan }}" class="primary-btn custom-btn">Lihat Penawaran</a>
 								@endif
-								<a href="/pembayaran/{{ $pesanan->id }}" class="gray_btn custom-btn">Konfirmasi Pembayaran</a>								
+								@if($pesanan->penawaran->status == 'diterima')
+								<a href="/pembayaran/{{ $pesanan->id }}" class="gray_btn custom-btn">Konfirmasi Pembayaran</a>
+								@endif								
 							</td>
 						</tr>
 						@endforeach

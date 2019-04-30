@@ -1,5 +1,10 @@
 <?php
 
+use App\Mail\BuktiPemesananMail;
+use App\Pesanan;
+use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\Mail;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,8 +17,10 @@
 */
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/email', 'HomeController@email');
-Route::get('print', function () {
-    return new App\Mail\PenawaranMail();
+Route::get('/print', function () {
+	$pesanan = Pesanan::first();
+	$pdf = PDF::loadView('mail.bukti-pemesanan', compact('pesanan'));
+	Mail::to($pesanan->user)->send(new BuktiPemesananMail($pesanan, $pdf));
 });
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
