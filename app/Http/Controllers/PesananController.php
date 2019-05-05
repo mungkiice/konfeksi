@@ -73,6 +73,6 @@ class PesananController extends Controller
 			'keterangan' => $request->keterangan
 		]);
 		$pesanan->user->notify(new ProgresPesanan($statusPesanan));
-		return back()->with('flash', 'Status Pesanan berhasil disimpan.');
+		return back()->with('flash', 'Status Pesanan berhasil disimpan');
 	}
 }

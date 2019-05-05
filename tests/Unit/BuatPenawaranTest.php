@@ -44,7 +44,6 @@ class BuatPenawaranTest extends TestCase
 		$this->assertEquals(0, Penawaran::count());
 		$this->assertEquals(0, StatusPesanan::count());
 		$response->assertSessionHasErrors('tenggat_waktu');
-		$response->assertStatus(302);
 	}
 
 	/** @test */
@@ -60,7 +59,6 @@ class BuatPenawaranTest extends TestCase
 		$this->assertEquals(0, Penawaran::count());
 		$this->assertEquals(0, StatusPesanan::count());
 		$response->assertSessionHasErrors('biaya');
-		$response->assertStatus(302);
 	}
 
 	/** @test */
@@ -76,7 +74,7 @@ class BuatPenawaranTest extends TestCase
 		$this->assertEquals(1, Penawaran::count());
 		$this->assertEquals(1, StatusPesanan::count());
 		$response->assertRedirect('/konfeksi');
-		$response->assertSessionHas('flash');
+		$response->assertSessionHas('flash', 'Penawaran berhasil dikirim');
 	}
 
 	/** @test */
@@ -93,6 +91,6 @@ class BuatPenawaranTest extends TestCase
 		$this->assertEquals(1, Penawaran::count());
 		$this->assertEquals(1, StatusPesanan::count());
 		$response->assertRedirect('/konfeksi');
-		$response->assertSessionHas('flash');
+		$response->assertSessionHas('flash', 'Penawaran berhasil dikirim');
 	}
 }

@@ -43,8 +43,7 @@ class KonfirmasiPenawaranTest extends TestCase
     	$response = $this->post('/penawaran/'.$this->penawaran->id.'/terima');
     	$this->assertEquals('diterima', Penawaran::latest()->first()->status);
     	$this->assertEquals(1, StatusPesanan::count());
-    	// dd($response);
-    	// $response->assertSessionHas('flash');
     	$response->assertSee('INVOICE');
+    	$response->assertSessionHas('flash', 'Penawaran berhasil disetujui');
     }
 }

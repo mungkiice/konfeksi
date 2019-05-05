@@ -33,12 +33,10 @@ class KonfirmasiPembayaranTest extends TestCase
 		$this->actingAs($this->user);
 		$response = $this->post('/pembayaran', [
 			'kode_pesanan' => $this->pesanan->kode_pesanan,
-			'gambar' => $file = UploadedFile::fake()->image('bukti.png')
+			'gambar' => null
 		]);
-		Storage::disk('public')->assertExists('pembayaran/', $file->hashName());
-		$this->assertEquals(1, KonfirmasiPembayaran::count());
-		$response->assertRedirect('/');
-		$response->assertSessionHas('flash');
+		$this->assertEquals(0, KonfirmasiPembayaran::count());
+		$response->assertSessionHasErrors('gambar');
 	}
 
 	/** @test */
@@ -47,9 +45,11 @@ class KonfirmasiPembayaranTest extends TestCase
 		$this->actingAs($this->user);
 		$response = $this->post('/pembayaran', [
 			'kode_pesanan' => $this->pesanan->kode_pesanan,
-			'gambar' => null
+			'gambar' => $file = UploadedFile::fake()->image('bukti.png')
 		]);
-		$this->assertEquals(0, KonfirmasiPembayaran::count());
-		$response->assertSessionHasErrors('gambar');
+		Storage::disk('public')->assertExists('pembayaran/', $file->hashName());
+		$this->assertEquals(1, KonfirmasiPembayaran::count());
+		$response->assertRedirect('/');
+		$response->assertSessionHas('flash', 'Konfirmasi Pembayaran berhasil disimpan');
 	}
 }

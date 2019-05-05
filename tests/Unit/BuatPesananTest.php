@@ -54,9 +54,9 @@ class BuatPesananTest extends TestCase
       'small' => 2,
       'medium' => 10,
     ]);
-    $response->assertSessionHas('flash');
+    Storage::disk('public')->assertExists('pesanan/' . $file->hashName());
     $this->assertEquals(1, Pesanan::count());
     $response->assertRedirect('/');
-    Storage::disk('public')->assertExists('pesanan/' . $file->hashName());
+    $response->assertSessionHas('flash', 'Pesanan berhasil dikirim');
   }
 }

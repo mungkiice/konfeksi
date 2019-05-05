@@ -31,10 +31,10 @@ class EditStatusPesananTest extends TestCase
 	{
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/konfeksi/pesanan/'.$this->pesanan->id, [
-			'keterangan' => 'Pesanan sudah selesai'
+			'keterangan' => null,
 		]);
-		$this->assertEquals(1, StatusPesanan::count());
-		$response->assertSessionHas('flash');
+		$this->assertEquals(0, StatusPesanan::count());
+		$response->assertSessionHasErrors('keterangan');	
 	}
 
 	/** @test */
@@ -42,9 +42,9 @@ class EditStatusPesananTest extends TestCase
 	{
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/konfeksi/pesanan/'.$this->pesanan->id, [
-			'keterangan' => null,
+			'keterangan' => 'Pesanan sudah selesai'
 		]);
-		$this->assertEquals(0, StatusPesanan::count());
-		$response->assertSessionHasErrors('keterangan');	
+		$this->assertEquals(1, StatusPesanan::count());
+		$response->assertSessionHas('flash', 'Status Pesanan berhasil disimpan');
 	}
 }

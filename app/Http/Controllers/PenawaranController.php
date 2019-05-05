@@ -68,7 +68,7 @@ class PenawaranController extends Controller
             'pesanan_id' => $pesanan->id,
             'keterangan' => 'menunggu pembayaran DP'
         ]);
-        return view('invoice', compact('pesanan'))->with('flash', 'Penawaran berhasil disetujui.');
+        return view('invoice', compact('pesanan'))->with('flash', 'Penawaran berhasil disetujui');
     }
 
     public function reject($penawaranId)
@@ -87,6 +87,6 @@ class PenawaranController extends Controller
             'pesanan_id' => $pesanan->id,
             'keterangan' => 'penawaran ditolak',
         ]);
-        return redirect('/pesanansaya')->with('flash', 'Penawaran berhasil ditolak.');
+        return redirect('/pesanansaya')->with('flash', 'Penawaran berhasil ditolak');
     }
 }
