@@ -5,6 +5,8 @@ namespace Tests;
 use App\Konfeksi;
 use App\Produk;
 use App\User;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
@@ -13,6 +15,8 @@ use Illuminate\Support\Facades\Storage;
 abstract class TestCase extends BaseTestCase
 {
 	use CreatesApplication;
+	use DatabaseMigrations;
+	use RefreshDatabase;
 
 	protected $produk;
 	protected $konfeksi;

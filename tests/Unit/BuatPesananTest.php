@@ -13,9 +13,6 @@ use Tests\TestCase;
 
 class BuatPesananTest extends TestCase
 {
-  use DatabaseMigrations;
-  use RefreshDatabase;
-
   /** @test */
   public function jalur_1()
   {

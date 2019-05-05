@@ -26,23 +26,24 @@ class PenawaranController extends Controller
     public function store(Request $request, $pesananId)
     {
     	$this->validate($request, [
-    		'biaya' => 'required|integer',
-    		'gambar' => 'image|mimes:png,jpg,jpeg'
-    	]);
+    		'biaya' => 'required',
+            'tenggat_waktu' => 'required',
+        ]);
 
-    	if ($request->hasFile('gambar')) {
-    		$path = $request->gambar->store('pesanan', 'public');
-    	}
+        $path = '';
+        if ($request->gambar != null) {
+            $path = $request->gambar->store('pesanan', 'public');
+        }
 
         $pesanan = Pesanan::find($pesananId);
         
         $penawaran = Penawaran::create([
-          'pesanan_id' => $pesanan->id,
-          'tenggat_waktu' => $request->tenggat_waktu,
-          'biaya' => $request->biaya,
-          'deskripsi' => $request->deskripsi,
-          'gambar' => $path
-      ]);
+            'pesanan_id' => $pesanan->id,
+            'tenggat_waktu' => $request->tenggat_waktu,
+            'biaya' => $request->biaya,
+            'deskripsi' => $request->deskripsi,
+            'gambar' => $path
+        ]);
         $statusPesanan = StatusPesanan::create([
             'pesanan_id' => $pesanan->id,
             'keterangan' => 'menunggu konfirmasi penawaran'
