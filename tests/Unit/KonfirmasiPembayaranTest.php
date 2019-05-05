@@ -23,7 +23,7 @@ class KonfirmasiPembayaranTest extends TestCase
 			'kode_pesanan' => rand(1000000, 9999999),
 			'deskripsi' => 'Jaket dengan bahan denim',
 			'file_desain' => $file = UploadedFile::fake()->image('random.jpg'),
-			'jumlah' => '{small:2,medium:10}',
+			'jumlah' => '{"S":"12","M":"2","L":0,"XL":0}',
 		]);
 	}
 
