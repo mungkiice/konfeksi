@@ -3,10 +3,12 @@
 namespace Tests\Unit;
 
 use App\KonfirmasiPembayaran;
+use App\Notifications\Konfirmasi;
 use App\Pesanan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -49,6 +51,7 @@ class KonfirmasiPembayaranTest extends TestCase
 		]);
 		Storage::disk('public')->assertExists('pembayaran/', $file->hashName());
 		$this->assertEquals(1, KonfirmasiPembayaran::count());
+		Notification::assertSentTo([$this->konfeksiUser], Konfirmasi::class);
 		$response->assertRedirect('/');
 		$response->assertSessionHas('flash', 'Konfirmasi Pembayaran berhasil disimpan');
 	}

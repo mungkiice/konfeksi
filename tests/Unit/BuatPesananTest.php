@@ -2,12 +2,15 @@
 
 namespace Tests\Unit;
 
+use App\Notifications\PesananBaru;
 use App\Pesanan;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -56,6 +59,7 @@ class BuatPesananTest extends TestCase
     ]);
     Storage::disk('public')->assertExists('pesanan/' . $file->hashName());
     $this->assertEquals(1, Pesanan::count());
+    Notification::assertSentTo([$this->konfeksiUser], PesananBaru::class);
     $response->assertRedirect('/');
     $response->assertSessionHas('flash', 'Pesanan berhasil dikirim');
   }

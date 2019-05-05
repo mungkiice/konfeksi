@@ -2,11 +2,13 @@
 
 namespace Tests\Unit;
 
+use App\Notifications\ProgresPesanan;
 use App\Pesanan;
 use App\StatusPesanan;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
 class EditStatusPesananTest extends TestCase
@@ -45,6 +47,7 @@ class EditStatusPesananTest extends TestCase
 			'keterangan' => 'Pesanan sudah selesai'
 		]);
 		$this->assertEquals(1, StatusPesanan::count());
+		Notification::assertSentTo([$this->user], ProgresPesanan::class);
 		$response->assertSessionHas('flash', 'Status Pesanan berhasil disimpan');
 	}
 }

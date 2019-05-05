@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\TestCase as BaseTestCase;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 
 abstract class TestCase extends BaseTestCase
@@ -27,6 +28,7 @@ abstract class TestCase extends BaseTestCase
 	{
 		parent::setUp();
 		Storage::fake('public');
+		Notification::fake();
 		$this->user = User::create([
 			'nama' => 'Muhammad Iqbal Kurniawan',
 			'email' => 'm.kurniawanibal@gmail.com',

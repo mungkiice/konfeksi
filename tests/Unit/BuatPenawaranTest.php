@@ -2,6 +2,7 @@
 
 namespace Tests\Unit;
 
+use App\Notifications\PenawaranBaru;
 use App\Penawaran;
 use App\Pesanan;
 use App\Produk;
@@ -11,6 +12,7 @@ use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Notification;
 use Illuminate\Support\Facades\Storage;
 use Tests\TestCase;
 
@@ -73,6 +75,7 @@ class BuatPenawaranTest extends TestCase
 		]);
 		$this->assertEquals(1, Penawaran::count());
 		$this->assertEquals(1, StatusPesanan::count());
+		Notification::assertSentTo([$this->user], PenawaranBaru::class);
 		$response->assertRedirect('/konfeksi');
 		$response->assertSessionHas('flash', 'Penawaran berhasil dikirim');
 	}
@@ -90,6 +93,7 @@ class BuatPenawaranTest extends TestCase
 		Storage::disk('public')->assertExists('pesanan/'.$file->hashName());
 		$this->assertEquals(1, Penawaran::count());
 		$this->assertEquals(1, StatusPesanan::count());
+		Notification::assertSentTo([$this->user], PenawaranBaru::class);
 		$response->assertRedirect('/konfeksi');
 		$response->assertSessionHas('flash', 'Penawaran berhasil dikirim');
 	}
