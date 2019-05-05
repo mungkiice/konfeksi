@@ -33,13 +33,10 @@ class PesananController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-			'produk_id' => 'required|exists:produks,id',
 			'deskripsi' => 'required',
 			'file_desain' => 'required'
 		]);
-		if ($request->hasFile('file_desain')) {
-			$path = $request->file_desain->store('pesanan', 'public');
-		}
+		$path = $request->file_desain->store('pesanan', 'public');
 		$jumlah = [
 			'S' => $request->small ?: 0,
 			'M' => $request->medium ?: 0,
