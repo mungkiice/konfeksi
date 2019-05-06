@@ -37,17 +37,8 @@ class PenawaranController extends Controller
 
         $pesanan = Pesanan::find($pesananId);
         
-        $penawaran = Penawaran::create([
-            'pesanan_id' => $pesanan->id,
-            'tenggat_waktu' => $request->tenggat_waktu,
-            'biaya' => $request->biaya,
-            'deskripsi' => $request->deskripsi,
-            'gambar' => $path
-        ]);
-        $statusPesanan = StatusPesanan::create([
-            'pesanan_id' => $pesanan->id,
-            'keterangan' => 'menunggu konfirmasi penawaran'
-        ]);
+        $penawaran = Penawaran::create($pesanan->id,$request->tenggat_waktu,$request->biaya,$request->deskripsi,$path);
+        $statusPesanan = StatusPesanan::create($pesanan->id, 'menunggu konfirmasi penawaran');
         $pesanan->user->notify(new PenawaranBaru($penawaran));
         return redirect('/konfeksi')->with('flash', 'Penawaran berhasil dikirim');
     }
@@ -64,10 +55,7 @@ class PenawaranController extends Controller
             'tenggat_waktu' => $penawaran->tenggat_waktu,
             'deskripsi' => $penawaran->deskripsi
         ]);
-        $statusPesanan = StatusPesanan::create([
-            'pesanan_id' => $pesanan->id,
-            'keterangan' => 'menunggu pembayaran DP'
-        ]);
+        $statusPesanan = StatusPesanan::create($pesanan->id, 'menunggu pembayaran DP');
         return view('invoice', compact('pesanan'))->with('flash', 'Penawaran berhasil disetujui');
     }
 
@@ -83,10 +71,7 @@ class PenawaranController extends Controller
             'tenggat_waktu' => $penawaran->tenggat_waktu,
             'deskripsi' => $penawaran->deskripsi
         ]);
-        $statusPesanan = StatusPesanan::create([
-            'pesanan_id' => $pesanan->id,
-            'keterangan' => 'penawaran ditolak',
-        ]);
+        $statusPesanan = StatusPesanan::create($pesanan->id, 'penawaran ditolak');
         return redirect('/pesanansaya')->with('flash', 'Penawaran berhasil ditolak');
     }
 }

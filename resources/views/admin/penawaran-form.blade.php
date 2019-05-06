@@ -22,7 +22,7 @@
 					</div>
 					<div class="form-group">
 						<label for="namaInput">Biaya</label>
-						<input type="text" class="form-control" id="namaINput" name="biaya" style="text-align: right;"> 
+						<input type="number" class="form-control" id="namaINput" name="biaya" style="text-align: right;"> 
 						@if ($errors->has('biaya'))
 						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('biaya') }}</label>
 						@endif
@@ -50,7 +50,7 @@
 	<div class="col-md-6 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Data Pesanan #{{$pesanan->kode_pesanan}}</h4>
+				<h4 class="card-title">Data Pesanan #{{$pesanan->kode_pesanan}} - <span style="color: red">{{$pesanan->tenggat_waktu ? 'Ekspres' : 'Reguler'}}</span> - <span style="color: blue;">{{$pesanan->alamat ? 'Barang Dikirim' : 'Barang Diambil'}}</span></h4>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3">Pemesan</label>
 					<div class="col-sm-9">
@@ -72,13 +72,13 @@
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3">Deskripsi</label>
 					<div class="col-sm-9">
-						<textarea class="form-control" rows="3" disabled>{{$pesanan->deskripsi}}</textarea>
+						<textarea class="form-control" rows="5" disabled>{{$pesanan->deskripsi}}</textarea>
 					</div>					
 				</div>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3">Jumlah</label>
 					<div class="col-sm-9">
-						<textarea class="form-control" rows="4" disabled>
+						<textarea class="form-control" rows="10" disabled>
 							@foreach(json_decode($pesanan->jumlah) as $key => $value)
 							{{$key .'  :  '. $value}}
 							@endforeach

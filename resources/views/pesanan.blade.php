@@ -55,10 +55,10 @@
 								@endforeach
 							</td>
 							<td style="width: 200px;">
-								@if($pesanan->penawaran->status == 'terkirim')
+								@if(optional($pesanan->penawaran)->status == 'terkirim')
 								<a href="/penawaran/{{ $pesanan->kode_pesanan }}" class="primary-btn custom-btn">Lihat Penawaran</a>
 								@endif
-								@if($pesanan->penawaran->status == 'diterima')
+								@if(optional($pesanan->penawaran)->status == 'diterima')
 								<a href="/pembayaran/{{ $pesanan->id }}" class="gray_btn custom-btn">Konfirmasi Pembayaran</a>
 								@endif								
 							</td>

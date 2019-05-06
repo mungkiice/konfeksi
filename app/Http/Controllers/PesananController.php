@@ -43,20 +43,8 @@ class PesananController extends Controller
 			'L' => $request->large ?: 0,
 			'XL' => $request->extra_large ?: 0
 		];
-		$pesanan = Pesanan::create([
-			'user_id' => auth()->user()->id,
-			'kode_pesanan' => rand(1000000, 9999999),
-			'produk_id' => $request->produk_id,
-			'tenggat_waktu' => $request->tenggat_waktu,
-			'deskripsi' => $request->deskripsi,
-			'file_desain' => $path,
-			'alamat' => $request->alamat,
-			'jumlah' => json_encode($jumlah)
-		]);
-		$statusPesanan = StatusPesanan::create([
-			'pesanan_id' => $pesanan->id,
-			'keterangan' => 'menunggu respon dari konfeksi'
-		]);
+		$pesanan = Pesanan::create(auth()->user()->id, $request->produk_id, $request->tenggat_waktu, $request->deskripsi, $path, $request->alamat, $jumlah);
+		$statusPesanan = StatusPesanan::create($pesanan->id, 'menunggu respon dari konfeksi');
 		$pesanan->produk->konfeksi->user->notify(new PesananBaru($pesanan));
 		return redirect('/')->with('flash', 'Pesanan berhasil dikirim');
 	}
@@ -68,10 +56,7 @@ class PesananController extends Controller
 			'keterangan' => 'required'
 		]);
 
-		$statusPesanan = StatusPesanan::create([
-			'pesanan_id' => $pesanan->id,
-			'keterangan' => $request->keterangan
-		]);
+		$statusPesanan = StatusPesanan::create($pesanan->id, $request->keterangan);
 		$pesanan->user->notify(new ProgresPesanan($statusPesanan));
 		return back()->with('flash', 'Status Pesanan berhasil disimpan');
 	}

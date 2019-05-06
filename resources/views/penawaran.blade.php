@@ -42,6 +42,9 @@
 							<label for="inputDeskripsi">Deskripsi</label>
 							<textarea id="inputDeskripsi" class="form-control" rows="4" name="deskripsi">{{ $penawaran->deskripsi }}</textarea>
 						</div>
+						@if($penawaran->gambar)
+						<img style="max-width: 50%; margin-left: 25%; display: block" src="/storage/{{$penawaran->gambar}}">
+						@endif
 						@if($penawaran->status == 'terkirim')
 						<form co method="POST" action="/penawaran/{{$penawaran->id}}/terima" style="display: inline-block;">
 							@csrf

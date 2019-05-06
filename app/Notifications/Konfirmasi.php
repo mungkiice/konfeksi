@@ -11,6 +11,7 @@ class Konfirmasi extends Notification
 {
     use Queueable;
     public $konfirmasiPembayaran;
+    public $image;
     public $url;
     /**
      * Create a new notification instance.
@@ -20,7 +21,8 @@ class Konfirmasi extends Notification
     public function __construct($konfirmasiPembayaran)
     {
         $this->konfirmasiPembayaran = $konfirmasiPembayaran;
-        $this->url = public_path('/storage/').$konfirmasiPembayaran->gambar;
+        $this->image = public_path('/storage/').$konfirmasiPembayaran->gambar;
+        $this->url = config('app.url') . '/konfeksi';
     }
 
     /**
@@ -45,8 +47,8 @@ class Konfirmasi extends Notification
         return (new MailMessage)
         ->from('info@sometimes-it-wont-work.com', config('app.name'))
         ->subject('Konfirmasi Pembayaran')
-        ->markdown('mail.bukti-bayar', ['konfirmasiPembayaran' => $this->konfirmasiPembayaran])
-        ->attach($this->url);
+        ->markdown('mail.bukti-bayar', ['konfirmasiPembayaran' => $this->konfirmasiPembayaran, 'url' => $this->url])
+        ->attach($this->image);
     }
 
     /**

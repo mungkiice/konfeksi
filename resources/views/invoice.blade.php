@@ -69,17 +69,17 @@
       <div class="notice">
         <ol>
           <li>
-            Silahkan melakukan pembayaran dengan melakukan transfer ke salah satu dari rekening Konfeksi :
+            Silahkan melakukan pembayaran dengan melakukan transfer ke salah satu dari rekening {{$pesanan->produk->konfeksi->user->nama}}:
             <ul>
               <li>Bank {{$pesanan->produk->konfeksi->bank_nama}} : {{$pesanan->produk->konfeksi->bank_nomor}} a.n {{$pesanan->produk->konfeksi->bank_pemilik}}</li>
             </ul>
           </li>
           <li>Foto/ pindai (scan)/ screenshot bukti transfer anda. Kami menganjurkan agar anda juga tetap menyimpan bukti transfer anda, sebagai bukti pembayaran.</li>
-          <li>Unggah (upload) foto, hasil pindaian (scan), atau screenshot bukti transfer anda melalui fitur Upload Bukti Pembayaran pada website Konfeksi.</li>
-          <li>Tim Konfeksi akan memastikan bahwa bukti transfer yang anda upload valid dan dana yang anda kirimkan berhasil terkirim.
+          <li>Unggah (upload) foto, hasil pindaian (scan), atau screenshot bukti transfer anda melalui fitur Konfirmasi Pembayaran pada website Konfeksi.</li>
+          <li>Pihak konfeksi akan memastikan bahwa bukti transfer yang anda upload valid dan dana yang anda kirimkan berhasil terkirim.
             <ul>
-              <li>Apabila pembayaran anda berhasil diverifikasi, maka anda akan menerima email pemberitahuan, dan trip anda kami proses.</li>
-              <li>Apabila dalam 1 x 24 jam belum mendapatkan email pemberitahuan, silahkan hubungi customer service kami untuk tindak lanjutnya.</li>
+              <li>- Apabila pembayaran anda berhasil diverifikasi, maka konfeksi akan memproses pesanan anda, dan anda akan menerima email berisi bukti pemesanan.</li>
+              <li>- Apabila dalam 1 x 24 jam belum respon dari konfeksi, silahkan hubungi customer service kami untuk tindak lanjutnya.</li>
             </ul>
           </li>
         </ol>
