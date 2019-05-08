@@ -13,6 +13,7 @@ class Penawaran extends Model
             'deskripsi' => $deskripsi,
             'gambar' => $gambar
 		]);
+		return $penawaran;
 	}
     public function pesanan()
     {
