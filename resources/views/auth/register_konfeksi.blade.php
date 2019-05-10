@@ -33,6 +33,7 @@
                         <form action="/register/konfeksi" method="post" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
+                                <label>Nama</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Nama Konfeksi" name="nama">
                                     <div class="input-group-append">
@@ -46,6 +47,7 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label>Email</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Email" name="email">
                                     <div class="input-group-append">
@@ -59,6 +61,7 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label>Password</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control" placeholder="Password" name="password">
                                     <div class="input-group-append">
@@ -72,6 +75,7 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label>Konfirmasi Password</label>
                                 <div class="input-group">
                                     <input type="password" class="form-control" placeholder="Konfirmasi Password" name="password_confirmation">
                                     <div class="input-group-append">
@@ -82,6 +86,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label>Nomor Telepon/Whatsapp</label>
                                 <div class="input-group">
                                     <input type="number" class="form-control" placeholder="Nomor Telepon" name="nomor_telepon">
                                     <div class="input-group-append">
@@ -95,6 +100,7 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label>Alamat</label>
                                 <div class="input-group" style="height: auto;">
                                     <textarea class="form-control" rows="2" placeholder="Alamat Konfeksi" name="alamat" style="padding-top: 1rem; padding-bottom: 1rem; height: auto; line-height: 14px;"></textarea>
                                     <div class="input-group-append">
@@ -108,6 +114,17 @@
                                 @endif
                             </div>
                             <div class="form-group">
+                                <label>Kota</label>
+                                <div class="input-group" style="height: auto">
+                                    <select class="form-control js-example-basic-single" name="kota">
+                                        @foreach($kotas as $kota)
+                                        <option value="{{$kota['city_id']}}">{{$kota['type'] . ' ' . $kota['city_name']}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Deskripsi</label>
                                 <div class="input-group" style="height: auto">
                                     <textarea class="form-control" rows="4" placeholder="Deksripsi Konfeksi" name="deskripsi" style="padding-top: 1rem; padding-bottom: 1rem; height: auto; line-height: 14px;"></textarea>
                                     <div class="input-group-append">
@@ -123,6 +140,7 @@
                             <div class="form-group">
                                 <div class="row">
                                     <div class="col-md-4">
+                                        <label>Nama Bank</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Bank" name="bank_nama">
                                             <div class="input-group-append">
@@ -133,6 +151,7 @@
                                         </div>
                                     </div>
                                     <div class="col-md-8">
+                                        <label>Nomor Rekening</label>
                                         <div class="input-group">
                                             <input type="text" class="form-control" placeholder="Nomor Rek" name="bank_nomor">
                                             <div class="input-group-append">
@@ -145,6 +164,7 @@
                                 </div>
                             </div>
                             <div class="form-group">
+                                <label>Nama Pemilik Rekening</label>
                                 <div class="input-group">
                                     <input type="text" class="form-control" placeholder="Atas Nama Rekening" name="bank_pemilik">
                                     <div class="input-group-append">
@@ -192,6 +212,7 @@
 <script src="{{ asset('assets/js/shared/misc.js') }}"></script>
 <script src="{{ asset('assets/js/shared/settings.js') }}"></script>
 <script src="{{ asset('assets/js/shared/todolist.js') }}"></script>
+<script src="{{ asset('assets/js/shared/select2.js') }}"></script>
 <!-- endinject -->
 <script src="{{ asset('assets/js/shared/dropify.js') }}"></script>
 </body>

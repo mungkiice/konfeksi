@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 class AfterShipAPI
 {
 	protected $client; 
-	protected static $apiKey = 'e0f76661-bd3e-4fd4-bab2-810fa6edc3f7';
+	protected $apiKey = 'e0f76661-bd3e-4fd4-bab2-810fa6edc3f7';
 
 	public function __construct()
 	{
@@ -20,7 +20,7 @@ class AfterShipAPI
 	{
 		$response = $this->client->get('couriers', [
 			'headers' => [
-				'aftership-api-key' => $apiKey,
+				'aftership-api-key' => $this->apiKey,
 				'Content-Type' => 'application/json'
 			],
 		]);
@@ -31,7 +31,7 @@ class AfterShipAPI
 	{
 		$response = $this->client->get('trackings/'.$courier.'/'.$trackingNumber, [
 			'headers' => [
-				'aftership-api-key' => $apiKey,
+				'aftership-api-key' => $this->apiKey,
 				'Content-Type' => 'application/json'
 			],
 		]);
@@ -42,7 +42,7 @@ class AfterShipAPI
 	{
 		$response = $this->client->post('trackings/'.$courier.'/'.$receipt, [
 			'headers' => [
-				'aftership-api-key' => $apiKey,
+				'aftership-api-key' => $this->apiKey,
 				'Content-Type' => 'application/json'
 			],
 			'json' => [
@@ -59,7 +59,7 @@ class AfterShipAPI
 	{
 		$response = $this->client->get('last_checkpoint/'.$courier.'/'.$trackingNumber, [
 			'headers' => [
-				'aftership-api-key' => $apiKey,
+				'aftership-api-key' => $this->apiKey,
 				'Content-Type' => 'application/json'
 			],
 		]);

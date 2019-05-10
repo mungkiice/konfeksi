@@ -7,7 +7,7 @@ use GuzzleHttp\Client;
 class RajaOngkirAPI
 {
 	protected $client;
-	protected static $apiKey = '6051f010f4d02b46d5a7d703f03c68d0';
+	protected $apiKey = '6051f010f4d02b46d5a7d703f03c68d0';
 
 	public function __construct()
 	{
@@ -20,17 +20,17 @@ class RajaOngkirAPI
 	{
 		$response = $this->client->get('city', [
 			'headers' => [
-				'key' => $apiKey
+				'key' => $this->apiKey
 			]
 		]);
-		return json_decode($response->getBody(), true);
+		return json_decode($response->getBody(), true)['rajaongkir']['results'];
 	}
 
 	public function getCost($origin, $destination, $weight, $courier)
 	{
 		$response = $this->client->get('cost', [
 			'headers' => [
-				'key' => $apiKey
+				'key' => $this->apiKey
 			],
 			'body' => [
 				'origin' => $origin,

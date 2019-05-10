@@ -1,5 +1,6 @@
 <?php
 
+use App\RajaOngkirAPI;
 use GuzzleHttp\Client;
 
 /*
@@ -15,28 +16,16 @@ use GuzzleHttp\Client;
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', function(){
-	$client = new Client([
-		'base_uri' => 'https://api.aftership.com/v4' 
-	]);
-	$response = $client->get('/v4/couriers', [
-		'headers' => [
-			'aftership-api-key' => 'e0f76661-bd3e-4fd4-bab2-810fa6edc3f7',
-			'Content-Type' => 'application/json'
-		],
-	]);
-	return $response->getBody();
-});
-Route::get('/tracks', function(){
-	$client = new Client([
-		'base_uri' => 'https://api.aftership.com/v4' 
-	]);
-	$response = $client->get('/v4/trackings/jne/021500038275719', [
-		'headers' => [
-			'aftership-api-key' => 'e0f76661-bd3e-4fd4-bab2-810fa6edc3f7',
-			'Content-Type' => 'application/json'
-		],
-	]);
-	return $response->getBody();
+	$client = new RajaOngkirAPI();
+	$cities = $client->getCities();
+	$cityName = '';
+	foreach ($cities as $city) {
+		if ($city['city_id'] == 151) {
+			$cityName = $city['type'] . ' ' . $city['city_name'];
+			break;
+		}
+	}
+	return $cityName;
 });
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');

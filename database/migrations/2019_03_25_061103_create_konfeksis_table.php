@@ -17,6 +17,8 @@ class CreateKonfeksisTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('user_id')->unsigned();
             $table->string('alamat');
+            $table->string('kota');
+            $table->integer('kota_id');
             $table->text('deskripsi');
             $table->string('gambar');
             $table->boolean('diverifikasi')->default(false);

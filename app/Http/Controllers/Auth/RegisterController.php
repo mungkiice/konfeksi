@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\RajaOngkirAPI;
 use App\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\Request;
@@ -76,7 +77,8 @@ class RegisterController extends Controller
 
     public function showKonfeksiRegistrationForm()
     {
-        return view('auth.register_konfeksi');
+        $kotas = (new RajaOngkirAPI())->getCities();
+        return view('auth.register_konfeksi', compact('kotas'));
     }
 
     public function konfeksiRegister(Request $request)
@@ -87,12 +89,20 @@ class RegisterController extends Controller
             'password' => 'required|confirmed',
             'nomor_telepon' => 'required',
             'alamat' => 'required',
+            'kota' => 'required',
             'deskripsi' => 'required',
             'gambar' => 'required|image|mimes:png,jpg,jpeg',
             'bank_nama' => 'required',
             'bank_nomor' => 'required',
             'bank_pemilik' => 'required'
         ]);
+        $cityName = '';
+        foreach ((new RajaOngkirAPI())->getCities() as $city) {
+            if ($city['city_id'] == 151) {
+                $cityName = $city['type'] . ' ' . $city['city_name'];
+                break;
+            }
+        }
         $user = User::create([
             'nama' => $request->nama,
             'email' => $request->email,
@@ -106,6 +116,8 @@ class RegisterController extends Controller
         }
         $user->konfeksi()->create([
             'alamat' => $request->alamat,
+            'kota' => $cityName,
+            'kota_id' => $request->kota,
             'deskripsi' => $request->deskripsi,
             'gambar' => $path,
             'bank_nama' => strtoupper($request->bank_nama),
