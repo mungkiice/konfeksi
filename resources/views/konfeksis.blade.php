@@ -32,7 +32,7 @@
 		<div class="col-lg-3 col-md-4 item-konfeksi">
 			<div class="single-product" style="overflow: hidden;">
 				<div style="width: 100%; height: 150px; text-align: center">
-					<span class="helper"></span>
+					<!-- <span class="helper"></span> -->
 					<img src="/storage/{{$konfeksi->gambar}}" style="vertical-align: middle;">
 				</div>
 				<div class="product-details">

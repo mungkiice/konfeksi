@@ -11,7 +11,7 @@
 					<div class="float-right">
 						<p class="mb-0 text-right">Rating</p>
 						<div class="fluid-container">
-							<h3 class="font-weight-medium text-right mb-0">{{round(App\Ulasan::avg('rating'))}}</h3>
+							<h3 class="font-weight-medium text-right mb-0">{{round(Auth::user()->konfeksi->ulasans()->avg('rating'))}}</h3>
 						</div>
 					</div>
 				</div>
@@ -31,7 +31,7 @@
 					<div class="float-right">
 						<p class="mb-0 text-right">Total Penawaran</p>
 						<div class="fluid-container">
-							<h3 class="font-weight-medium text-right mb-0">{{App\Penawaran::count()}}</h3>
+							<h3 class="font-weight-medium text-right mb-0">{{App\Penawaran::whereIn('pesanan_id',Auth::user()->konfeksi->pesanans->pluck('id'))->count()}}</h3>
 						</div>
 					</div>
 				</div>
@@ -51,7 +51,7 @@
 					<div class="float-right">
 						<p class="mb-0 text-right">Total Pesanan</p>
 						<div class="fluid-container">
-							<h3 class="font-weight-medium text-right mb-0">{{App\Pesanan::count()}}</h3>
+							<h3 class="font-weight-medium text-right mb-0">{{Auth::user()->konfeksi->pesanans()->count()}}</h3>
 						</div>
 					</div>
 				</div>
@@ -71,7 +71,7 @@
 					<div class="float-right">
 						<p class="mb-0 text-right">Total Produk</p>
 						<div class="fluid-container">
-							<h3 class="font-weight-medium text-right mb-0">{{App\Produk::count()}}</h3>
+							<h3 class="font-weight-medium text-right mb-0">{{Auth::user()->konfeksi->produks()->count()}}</h3>
 						</div>
 					</div>
 				</div>

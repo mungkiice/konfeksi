@@ -18,7 +18,7 @@
 	<div class="container">
 		<div class="row s_product_inner">
 			<div class="col-lg-6" style="text-align: center">
-				<span class="helper"></span>
+				<!-- <span class="helper"></span> -->
 				<img class="img-fluid" src="/storage/{{$konfeksi->gambar}}" style="vertical-align: middle;">
 			</div>
 			<div class="col-lg-5 offset-lg-1">

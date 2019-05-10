@@ -26,6 +26,18 @@ Route::get('/test', function(){
 	]);
 	return $response->getBody();
 });
+Route::get('/tracks', function(){
+	$client = new Client([
+		'base_uri' => 'https://api.aftership.com/v4' 
+	]);
+	$response = $client->get('/v4/trackings/jne/021500038275719', [
+		'headers' => [
+			'aftership-api-key' => 'e0f76661-bd3e-4fd4-bab2-810fa6edc3f7',
+			'Content-Type' => 'application/json'
+		],
+	]);
+	return $response->getBody();
+});
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout')->middleware('role:member,admin,konfeksi');
