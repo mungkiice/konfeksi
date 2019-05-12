@@ -4,7 +4,7 @@ namespace App;
 
 class Pesanan extends Model
 {
-	public static function create($userId, $produkId, $tenggatWaktu, $deskripsi, $fileDesain, $alamat, $jumlah)
+	public static function create($userId, $produkId, $tenggatWaktu, $deskripsi, $fileDesain, $alamat, $jumlah, $kurir)
 	{
 		$pesanan = static::query()->create([
 			'user_id' => $userId,
@@ -14,6 +14,7 @@ class Pesanan extends Model
 			'deskripsi' => $deskripsi,
 			'file_desain' => $fileDesain,
 			'alamat' => $alamat,
+			'kurir' => $kurir,
 			'jumlah' => json_encode($jumlah)
 		]);
 		return $pesanan;

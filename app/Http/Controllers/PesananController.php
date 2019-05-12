@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\AfterShipAPI;
 use App\Notifications\PesananBaru;
 use App\Notifications\ProgresPesanan;
 use App\Pesanan;
 use App\Produk;
+use App\RajaOngkirAPI;
 use App\StatusPesanan;
 use Illuminate\Http\Request;
 
@@ -27,7 +29,9 @@ class PesananController extends Controller
 	public function create($produkId)
 	{
 		$produk = Produk::find($produkId);
-		return view('pesan', compact('produk'));
+		$kotas = (new RajaOngkirAPI)->getCities();
+		$kurirs = (new AfterShipAPI)->getCouriers();
+		return view('pesan', compact('produk', 'kotas', 'kurirs'));
 	}
 
 	public function store(Request $request)
@@ -43,7 +47,7 @@ class PesananController extends Controller
 			'L' => $request->large ?: 0,
 			'XL' => $request->extra_large ?: 0
 		];
-		$pesanan = Pesanan::create(auth()->user()->id, $request->produk_id, $request->tenggat_waktu, $request->deskripsi, $path, $request->alamat, $jumlah);
+		$pesanan = Pesanan::create(auth()->user()->id, $request->produk_id, $request->tenggat_waktu, $request->deskripsi, $path, $request->alamat, $jumlah, $request->kurir);
 		$statusPesanan = StatusPesanan::create($pesanan->id, 'menunggu respon dari konfeksi');
 		$pesanan->produk->konfeksi->user->notify(new PesananBaru($pesanan));
 		return redirect('/')->with('flash', 'Pesanan berhasil dikirim');

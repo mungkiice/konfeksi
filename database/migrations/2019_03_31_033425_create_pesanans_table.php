@@ -24,6 +24,8 @@ class CreatePesanansTable extends Migration
             $table->string('file_desain');
             $table->text('jumlah');
             $table->string('alamat')->nullable();
+            $table->string('kurir')->nullable();
+            $table->string('nomor_resi')->nullable();
             $table->timestamps();
         
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

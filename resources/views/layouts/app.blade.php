@@ -31,12 +31,6 @@
 </head>
 
 <body>
-    <div id="flash-message" style="text-align: center;width: 100%;z-index: 10; ">
-        <strong id="flash-header"></strong> <span id="flash-body"></span>
-        <button type="button" class="close" onclick="document.getElementById('flash-message').style.display = 'none';">
-            <span class="glyphicon glyphicon-remove"></span>
-        </button>
-    </div>
     <!-- Start Header Area -->
     @include('layouts.nav')
     <!-- End Header Area -->

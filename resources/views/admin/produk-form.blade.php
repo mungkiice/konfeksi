@@ -12,21 +12,18 @@
 				<h4 class="card-title">Form Produk</h4>
 				<form class="forms-sample" method="POST" action="/konfeksi/produk" enctype="multipart/form-data">
 					@csrf
-<!-- 					<div class="form-group">						
-						<div class="images">
-							<div class="pic">
-								add
-							</div>
-						</div>
-						@if ($errors->has('gambar'))
-						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('gambar') }}</label>
-						@endif
-					</div> -->
 					<div class="form-group">
 						<label for="namaInput">Nama Produk</label>
 						<input type="text" class="form-control" id="namaINput" name="nama"> 
 						@if ($errors->has('nama'))
-						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('code') }}</label>
+						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('nama') }}</label>
+						@endif
+					</div>
+					<div class="form-group">
+						<label for="hargaInput">Harga Produk per piece</label>
+						<input type="number" class="form-control" name="harga">
+						@if ($errors->has('harga'))
+						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('harga') }}</label>
 						@endif
 					</div>
 					<div class="form-group">		
@@ -37,9 +34,7 @@
 						@endif
 					</div>
 					<div class="form-group">
-						<label for="deskripsiInput">Deskripsi Produk</label> 
-						<!-- <textarea class="form-control" id="deskripsiInput" rows="4" name="deskripsi"></textarea>  -->
-						<!-- <div id="summernoteExample"></div> -->
+						<label for="deskripsiInput">Deskripsi Produk <span style="color: red;font-size: 0.6rem;">* berisi size chart,bahan,dll</span></label> 
 						<textarea id="summernoteExample" name="deskripsi"></textarea>
 						@if ($errors->has('deskripsi'))
 						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('deskripsi') }}</label>

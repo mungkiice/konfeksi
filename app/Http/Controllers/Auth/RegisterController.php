@@ -98,7 +98,7 @@ class RegisterController extends Controller
         ]);
         $cityName = '';
         foreach ((new RajaOngkirAPI())->getCities() as $city) {
-            if ($city['city_id'] == 151) {
+            if ($city['city_id'] == $request->kota) {
                 $cityName = $city['type'] . ' ' . $city['city_name'];
                 break;
             }

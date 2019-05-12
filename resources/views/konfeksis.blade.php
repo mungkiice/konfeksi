@@ -31,14 +31,13 @@
 		@foreach($konfeksis as $konfeksi)
 		<div class="col-lg-3 col-md-4 item-konfeksi">
 			<div class="single-product" style="overflow: hidden;">
-				<div style="width: 100%; height: 150px; text-align: center">
-					<!-- <span class="helper"></span> -->
-					<img src="/storage/{{$konfeksi->gambar}}" style="vertical-align: middle;">
+				<div style="width: 100%; height: 150px; background: url('/storage/{{$konfeksi->gambar}}') center no-repeat;background-size: contain;">
 				</div>
 				<div class="product-details">
 					<a href="/konfeksis/{{$konfeksi->id}}" style="">
 						<h6>{{$konfeksi->user->nama}}</h6>
 					</a>
+					<p style="color: #ffba00;margin: 0;">{{$konfeksi->kota}}</p>
 					<p style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{$konfeksi->deskripsi}}</p>
 					<div class="prd-bottom">
 						@for ($i = 0; $i < 5; $i++)

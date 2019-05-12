@@ -38,8 +38,22 @@
 						<form action="/pesan" method="POST" enctype="multipart/form-data">
 							@csrf
 							<div class="form-group">
-								<label for="inputNama">Produk</label>
-								<input id="inputNama" type="text" name="first_name" class="form-control" value="{{$produk->nama}}" disabled>
+								<label for="namaProduk">Produk</label>
+								<div class="row">
+									<div class="col-md-6">
+										<img src="/storage/{{$produk->gambar}}" style="width: 100%;margin: auto;display: block">
+									</div>
+									<div class="col-md-6">
+										<label style="text-align: left;font-size: 0.8rem;display:block;">Nama</label>
+										<input id="namaProduk" type="text" name="first_name" class="form-control" value="{{$produk->nama}}" disabled>
+										<label style="text-align: left;font-size: 0.8rem;display:block;">Harga</label>
+										<input id="hargaProduk" type="text" name="first_name" class="form-control" value="Rp. {{number_format($produk->harga,0)}}/pcs" disabled style="text-align: right;">
+										<label style="text-align: left;font-size: 0.8rem;display:block;">Konfeksi</label>
+										<input id="namaKonfeksi" type="text" name="first_name" class="form-control" value="{{$produk->konfeksi->user->nama}}" disabled>
+										<label style="text-align: left;font-size: 0.8rem;display:block;">Kota</label>
+										<input id="kotaKonfeksi" type="text" name="first_name" class="form-control" value="{{$produk->konfeksi->kota}}" disabled>
+									</div>
+								</div>
 								<input type="hidden" name="produk_id" value="{{$produk->id}}">
 								@if ($errors->has('produk_id'))
 								<p style="color: red;">{{ $errors->first('produk_id') }}</p>
@@ -91,12 +105,12 @@
 							</div>
 							<div class="form-group">
 								<label for="inputDeskripsi">Deskripsi Pesanan</label>
-								<textarea id="inputDeskripsi" class="form-control" rows="4" name="deskripsi"></textarea>
+								<textarea id="inputDeskripsi" class="form-control" rows="4" name="deskripsi" placeholder="Contoh:bahan pakaian, ukuran, dll."></textarea>
 								@if ($errors->has('deskripsi'))
 								<p style="color: red;">{{ $errors->first('deskripsi') }}</p>
 								@endif
 							</div>
-							<div class="form-group">
+							<!-- <div class="form-group">
 								<p style="text-align: left;color: red;margin-bottom: 0">* Pesanan regular, tanggal selesai ditentukan konfeksi</p>
 								<p style="text-align: left;color: red">* Pesanan express, pelanggan dapat menentukan tanggal selesai</p>
 							</div>
@@ -115,7 +129,7 @@
 									<p style="color: red;">{{ $errors->first('tenggat_waktu') }}</p>
 									@endif
 								</div>
-							</div>
+							</div> -->
 							<div class="form-group">
 								<div class="switch-wrap d-flex justify-content-between">
 									<p>Barang diambil dilokasi konveksi</p>
@@ -132,8 +146,17 @@
 									</div>
 								</div>
 								<div class="form-alamat">
-									<label for="inputDeskripsi">Alamat Penerima Barang</label>
-									<textarea id="inputDeskripsi" class="form-control" rows="4" name="alamat"></textarea>
+									<label for="inputAlamat">Alamat Penerima Barang</label>
+									<textarea id="inputAlamat" class="form-control" rows="4" name="alamat"></textarea>
+									<label for="inputKota">Kota/Kabupaten</label>
+									<select id="inputKota" class="form-control js-example-basic-single" name="kota" style="display: block;width: 100%;">
+										@foreach($kotas as $kota)
+										<option value="{{$kota['city_id']}}">{{$kota['type'] .' ' .$kota['city_name']}}</option>
+										@endforeach
+									</select>
+									<label for="inputKurir">Jenis Pengiriman</label>
+									<select id="inputKurir" class="form-control" name="kurir" style="display: block;width: 100%;">
+									</select>
 								</div>
 							</div>
 							<button type="submit" class="genric-btn primary circle mt-4">Pesan</button>
@@ -149,6 +172,7 @@
 
 @section('custom-js')
 <script src="{{ asset('assets/js/shared/formpickers.js') }}"></script>
+<script src="{{ asset('assets/js/shared/select2.js') }}"></script>
 <script src="{{ asset('assets/js/shared/dropify.js') }}"></script>
 <script>
 	$("input[type='radio'][name='is_expedition']").change(function(){
@@ -164,6 +188,19 @@
 		}else{
 			$('.form-express').hide();
 		}
+	});
+	$('select#inputKota').on('change', function(){
+		kota = this.value;
+		$('#inputKurir').empty();
+		$.get('/kurir/{{$produk->konfeksi->kota_id}}/' + kota , function(data){
+			for (var i = 0; i < data.length; i++) {
+				var kurir = data[i].code;
+				for (var j = 0; j < data[i].costs.length; j++) {
+					var jenis = data[i].costs[j];
+					$('select#inputKurir').append($('<option></option>').attr('value', kurir + ' ' + jenis.service).text(kurir.toUpperCase() + ' ' + jenis.service + ' est.' + jenis.cost[0].etd + ' hari Rp.' + jenis.cost[0].value));
+				}
+			}
+		});
 	});
 </script>
 @endsection

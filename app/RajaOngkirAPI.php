@@ -28,17 +28,17 @@ class RajaOngkirAPI
 
 	public function getCost($origin, $destination, $weight, $courier)
 	{
-		$response = $this->client->get('cost', [
+		$response = $this->client->post('cost', [
 			'headers' => [
 				'key' => $this->apiKey
 			],
-			'body' => [
+			'json' => [
 				'origin' => $origin,
 				'destination' => $destination,
 				'weight' => $weight,
 				'courier' => $courier
 			]
 		]);
-		return json_decode($response->getBody(), true);
+		return json_decode($response->getBody(), true)['rajaongkir']['results'];
 	}
 }

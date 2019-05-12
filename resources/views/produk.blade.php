@@ -25,26 +25,21 @@
 	<div class="product_image_area">
 		<div class="container">
 			<div class="row s_product_inner">
-				<div class="col-lg-6">
+				<!-- <div class="col-lg-6"style="background: url('/storage/{{$produk->gambar}}') center no-repeat;background-size: contain;"> -->
+				<div class="col-lg-6">		
 					<img class="img-fluid" src="/storage/{{$produk->gambar}}" style="max-height: 400px; width: 50%; margin-left: 25%"></img>
 				</div>
 				<div class="col-lg-5 offset-lg-1">
 					<div class="s_product_text">
 						<h3>{{$produk->nama}}</h3>
 						<ul class="list mb-4">
-							<li><a class="active" href="#"><span style="width: 120px;">Vendor</span> : {{$produk->konfeksi->user->nama}}</a></li>
+							<li><a class="active" href="/konfeksis/{{$produk->konfeksi->id}}"><span style="width: 120px;">Vendor</span> : {{$produk->konfeksi->user->nama}}</a></li>
+							<li><a href="#"><span style="width: 120px;">Kota</span> : {{$produk->konfeksi->kota}}</a></li>
 							<li><a href="#"><span style="width: 120px;">Nomor Telepon</span> : {{$produk->konfeksi->user->nomor_telepon}}</a></li>
 						</ul>
-<!-- 						<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-							tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-							quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-							consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-							cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p> -->
+						<h4>Rp. {{ number_format($produk->harga, 0) }} /pcs</h4>
 						<div class="card_area d-flex align-items-center">
 							<a class="primary-btn" href="/pesan/{{$produk->id}}">Pesan</a>
-							<!-- <a class="icon_btn" href="#"><i class="lnr lnr lnr-diamond"></i></a>
-							<a class="icon_btn" href="#"><i class="lnr lnr lnr-heart"></i></a> -->
 						</div>
 					</div>
 				</div>
@@ -55,15 +50,8 @@
 		<div class="container">
 			<ul class="nav nav-tabs" id="myTab" role="tablist">
 				<h2>Deskripsi Produk</h2>
-				<!-- <li class="nav-item">
-					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Description</a>
-				</li> -->
-
 			</ul>
 			<div class="tab-content" id="myTabContent">
-<!-- 				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-					<p>{!! $produk->deskripsi !!}</p>
-				</div> -->
 				{!! $produk->deskripsi !!}
 			</div>
 		</div>

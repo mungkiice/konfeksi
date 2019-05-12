@@ -27,6 +27,7 @@ Route::get('/test', function(){
 	}
 	return $cityName;
 });
+Route::get('/kurir/{asal}/{tujuan}', 'KurirController@infoEkspedisi');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout')->middleware('role:member,admin,konfeksi');

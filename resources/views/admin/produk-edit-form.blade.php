@@ -29,6 +29,13 @@
 						@endif
 					</div>
 					<div class="form-group">
+						<label for="hargaInput">Harga Produk per piece</label>
+						<input type="number" class="form-control" name="harga" value="{{$produk->harga}}">
+						@if ($errors->has('harga'))
+						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('harga') }}</label>
+						@endif
+					</div>
+					<div class="form-group">
 						<label for="deskripsiInput">Deskripsi Produk</label> 
 						<textarea id="summernoteExample" name="deskripsi">{{$produk->deskripsi}}</textarea> 
 						@if ($errors->has('deskripsi'))

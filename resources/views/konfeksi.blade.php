@@ -17,15 +17,14 @@
 <div class="product_image_area">
 	<div class="container">
 		<div class="row s_product_inner">
-			<div class="col-lg-6" style="text-align: center">
-				<!-- <span class="helper"></span> -->
-				<img class="img-fluid" src="/storage/{{$konfeksi->gambar}}" style="vertical-align: middle;">
+			<div class="col-lg-6" style="background: url('/storage/{{$konfeksi->gambar}}') center no-repeat;background-size: contain;">
 			</div>
 			<div class="col-lg-5 offset-lg-1">
 				<div class="s_product_text">
 					<h3>{{$konfeksi->user->nama}}</h3>
 					<ul class="list">
 						<li><a class="active" href="#" disabled><span style="width: 120px;">Alamat</span> : {{$konfeksi->alamat}}</a></li>
+						<li><a class="active" href="#" disabled><span style="width: 120px;">Kota</span> : {{$konfeksi->kota}}</a></li>
 						<li><a class="active" href="#" disabled><span style="width: 120px;">Nomor Telepon</span> : {{$konfeksi->user->nomor_telepon}}</a></li>
 					</ul>
 					<p>{{$konfeksi->deskripsi}}</p>

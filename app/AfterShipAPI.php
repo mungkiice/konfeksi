@@ -24,7 +24,7 @@ class AfterShipAPI
 				'Content-Type' => 'application/json'
 			],
 		]);
-		return json_decode($response->getBody(), true);
+		return json_decode($response->getBody(), true)['data']['couriers'];
 	}
 
 	public function getCheckpoints($courier, $trackingNumber)

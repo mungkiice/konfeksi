@@ -35,7 +35,8 @@ class ProdukController extends Controller
     	$this->validate($request, [
             'nama' => 'required',
             'deskripsi' => 'required',
-            'gambar' => 'required|mimes:jpg,jpeg,png'
+            'gambar' => 'required|mimes:jpg,jpeg,png',
+            'harga' => 'required'
         ]);
         $path = '';
         if($request->hasFile('gambar')){
@@ -46,7 +47,8 @@ class ProdukController extends Controller
             'konfeksi_id' => auth()->user()->konfeksi->id,
             'nama' => $request->nama,
             'deskripsi' => $request->deskripsi,
-            'gambar' => $path
+            'gambar' => $path,
+            'harga' => $request->harga
         ]);
 
         return redirect('/konfeksi/produk')->with('flash', 'produk berhasil ditambahkan');
@@ -63,7 +65,8 @@ class ProdukController extends Controller
             $produk->update([
                 'nama' => $request->nama ?: $produk->nama,
                 'deskripsi' => $request->deskripsi ?: $produk->deskripsi,
-                'gambar' => $path ?: $produk->gambar
+                'gambar' => $path ?: $produk->gambar,
+                'harga' => $request->harga ?: $produk->harga
             ]);
         }
     	return redirect('/konfeksi/produk')->with('flash', 'Produk hasil diperbarui');

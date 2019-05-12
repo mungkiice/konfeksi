@@ -19,6 +19,7 @@ class CreateProduksTable extends Migration
             $table->string('nama');
             $table->text('deskripsi');
             $table->string('gambar');
+            $table->decimal('harga', 13, 0)->default(0);
             $table->timestamps();
 
             $table->foreign('konfeksi_id')->references('id')->on('konfeksis')->onDelete('cascade');

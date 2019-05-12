@@ -13,7 +13,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
           <ul class="nav navbar-nav menu_nav ml-auto">
-            <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
             <li class="nav-item"><a href="/konfeksis" class="nav-link">Daftar Konfeksi</a></li>
             @if(Auth::check())
             <li class="nav-item"><a href="/pesanansaya" class="nav-link">Pesanan Saya</a></li>

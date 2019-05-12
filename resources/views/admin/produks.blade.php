@@ -11,6 +11,7 @@
 					<thead>
 						<tr>
 							<th>Nama</th>
+							<th>Harga per piece</th>
 							<th>Gambar</th>
 							<th>Tindakan</th>
 						</tr>
@@ -20,6 +21,9 @@
 						<tr>
 							<td>
 								{{$produk->nama}}
+							</td>
+							<td>
+								Rp. {{number_format($produk->harga,0)}}
 							</td>
 							<td>
 								<img class="img-fluid" src="/storage/{{$produk->gambar}}" style="width: 200px; border-radius: 0; height: auto; margin: 0;">
