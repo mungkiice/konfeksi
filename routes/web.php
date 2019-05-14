@@ -16,16 +16,7 @@ use GuzzleHttp\Client;
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/test', function(){
-	$client = new RajaOngkirAPI();
-	$cities = $client->getCities();
-	$cityName = '';
-	foreach ($cities as $city) {
-		if ($city['city_id'] == 151) {
-			$cityName = $city['type'] . ' ' . $city['city_name'];
-			break;
-		}
-	}
-	return $cityName;
+	return view('welcome');
 });
 Route::get('/kurir/{asal}/{tujuan}', 'KurirController@infoEkspedisi');
 Route::get('/login', 'Auth\LoginController@showLoginForm');

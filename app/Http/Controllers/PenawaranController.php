@@ -19,8 +19,8 @@ class PenawaranController extends Controller
     public function show($kodePesanan)
     {
         $pesanan = Pesanan::where('kode_pesanan', $kodePesanan)->first();
-        $penawaran = $pesanan->penawaran->first();
-        return view('penawaran', compact('penawaran'));
+        $penawarans = $pesanan->penawaran()->latest()->get();
+        return view('penawaran', compact('penawarans', 'pesanan'));
     }
 
     public function store(Request $request, $pesananId)
