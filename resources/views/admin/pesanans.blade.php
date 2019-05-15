@@ -45,9 +45,7 @@
 							</td>
 							<td style="white-space: normal;">{{optional($pesanan->statusPesanans()->latest()->first())->keterangan}}</td>
 							<td>
-								@if($pesanan->penawaran == null)
 								<a class="btn btn-primary mb-1" href="/konfeksi/penawaran/{{$pesanan->id}}/create" style="padding: 0.5rem;">Buat Penawaran</a><br>
-								@endif
 								@if($pesanan->statusPesanans()->count() > 1)
 								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#statusModal-{{$pesanan->id}}" style="padding: 0.5rem;">Perbarui Status</button>
 								@endif

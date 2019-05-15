@@ -46,7 +46,7 @@
 						</div> -->
 						<div class="list-penawaran container" style="height:585px;overflow: hidden auto;">
 							@foreach($penawarans as $penawaran)
-							<div class="row" style="border: 5px solid white;padding: 10px;">
+							<div class="row" style="border: 5px solid white;padding: 10px;margin-bottom: 10px;">
 								<div class="col-md-12 col-lg-12">
 									<h4 style="margin-bottom: 10px;">{{date('d M Y', strtotime($penawaran->created_at))}}</h4>
 								</div>
@@ -68,14 +68,20 @@
 								</div>
 								<div class="col-md-12 col-lg-12">
 									@if($penawaran->status == 'terkirim')
-									<form co method="POST" action="/penawaran/{{$penawaran->id}}/terima" style="display: inline-block;">
+									<form co method="POST" action="/penawaran/{{$penawaran->id}}/konfirmasi" style="display: inline-block;">
 										@csrf
-										<button type="submit" class="genric-btn primary circle mt-4">Terima</button>
+										<input type="hidden" name="status" value="diterima">
+										<button type="submit" class="genric-btn primary circle ">Terima</button>
 									</form>
-									<form method="POST" action="/penawaran/{{$penawaran->id}}/tolak" style="display: inline-block;">
+									<form method="POST" action="/penawaran/{{$penawaran->id}}/konfirmasi" style="display: inline-block;">
 										@csrf
-										<button type="submit" class="genric-btn gray_btn circle mt-4">Tolak</button>
+										<input type="hidden" name="status" value="ditolak">
+										<button type="submit" class="genric-btn gray_btn circle ">Tolak</button>
 									</form>
+									@elseif($penawaran->status == 'diterima')
+									<button class="genric-btn success circle ">Telah Diterima</button>
+									@elseif($penawaran->status == 'ditolak')
+									<button class="genric-btn danger circle">Telah Ditolak</button>
 									@endif
 								</div>
 							</div>

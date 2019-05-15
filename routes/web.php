@@ -39,8 +39,7 @@ Route::post('/pesan', 'PesananController@store')->middleware('role:member');
 Route::get('/pesan/{produkId}', 'PesananController@create')->middleware('role:member');
 Route::get('/pesanansaya', 'PesananController@indexMember')->middleware('role:member');
 Route::get('/penawaran/{kodePesanan}', 'PenawaranController@show')->middleware('role:member');
-Route::post('/penawaran/{penawaranId}/terima', 'PenawaranController@confirm')->middleware('role:member');
-Route::post('/penawaran/{penawaranId}/tolak', 'PenawaranController@reject')->middleware('role:member');
+Route::post('/penawaran/{penawaranId}/konfirmasi', 'PenawaranController@konfirmasi')->middleware('role:member');
 
 Route::prefix('admin')->group(function(){
 	Route::get('/', 'DashboardController@adminDashboard')->middleware('role:admin');	
