@@ -50,17 +50,16 @@ class PenawaranController extends Controller
             'status' => $request->status
         ]);
         $pesanan = Pesanan::find($penawaran->pesanan_id);
-        $pesanan->update([
-            'biaya' => $penawaran->biaya,
-            'tenggat_waktu' => $penawaran->tenggat_waktu,
-            'deskripsi' => $penawaran->deskripsi
-        ]);
         if ($request->status == 'diterima') {
+            $pesanan->update([
+                'biaya' => $penawaran->biaya,
+                'tenggat_waktu' => $penawaran->tenggat_waktu,
+                'deskripsi' => $penawaran->deskripsi
+            ]);
             $statusPesanan = StatusPesanan::create($pesanan->id, 'menunggu pembayaran DP');
             return view('invoice', compact('pesanan'))->with('flash', 'Penawaran berhasil disetujui');
         }else{
-            $statusPesanan = StatusPesanan::create($pesanan->id, 'penawaran ditolak');
-            return redirect('/pesanansaya')->with('flash', 'Penawaran berhasil ditolak');
+            return back()->with('flash', 'Penawaran berhasil ditolak');
         }
     }
 }
