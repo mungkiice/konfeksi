@@ -56,6 +56,7 @@
 								<a href="/produks/{{$produk->id}}">									
 									<h6>{{$produk->nama}}</h6>
 								</a>
+								<p>Rp. {{number_format($produk->harga, 0)}}</p>
 							</div>
 						</div>
 					</div>

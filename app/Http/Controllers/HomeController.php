@@ -22,7 +22,7 @@ class HomeController extends Controller
      */
     public function index()
     {
-    	$artikels = Artikel::all();
+    	$artikels = Artikel::semua();
         return view('home', compact('artikels'))->with('flash', 'Flash di member');
     }
 

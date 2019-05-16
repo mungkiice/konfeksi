@@ -15,9 +15,6 @@ use GuzzleHttp\Client;
 */
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/test', function(){
-	return view('welcome');
-});
 Route::get('/kurir/{asal}/{tujuan}', 'KurirController@infoEkspedisi');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');

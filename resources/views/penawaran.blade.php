@@ -45,7 +45,7 @@
 							</div>
 						</div> -->
 						<div class="list-penawaran container" style="height:585px;overflow: hidden auto;">
-							@foreach($penawarans as $penawaran)
+							@foreach($penawarans as $key => $penawaran)
 							<div class="row" style="border: 5px solid white;padding: 10px;margin-bottom: 10px;">
 								<div class="col-md-12 col-lg-12">
 									<h4 style="margin-bottom: 10px;">{{date('d M Y', strtotime($penawaran->created_at))}}</h4>
@@ -67,7 +67,7 @@
 									</div>
 								</div>
 								<div class="col-md-12 col-lg-12">
-									@if($penawaran->status == 'terkirim')
+									@if($penawaran->status == 'terkirim' && $key == $penawarans->keys()->first())
 									<form co method="POST" action="/penawaran/{{$penawaran->id}}/konfirmasi" style="display: inline-block;">
 										@csrf
 										<input type="hidden" name="status" value="diterima">
@@ -78,9 +78,9 @@
 										<input type="hidden" name="status" value="ditolak">
 										<button type="submit" class="genric-btn gray_btn circle ">Tolak</button>
 									</form>
-									@elseif($penawaran->status == 'diterima')
+									@elseif($penawaran->status == 'diterima' && $key == $penawarans->keys()->first())
 									<button class="genric-btn success circle ">Telah Diterima</button>
-									@elseif($penawaran->status == 'ditolak')
+									@elseif($penawaran->status == 'ditolak' && $key == $penawarans->keys()->first())
 									<button class="genric-btn danger circle">Telah Ditolak</button>
 									@endif
 								</div>

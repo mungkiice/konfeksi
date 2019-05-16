@@ -41,6 +41,7 @@ class BuatPesananTest extends TestCase
       'file_desain' => null,
       'small' => 2,
       'medium' => 10,
+      'kurir' => 'jne REG'
     ]);
     $this->assertEquals(0, Pesanan::count());
     $response->assertSessionHasErrors('file_desain');

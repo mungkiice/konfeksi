@@ -40,10 +40,24 @@ class KonfirmasiPenawaranTest extends TestCase
     public function jalur_1()
     {
     	$this->actingAs($this->user);
-    	$response = $this->post('/penawaran/'.$this->penawaran->id.'/terima');
-    	$this->assertEquals('diterima', Penawaran::latest()->first()->status);
+    	$response = $this->post('/penawaran/'.$this->penawaran->id.'/konfirmasi', [
+    		'status' => 'diterima'
+    	]);
+    	$this->assertEquals('diterima', $this->penawaran->status);
     	$this->assertEquals(1, StatusPesanan::count());
     	$response->assertSee('INVOICE');
     	$response->assertSessionHas('flash', 'Penawaran berhasil disetujui');
+    }
+
+	/** @test */
+    public function jalur_2()
+    {
+    	$this->actingAs($this->user);
+    	$response = $this->post('/penawaran/'.$this->penawaran->id.'/konfirmasi', [
+    		'status' => 'ditolak'
+    	]);
+    	$this->assertEquals('ditolak', $this->penawaran->status);
+    	$this->assertEquals(0, StatusPesanan::count());
+    	$response->assertSessionHas('flash', 'Penawaran berhasil ditolak');
     }
 }

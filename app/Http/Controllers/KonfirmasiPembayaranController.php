@@ -11,7 +11,7 @@ class KonfirmasiPembayaranController extends Controller
 {
     public function create($pesananId)
     {
-        $pesanan = Pesanan::find($pesananId);
+        $pesanan = Pesanan::temukan($pesananId);
         return view('konfirmasi-pembayaran', compact('pesanan'));
     }
 
@@ -21,8 +21,8 @@ class KonfirmasiPembayaranController extends Controller
     		'gambar' => 'required'
     	]);
         $path = $request->gambar->store('pembayaran', 'public');
-        $pesanan = Pesanan::where('kode_pesanan', $request->kode_pesanan)->first();
-        $konfirmasiPembayaran = KonfirmasiPembayaran::create($pesanan->id, $path);
+        $pesanan = Pesanan::filter($request->kode_pesanan)->first();
+        $konfirmasiPembayaran = KonfirmasiPembayaran::buat($pesanan->id, $path);
         $pesanan->produk->konfeksi->user->notify(new Konfirmasi($konfirmasiPembayaran));
         return redirect('/')->with('flash', 'Konfirmasi Pembayaran berhasil disimpan');
     }

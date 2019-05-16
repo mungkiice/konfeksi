@@ -4,7 +4,7 @@ namespace App;
 
 class Pesanan extends Model
 {
-	public static function create($userId, $produkId, $tenggatWaktu, $deskripsi, $fileDesain, $alamat, $jumlah, $kurir)
+	public static function buat($userId, $produkId, $tenggatWaktu, $deskripsi, $fileDesain, $alamat, $jumlah, $kurir, $nomorResi)
 	{
 		$pesanan = static::query()->create([
 			'user_id' => $userId,
@@ -15,16 +15,38 @@ class Pesanan extends Model
 			'file_desain' => $fileDesain,
 			'alamat' => $alamat,
 			'kurir' => $kurir,
+			'nomor_resi' => $nomorResi,
 			'jumlah' => json_encode($jumlah)
 		]);
 		return $pesanan;
+	}
+
+	public static function temukan($pesananId)
+	{
+		$pesanan = static::query()->find($pesananId);
+		return $pesanan;
+	}
+
+	public static function filter($kodePesanan)
+	{
+		$pesanan = static::query()->where('kode_pesanan', $kodePesanan)->get();
+		return $pesanan;
+	}
+
+	public function perbarui($biaya, $tenggatWaktu, $deskripsi)
+	{
+		parent::update([
+			'biaya' => $biaya,
+			'tenggat_waktu' => $tenggatWaktu,
+			'deskripsi' => $deskripsi
+		]);
 	}
 
 	public function statusPesanans()
 	{
 		return $this->hasMany(StatusPesanan::class);
 	}
-
+	
 	public function user()
 	{
 		return $this->belongsTo(User::class);

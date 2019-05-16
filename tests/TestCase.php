@@ -47,6 +47,8 @@ abstract class TestCase extends BaseTestCase
 			'user_id' => $this->konfeksiUser->id,
 			'alamat' => 'Jalan Sumbersari 2 No.51',
 			'deskripsi' => 'Konfeksi terbaik di malang',
+			'kota' => 'Kota Malang',
+			'kota_id' => 256,
 			'diverifikasi' => true,
 			'gambar' => UploadedFile::fake()->image('konfeksi.png'),
 			'bank_nama' => 'BCA',

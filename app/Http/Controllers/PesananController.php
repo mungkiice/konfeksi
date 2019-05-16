@@ -15,8 +15,7 @@ class PesananController extends Controller
 {
 	public function index()
 	{
-		// $pesanans = auth()->user()->konfeksi->pesanans;
-		$pesanans = Pesanan::all();
+		$pesanans = auth()->user()->konfeksi->pesanans;
 		return view('admin.pesanans', compact('pesanans'));
 	}
 
@@ -28,7 +27,7 @@ class PesananController extends Controller
 
 	public function create($produkId)
 	{
-		$produk = Produk::find($produkId);
+		$produk = Produk::temukan($produkId);
 		$kotas = (new RajaOngkirAPI)->getCities();
 		$kurirs = (new AfterShipAPI)->getCouriers();
 		return view('pesan', compact('produk', 'kotas', 'kurirs'));
@@ -47,20 +46,20 @@ class PesananController extends Controller
 			'L' => $request->large ?: 0,
 			'XL' => $request->extra_large ?: 0
 		];
-		$pesanan = Pesanan::create(auth()->user()->id, $request->produk_id, $request->tenggat_waktu, $request->deskripsi, $path, $request->alamat, $jumlah, $request->kurir);
-		$statusPesanan = StatusPesanan::create($pesanan->id, 'menunggu respon dari konfeksi');
+		$pesanan = Pesanan::buat(auth()->user()->id, $request->produk_id, $request->tenggat_waktu, $request->deskripsi, $path, $request->alamat, $jumlah, $request->kurir, '021500038275719');
+		$statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu respon dari konfeksi');
 		$pesanan->produk->konfeksi->user->notify(new PesananBaru($pesanan));
 		return redirect('/')->with('flash', 'Pesanan berhasil dikirim');
 	}
 
 	public function updateStatus(Request $request, $pesananId)
 	{
-		$pesanan = Pesanan::find($pesananId);
+		$pesanan = Pesanan::temukan($pesananId);
 		$this->validate($request, [
 			'keterangan' => 'required'
 		]);
 
-		$statusPesanan = StatusPesanan::create($pesanan->id, $request->keterangan);
+		$statusPesanan = StatusPesanan::buat($pesanan->id, $request->keterangan);
 		$pesanan->user->notify(new ProgresPesanan($statusPesanan));
 		return back()->with('flash', 'Status Pesanan berhasil disimpan');
 	}

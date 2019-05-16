@@ -4,7 +4,7 @@ namespace App;
 
 class Penawaran extends Model
 {
-	public static function create($pesananId, $tenggatWaktu, $biaya, $deskripsi, $gambar)
+	public static function buat($pesananId, $tenggatWaktu, $biaya, $deskripsi, $gambar)
 	{
 		$penawaran = static::query()->create([
             'pesanan_id' => $pesananId,
@@ -15,6 +15,20 @@ class Penawaran extends Model
 		]);
 		return $penawaran;
 	}
+
+    public static function temukan($penawaranId)
+    {
+        $penawaran = static::query()->find($penawaranId);
+        return $penawaran;
+    }
+
+    public function perbarui($status)
+    {
+        parent::update([
+            'status' => $status
+        ]);
+    }
+
     public function pesanan()
     {
     	return $this->belongsTo(Pesanan::class);

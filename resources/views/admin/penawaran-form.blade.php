@@ -42,7 +42,7 @@
 						@endif
 					</div>
 					<button type="submit" class="btn btn-success mr-2" style="float: right;">Kirim</button>
-					<a href="/konfeksi/pesanan" class="btn btn-light">Cancel</a>
+					<a href="/konfeksi/pesanan" class="btn btn-light">Kembali</a>
 				</form>
 			</div>
 		</div>

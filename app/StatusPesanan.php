@@ -4,7 +4,7 @@ namespace App;
 
 class StatusPesanan extends Model
 {
-	public static function create($pesananId, $keterangan)
+	public static function buat($pesananId, $keterangan)
 	{
 		$statusPesanan = static::query()->create([
 			'pesanan_id' => $pesananId,

@@ -7,9 +7,6 @@
 @section('content')
 <section class="tracking_box_area">  
   <header class="clearfix">
-    <div id="logo">
-      <img class="logo" src="/img/logo.png">
-    </div>
     <h1>INVOICE #{{ $pesanan->kode_pesanan }}</h1>
     <div id="project">
       <div><span>PEMESAN</span> {{ $pesanan->user->nama }}</div>
@@ -86,5 +83,6 @@
       </div>
     </div>
   </main>
+  <a href="/pesanansaya" class="genric-btn primary circle" style="margin: auto;display: block;width: 100px;text-decoration: none;">Kembali</a>
 </section>
 @endsection

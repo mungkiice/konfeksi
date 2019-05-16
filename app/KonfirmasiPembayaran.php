@@ -4,7 +4,7 @@ namespace App;
 
 class KonfirmasiPembayaran extends Model
 {
-	public static function create($pesananId, $gambar)
+	public static function buat($pesananId, $gambar)
 	{
 		$konfirmasiPembayaran = static::query()->create([
 			'pesanan_id' => $pesananId,
