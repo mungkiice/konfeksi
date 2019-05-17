@@ -4,7 +4,7 @@ namespace App;
 
 class Pesanan extends Model
 {
-	public static function buat($userId, $produkId, $tenggatWaktu, $deskripsi, $fileDesain, $alamat, $jumlah, $kurir, $nomorResi)
+	public static function buat($userId, $produkId, $tenggatWaktu, $deskripsi, $fileDesain, $alamat, $jumlah, $kurir)
 	{
 		$pesanan = static::query()->create([
 			'user_id' => $userId,
@@ -15,7 +15,6 @@ class Pesanan extends Model
 			'file_desain' => $fileDesain,
 			'alamat' => $alamat,
 			'kurir' => $kurir,
-			'nomor_resi' => $nomorResi,
 			'jumlah' => json_encode($jumlah)
 		]);
 		return $pesanan;
@@ -29,7 +28,7 @@ class Pesanan extends Model
 
 	public static function filter($kodePesanan)
 	{
-		$pesanan = static::query()->where('kode_pesanan', $kodePesanan)->get();
+		$pesanan = static::query()->where('kode_pesanan', $kodePesanan)->first();
 		return $pesanan;
 	}
 
@@ -38,7 +37,14 @@ class Pesanan extends Model
 		parent::update([
 			'biaya' => $biaya,
 			'tenggat_waktu' => $tenggatWaktu,
-			'deskripsi' => $deskripsi
+			'deskripsi' => $this->deskripsi . '. - ' . $deskripsi
+		]);
+	}
+
+	public function isiNomorResi($nomorResi)
+	{
+		parent::update([
+			'nomor_resi' => $nomorResi
 		]);
 	}
 

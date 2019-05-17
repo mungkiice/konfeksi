@@ -28,8 +28,8 @@ class PesananController extends Controller
 	public function create($produkId)
 	{
 		$produk = Produk::temukan($produkId);
-		$kotas = (new RajaOngkirAPI)->getCities();
-		$kurirs = (new AfterShipAPI)->getCouriers();
+		$kotas = RajaOngkirAPI::getCities();
+		$kurirs = AfterShipAPI::getCouriers();
 		return view('pesan', compact('produk', 'kotas', 'kurirs'));
 	}
 
@@ -46,7 +46,7 @@ class PesananController extends Controller
 			'L' => $request->large ?: 0,
 			'XL' => $request->extra_large ?: 0
 		];
-		$pesanan = Pesanan::buat(auth()->user()->id, $request->produk_id, $request->tenggat_waktu, $request->deskripsi, $path, $request->alamat, $jumlah, $request->kurir, '021500038275719');
+		$pesanan = Pesanan::buat(auth()->user()->id, $request->produk_id, $request->tenggat_waktu, $request->deskripsi, $path, $request->alamat, $jumlah, $request->kurir);
 		$statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu respon dari konfeksi');
 		$pesanan->produk->konfeksi->user->notify(new PesananBaru($pesanan));
 		return redirect('/')->with('flash', 'Pesanan berhasil dikirim');
@@ -61,6 +61,10 @@ class PesananController extends Controller
 
 		$statusPesanan = StatusPesanan::buat($pesanan->id, $request->keterangan);
 		$pesanan->user->notify(new ProgresPesanan($statusPesanan));
+		if ($request->nomor_resi != null) {
+			$pesanan->isiNomorResi($request->nomor_resi);
+			AfterShipAPI::addTracking($pesanan->kurir, $request->nomor_resi);
+		}
 		return back()->with('flash', 'Status Pesanan berhasil disimpan');
 	}
 }

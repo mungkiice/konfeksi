@@ -15,7 +15,6 @@ use GuzzleHttp\Client;
 */
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/kurir/{asal}/{tujuan}', 'KurirController@infoEkspedisi');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
 Route::post('/login', 'Auth\LoginController@login');
 Route::post('/logout', 'Auth\LoginController@logout')->middleware('role:member,admin,konfeksi');
@@ -27,6 +26,8 @@ Route::get('/register/konfeksi', 'Auth\RegisterController@showKonfeksiRegistrati
 Route::post('/register/konfeksi', 'Auth\RegisterController@konfeksiRegister');
 
 
+Route::get('/kurir/{asal}/{tujuan}', 'KurirController@infoEkspedisi');
+Route::get('/checkpoint/{kodePesanan}', 'KurirController@checkpoints');
 Route::get('/konfeksis', 'KonfeksiController@index');
 Route::get('/konfeksis/{konfeksiId}', 'KonfeksiController@show');
 Route::get('/produks/{produkId}', 'ProdukController@show');

@@ -33,9 +33,9 @@
 						</tr>
 					</thead>
 					<tbody>
-						@foreach($pesanans as $pesanan)
-						<tr>
-							<td>{{ $pesanan->kode_pesanan }}</td>
+						@foreach($pesanans as $key => $pesanan)
+						<tr class="list-pesanan">
+							<td class="kode-pesanan" id="kode-{{$key}}">{{ $pesanan->kode_pesanan }}</td>
 							<td>
 								<div class="media">
 									<img src="/storage/{{$pesanan->produk->gambar}}" style="max-width: 200px; height: auto" alt="">
@@ -49,9 +49,9 @@
 								<h5>{{date('d M Y', strtotime($pesanan->tenggat_waktu))}}</h5>
 								@endif
 							</td>
-							<td>
-								@foreach($pesanan->statusPesanans()->latest()->get() as $status)
-								- {{ $status->keterangan }} <br>
+							<td id="status-pesanan-{{$key}}">
+								@foreach($pesanan->statusPesanans as $status)
+								- {{ ucwords($status->keterangan) }} <br>
 								@endforeach
 							</td>
 							<td style="width: 200px;">
@@ -66,4 +66,21 @@
 		</div>
 	</div>
 </section>
+@endsection
+
+@section('custom-js')
+<script>
+	$(document).ready(function(){
+		$('.kode-pesanan').each(function(){
+			// $(this).hide();
+			let id = $(this).attr('id').match(/\d+/)[0];
+			console.log(id);
+			$.get('/checkpoint/'+$(this).text(), function(data){
+				for (var i = 0; i < data.length; i++) {
+					$('#status-pesanan-'+id).append('- '+data[i].message+'<br>');
+				}
+			})
+		});
+	});
+</script>
 @endsection

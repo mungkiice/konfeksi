@@ -6,31 +6,30 @@ use GuzzleHttp\Client;
 
 class RajaOngkirAPI
 {
-	protected $client;
-	protected $apiKey = '6051f010f4d02b46d5a7d703f03c68d0';
+	protected static $apiKey = '6051f010f4d02b46d5a7d703f03c68d0';
 
-	public function __construct()
+	public static function getClient()
 	{
-		$this->client = new Client([
+		return new Client([
 			'base_uri' => 'https://api.rajaongkir.com/starter/'
 		]);
 	}
 
-	public function getCities()
+	public static function getCities()
 	{
-		$response = $this->client->get('city', [
+		$response = self::getClient()->get('city', [
 			'headers' => [
-				'key' => $this->apiKey
+				'key' => self::$apiKey
 			]
 		]);
 		return json_decode($response->getBody(), true)['rajaongkir']['results'];
 	}
 
-	public function getCost($origin, $destination, $weight, $courier)
+	public static function getCost($origin, $destination, $weight, $courier)
 	{
-		$response = $this->client->post('cost', [
+		$response = self::getClient()->post('cost', [
 			'headers' => [
-				'key' => $this->apiKey
+				'key' => self::$apiKey
 			],
 			'json' => [
 				'origin' => $origin,

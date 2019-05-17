@@ -43,7 +43,7 @@
 								{{$key .' : '. $value}}<br>
 								@endforeach
 							</td>
-							<td style="white-space: normal;">{{optional($pesanan->statusPesanans()->latest()->first())->keterangan}}</td>
+							<td style="white-space: normal;">{{ucwords(optional($pesanan->statusPesanans()->latest()->first())->keterangan)}}</td>
 							<td>
 								<a class="btn btn-primary mb-1" href="/konfeksi/penawaran/{{$pesanan->id}}/create" style="padding: 0.5rem;">Buat Penawaran</a><br>
 								@if($pesanan->statusPesanans()->count() > 1)
@@ -65,10 +65,23 @@
 										<div class="modal-body">
 											<div class="form-group">
 												<label>Keterangan Status</label>
-												<input class="form-control" type="text" name="keterangan">
+												<select id="input-status" class="form-control js-example-basic-single" name="keterangan" style="width: 100%">
+													<option value="proses pemotongan">Proses pemotongan</option>
+													<option value="proses penyablonan">Proses penyablonan</option>
+													<option value="proses penjahitan">Proses penjahitan</option>
+													<option value="proses finishing">Proses finishing</option>
+													<option value="proses packaging">Proses packaging</option>
+													<option value="pesanan selesai">Pesanan selesai</option>
+													<option value="pesanan telah dikirim">Pesanan telah dikirim</option>
+												</select>
+												<!-- <input class="form-control" type="text" name="keterangan"> -->
 												@if ($errors->has('keterangan'))
 												<p style="color: red;">{{ $errors->first('keterangan') }}</p>
 												@endif
+											</div>
+											<div class="form-group" id="form-resi" style="display: none;">
+												<label>No Resi</label>
+												<input class="form-control" type="text" name="nomor_resi"></input>
 											</div>
 										</div>
 										<div class="modal-footer">
@@ -115,6 +128,14 @@
   });
 		});
 	})(jQuery);
+	$('select#input-status').on('change', function(){
+		let status = this.value;
+		if (status == 'pesanan telah dikirim') {
+			$('#form-resi').show();
+		}else{
+			$('#form-resi').hide();
+		}
+	});
 </script>
 <script src="{{ asset('assets/js/shared/file-upload.js') }}"></script>
 <script src="{{ asset('assets/js/shared/iCheck.js') }}"></script>
