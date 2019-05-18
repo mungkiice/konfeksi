@@ -83,7 +83,6 @@
                 timer: 2000,
                 button: false
             })
-
           }else if (type === 'confirmation') {
               swal({
                 title: 'Konfirmasi',

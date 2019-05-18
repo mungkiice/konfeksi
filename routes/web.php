@@ -13,6 +13,9 @@ use GuzzleHttp\Client;
 | contains the "web" middleware group. Now create something great!
 |
 */
+Route::get('/test', function(){
+	return RajaOngkirAPI::getCost(151, 256, 10, 'jne');
+});
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/login', 'Auth\LoginController@showLoginForm');
@@ -34,11 +37,12 @@ Route::get('/produks/{produkId}', 'ProdukController@show');
 Route::get('/pembayaran/{pesananId}', 'KonfirmasiPembayaranController@create')->middleware('role:member');
 Route::post('/pembayaran', 'KonfirmasiPembayaranController@store')->middleware('role:member');
 Route::post('/pesan', 'PesananController@store')->middleware('role:member');
+Route::post('/pesan/finish', 'PenawaranController@finish');
+Route::post('/notification/handler', 'PenawaranController@midtransHandler');
 Route::get('/pesan/{produkId}', 'PesananController@create')->middleware('role:member');
 Route::get('/pesanansaya', 'PesananController@indexMember')->middleware('role:member');
 Route::get('/penawaran/{kodePesanan}', 'PenawaranController@show')->middleware('role:member');
 Route::post('/penawaran/{penawaranId}/konfirmasi', 'PenawaranController@konfirmasi')->middleware('role:member');
-
 Route::prefix('admin')->group(function(){
 	Route::get('/', 'DashboardController@adminDashboard')->middleware('role:admin');	
 	Route::get('/artikel', 'ArtikelController@index')->middleware('role:admin');	

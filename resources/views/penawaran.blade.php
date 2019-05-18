@@ -68,14 +68,12 @@
 								</div>
 								<div class="col-md-12 col-lg-12">
 									@if($penawaran->status == 'terkirim' && $key == $penawarans->keys()->first())
-									<form co method="POST" action="/penawaran/{{$penawaran->id}}/konfirmasi" style="display: inline-block;">
+									<form style="display: inline-block;" onsubmit="return submitForm('{{$penawaran->id}}', 'diterima')">
 										@csrf
-										<input type="hidden" name="status" value="diterima">
-										<button type="submit" class="genric-btn primary circle ">Terima</button>
+										<button class="genric-btn primary circle ">Terima</button>
 									</form>
-									<form method="POST" action="/penawaran/{{$penawaran->id}}/konfirmasi" style="display: inline-block;">
+									<form style="display: inline-block;" onsubmit="return submitForm('{{$penawaran->id}}', 'ditolak')">
 										@csrf
-										<input type="hidden" name="status" value="ditolak">
 										<button type="submit" class="genric-btn gray_btn circle ">Tolak</button>
 									</form>
 									@elseif($penawaran->status == 'diterima' && $key == $penawarans->keys()->first())
@@ -157,4 +155,33 @@
 		</div>
 	</div>
 </section>
+@endsection
+
+@section('custom-js')
+<script src="{{ !config('services.midtrans.isProduction') ? 'https://app.sandbox.midtrans.com/snap/snap.js' : 'https://app.midtrans.com/snap/snap.js' }}" data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
+    <script>
+    function submitForm(penawaranId, status) {
+        // Kirim request ajax
+        $.post("/penawaran/"+penawaranId+'/konfirmasi',
+        {
+            _method: 'POST',
+            _token: '{{ csrf_token() }}',
+            status: status
+        },
+        function (data, status) {
+            snap.pay(data.snap_token, {
+                onSuccess: function (result) {
+                    showSwal('flash', 'Transaksi berhasil');
+                },
+                onPending: function (result) {
+                    showSwal('flash', 'Transaksi pending');
+                },
+                onError: function (result) {
+                    showSwal('confirmation', 'Transaksi error');
+                }
+            });
+        });
+        return false;
+    }
+    </script>
 @endsection

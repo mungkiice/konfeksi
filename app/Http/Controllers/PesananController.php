@@ -29,8 +29,7 @@ class PesananController extends Controller
 	{
 		$produk = Produk::temukan($produkId);
 		$kotas = RajaOngkirAPI::getCities();
-		$kurirs = AfterShipAPI::getCouriers();
-		return view('pesan', compact('produk', 'kotas', 'kurirs'));
+		return view('pesan', compact('produk', 'kotas'));
 	}
 
 	public function store(Request $request)
@@ -46,7 +45,7 @@ class PesananController extends Controller
 			'L' => $request->large ?: 0,
 			'XL' => $request->extra_large ?: 0
 		];
-		$pesanan = Pesanan::buat(auth()->user()->id, $request->produk_id, $request->tenggat_waktu, $request->deskripsi, $path, $request->alamat, $jumlah, $request->kurir);
+		$pesanan = Pesanan::buat(auth()->user()->id, $request->produk_id, $request->tenggat_waktu, $request->deskripsi, $path, $request->alamat, $request->kota, $jumlah, $request->kurir);
 		$statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu respon dari konfeksi');
 		$pesanan->produk->konfeksi->user->notify(new PesananBaru($pesanan));
 		return redirect('/')->with('flash', 'Pesanan berhasil dikirim');

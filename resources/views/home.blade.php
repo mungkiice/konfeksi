@@ -203,22 +203,22 @@
                 confirmButtonColor: '#3f51b5',
                 cancelButtonColor: '#ff4081',
                 confirmButtonText: 'Great ',
-                buttons: {
-                  cancel: {
-                    text: "Cancel",
-                    value: null,
-                    visible: true,
-                    className: "btn btn-danger",
-                    closeModal: true,
-                  },
-                  confirm: {
-                    text: "OK",
-                    value: true,
-                    visible: true,
-                    className: "btn btn-primary",
-                    closeModal: true
-                  }
-                }
+                // buttons: {
+                //   cancel: {
+                //     text: "Cancel",
+                //     value: null,
+                //     visible: true,
+                //     className: "btn btn-danger",
+                //     closeModal: true,
+                //   },
+                //   confirm: {
+                //     text: "OK",
+                //     value: true,
+                //     visible: true,
+                //     className: "btn btn-primary",
+                //     closeModal: true
+                //   }
+                // }
               })
             } else if (type === 'custom-html') {
               swal({
