@@ -4,14 +4,14 @@ namespace App;
 
 class Pesanan extends Model
 {
-	public static function buat($userId, $produkId, $tenggatWaktu, $deskripsi, $fileDesain, $alamat, $kota, $jumlah, $kurir)
+	public static function buat($userId, $produkId, $tanggalSelesai, $catatan, $fileDesain, $alamat, $kota, $jumlah, $kurir)
 	{
 		$pesanan = static::query()->create([
 			'user_id' => $userId,
 			'kode_pesanan' => rand(1000000, 9999999),
 			'produk_id' => $produkId,
-			'tenggat_waktu' => $tenggatWaktu,
-			'deskripsi' => $deskripsi,
+			'tanggal_selesai' => $tanggalSelesai,
+			'catatan' => $catatan,
 			'file_desain' => $fileDesain,
 			'alamat' => $alamat,
 			'kota_id' => $kota,
@@ -33,12 +33,12 @@ class Pesanan extends Model
 		return $pesanan;
 	}
 
-	public function perbarui($biaya, $tenggatWaktu, $deskripsi, $snapToken)
+	public function perbarui($biaya, $tanggalSelesai, $catatan, $snapToken)
 	{
 		parent::update([
 			'biaya' => $biaya,
-			'tenggat_waktu' => $tenggatWaktu,
-			'deskripsi' => $this->deskripsi . '. - ' . $deskripsi,
+			'tanggal_selesai' => $tanggalSelesai,
+			'catatan' => $this->catatan . '. - ' . $catatan,
 			'snap_token' => $snapToken
 		]);
 	}
@@ -65,8 +65,8 @@ class Pesanan extends Model
 		return $this->belongsTo(Produk::class);
 	}
 
-	public function penawaran()
+	public function penawarans()
 	{
-		return $this->hasOne(Penawaran::class);
+		return $this->hasMany(Penawaran::class);
 	}
 }

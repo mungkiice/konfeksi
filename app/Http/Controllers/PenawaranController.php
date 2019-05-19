@@ -38,7 +38,7 @@ class PenawaranController extends Controller
     {
     	$this->validate($request, [
     		'biaya' => 'required',
-            'tenggat_waktu' => 'required',
+            'tanggal_selesai' => 'required',
         ]);
 
         $path = '';
@@ -48,7 +48,7 @@ class PenawaranController extends Controller
 
         $pesanan = Pesanan::temukan($pesananId);
         
-        $penawaran = Penawaran::buat($pesanan->id,$request->tenggat_waktu,$request->biaya,$request->deskripsi,$path);
+        $penawaran = Penawaran::buat($pesanan->id,$request->tanggal_selesai,$request->biaya,$request->catatan,$path);
         $statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu konfirmasi penawaran');
         $pesanan->user->notify(new PenawaranBaru($penawaran));
         return redirect('/konfeksi')->with('flash', 'Penawaran berhasil dikirim');
@@ -117,7 +117,7 @@ class PenawaranController extends Controller
 
             $snapToken = Veritrans_Snap::getSnapToken($transaction);
 
-            $pesanan->perbarui($totalBiaya, $penawaran->tenggat_waktu, $penawaran->deskripsi, $snapToken);
+            $pesanan->perbarui($totalBiaya, $penawaran->tanggal_selesai, $penawaran->catatan, $snapToken);
             // return view('invoice', compact('pesanan'))->with('flash', 'Penawaran berhasil disetujui');
             return response()->json(['snap_token' => $snapToken]);
         }else{

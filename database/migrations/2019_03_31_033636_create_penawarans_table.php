@@ -16,9 +16,9 @@ class CreatePenawaransTable extends Migration
         Schema::create('penawarans', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->bigInteger('pesanan_id')->unsigned();
-            $table->date('tenggat_waktu')->nullable();
+            $table->date('tanggal_selesai')->nullable();
             $table->decimal('biaya', 13, 0);
-            $table->text('deskripsi')->nullable();
+            $table->text('catatan')->nullable();
             $table->enum('status', ['terkirim', 'ditolak', 'diterima'])->default('terkirim');
             $table->string('gambar')->nullable();
             $table->timestamps();

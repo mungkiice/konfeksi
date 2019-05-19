@@ -2,22 +2,22 @@
 
 @section('content')
 <div class="row">
-	<div class="col-md-6 grid-margin stretch-card">
+	<div class="col-md-6 grid-margin">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Form Jenis Kain</h4>
+				<h4 class="card-title">Buat Penawaran Baru</h4>
 				<form class="forms-sample" method="POST" accept="/admin/penawaran/create" enctype="multipart/form-data">
 					@csrf
 					<div class="form-group">
-						<label for="namaInput">Tenggat Waktu</label>
+						<label for="namaInput">Tanggal Selesai</label>
 						<div id="datepicker-popup" class="input-group date datepicker">
-							<input type="text" class="form-control" name="tenggat_waktu">
+							<input type="text" class="form-control" name="tanggal_selesai">
 							<span class="input-group-addon input-group-append border-left">
 								<span class="mdi mdi-calendar input-group-text"></span>
 							</span>
 						</div>
-						@if ($errors->has('tenggat_waktu'))
-						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('tenggat_waktu') }}</label>
+						@if ($errors->has('tanggal_selesai'))
+						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('tanggal_selesai') }}</label>
 						@endif
 					</div>
 					<div class="form-group">
@@ -28,10 +28,10 @@
 						@endif
 					</div>
 					<div class="form-group">
-						<label for="deskripsiInput">Deskripsi</label> 
-						<textarea class="form-control" id="deskripsiInput" rows="4" name="deskripsi"></textarea> 
-						@if ($errors->has('deskripsi'))
-						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('deskripsi') }}</label>
+						<label for="catatanInput">Catatan</label> 
+						<textarea class="form-control" id="catatanInput" rows="4" name="catatan"></textarea> 
+						@if ($errors->has('catatan'))
+						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('catatan') }}</label>
 						@endif
 					</div>
 					<div class="form-group">		
@@ -47,52 +47,41 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-md-6 grid-margin stretch-card">
-		<div class="card">
+	<div class="col-md-6 grid-margin" style="overflow-y: auto; height: 670px;">
+		<h6>Histori Penawaran</h6>
+		@foreach($pesanan->penawarans()->latest()->get() as $penawaran)
+		<div class="card mb-2">
 			<div class="card-body">
-				<h4 class="card-title">Data Pesanan #{{$pesanan->kode_pesanan}} - <span style="color: blue;">{{$pesanan->alamat ? 'Barang Dikirim' : 'Barang Diambil'}}</span></h4>
+				<h4 class="card-title">Penawaran {{date('d M Y', strtotime($penawaran->created_at))}} - <span style="color: {{$penawaran->status == 'terkirim' ? 'blue' : ($penawaran->status == 'diterima' ? 'green' : 'red')}};">{{$penawaran->status}}</span></h4>
 				<div class="form-group row">
-					<label class="col-form-label col-sm-3">Pemesan</label>
-					<div class="col-sm-9">
-						<input class="form-control" type="text" name="" value="{{$pesanan->user->nama}}" disabled>
+					<label class="col-form-label col-sm-5">Tanggal Selesai</label>
+					<div class="col-sm-7">
+						<input class="form-control" type="text" name="" value="{{date('d M Y', strtotime($penawaran->tanggal_selesai))}}" disabled>
 					</div>					
 				</div>
 				<div class="form-group row">
-					<label class="col-form-label col-sm-3">Produk</label>
-					<div class="col-sm-9">
-						<input class="form-control" type="text" name="" value="{{$pesanan->produk->nama}}" disabled>
+					<label class="col-form-label col-sm-5">Biaya</label>
+					<div class="col-sm-7">
+						<input class="form-control" type="text" name="" value="Rp. {{number_format($penawaran->biaya,0)}}" disabled style="text-align: right;">
 					</div>					
 				</div>
 				<div class="form-group row">
-					<label class="col-form-label col-sm-3">Tenggat Waktu</label>
-					<div class="col-sm-9">
-						<input class="form-control" type="text" name="" value="{{$pesanan->tenggat_waktu}}" disabled>
+					<label class="col-form-label col-sm-5">Catatan</label>
+					<div class="col-sm-7">
+						<textarea class="form-control" rows="5" disabled>{{$penawaran->catatan}}</textarea>
 					</div>					
 				</div>
+				@if($penawaran->gambar)
 				<div class="form-group row">
-					<label class="col-form-label col-sm-3">Deskripsi</label>
-					<div class="col-sm-9">
-						<textarea class="form-control" rows="5" disabled>{{$pesanan->deskripsi}}</textarea>
-					</div>					
+					<label class="col-sm-5 col-form-label" style="display: block">Gambar</label>
+					<div class="col-sm-7">						
+						<img src="/storage/{{$penawaran->gambar}}" style="width: 50%;margin: auto;display: block;">
+					</div>
 				</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3">Jumlah</label>
-					<div class="col-sm-9">
-						<textarea class="form-control" rows="10" disabled>
-							@foreach(json_decode($pesanan->jumlah) as $key => $value)
-							{{$key .'  :  '. $value}}
-							@endforeach
-						</textarea>
-					</div>					
-				</div>
-				<div class="form-group row">
-					<label class="col-form-label col-sm-3">Alamat</label>
-					<div class="col-sm-9">
-						<textarea class="form-control" rows="2" disabled>{{$pesanan->alamat}}</textarea>
-					</div>					
-				</div>
+				@endif
 			</div>
 		</div>
+		@endforeach
 	</div>
 </div>
 @endsection

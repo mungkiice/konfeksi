@@ -104,10 +104,10 @@
 								</div>
 							</div>
 							<div class="form-group">
-								<label for="inputDeskripsi">Deskripsi Pesanan</label>
-								<textarea id="inputDeskripsi" class="form-control" rows="4" name="deskripsi" placeholder="Contoh:bahan pakaian, ukuran, dll."></textarea>
-								@if ($errors->has('deskripsi'))
-								<p style="color: red;">{{ $errors->first('deskripsi') }}</p>
+								<label for="inputcatatan">Catatan </label>
+								<textarea id="inputcatatan" class="form-control" rows="4" name="catatan" placeholder="contoh:bahan pakaian, ukuran, dll."></textarea>
+								@if ($errors->has('catatan'))
+								<p style="color: red;">{{ $errors->first('catatan') }}</p>
 								@endif
 							</div>
 							<!-- <div class="form-group">
@@ -124,9 +124,9 @@
 								</div>
 								<div class="form-express" style="display: none;">
 									<label for="inputNama">Tenggat Waktu Pengerjaan</label>
-									<input id="inputNama" type="date" class="form-control" name="tenggat_waktu">
-									@if ($errors->has('tenggat_waktu'))
-									<p style="color: red;">{{ $errors->first('tenggat_waktu') }}</p>
+									<input id="inputNama" type="date" class="form-control" name="tanggal_selesai">
+									@if ($errors->has('tanggal_selesai'))
+									<p style="color: red;">{{ $errors->first('tanggal_selesai') }}</p>
 									@endif
 								</div>
 							</div> -->

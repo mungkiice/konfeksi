@@ -4,13 +4,13 @@ namespace App;
 
 class Penawaran extends Model
 {
-	public static function buat($pesananId, $tenggatWaktu, $biaya, $deskripsi, $gambar)
+	public static function buat($pesananId, $tanggalSelesai, $biaya, $catatan, $gambar)
 	{
 		$penawaran = static::query()->create([
             'pesanan_id' => $pesananId,
-            'tenggat_waktu' => $tenggatWaktu,
+            'tanggal_selesai' => $tanggalSelesai,
             'biaya' => $biaya,
-            'deskripsi' => $deskripsi,
+            'catatan' => $catatan,
             'gambar' => $gambar
 		]);
 		return $penawaran;

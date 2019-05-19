@@ -41,7 +41,7 @@ class PesananController extends Controller
 	public function store(Request $request)
 	{
 		$this->validate($request, [
-			'deskripsi' => 'required',
+			'catatan' => 'required',
 			'file_desain' => 'required'
 		]);
 		$path = $request->file_desain->store('pesanan', 'public');
@@ -51,7 +51,7 @@ class PesananController extends Controller
 			'L' => $request->large ?: 0,
 			'XL' => $request->extra_large ?: 0
 		];
-		$pesanan = Pesanan::buat(auth()->user()->id, $request->produk_id, $request->tenggat_waktu, $request->deskripsi, $path, $request->alamat, $request->kota, $jumlah, $request->kurir);
+		$pesanan = Pesanan::buat(auth()->user()->id, $request->produk_id, $request->tanggal_selesai, $request->catatan, $path, $request->alamat, $request->kota, $jumlah, $request->kurir);
 		$statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu respon dari konfeksi');
 		$pesanan->produk->konfeksi->user->notify(new PesananBaru($pesanan));
 		return redirect('/')->with('flash', 'Pesanan berhasil dikirim');
