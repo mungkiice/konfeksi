@@ -9,12 +9,11 @@
 				<table id="order-listing" class="table">
 					<thead>
 						<tr>
-							<th>Pemesan</th>
 							<th>Kode</th>
+							<th>Pemesan</th>
 							<th>Produk</th>
 							<th>Tenggat Waktu</th>
 							<th>Biaya</th>
-							<th>Deskripsi</th>
 							<th>Jumlah</th>
 							<!-- <th>Alamat</th> -->
 							<th>Status</th>
@@ -24,20 +23,17 @@
 					<tbody>
 						@foreach($pesanans as $pesanan)
 						<tr>
-							<td style="white-space: normal">
-								{{$pesanan->user->nama}}
-							</td>
 							<td style="white-space: normal;">
 								{{$pesanan->kode_pesanan}}
 							</td>
 							<td style="white-space: normal">
+								{{$pesanan->user->nama}}
+							</td>
+							<td style="white-space: normal">
 								{{$pesanan->produk->nama}}
 							</td>
-							<td>{{ date('d-m-Y', strtotime($pesanan->tenggat_waktu)) }}</td>
+							<td>{{ date('d M Y', strtotime($pesanan->tenggat_waktu)) }}</td>
 							<td style="text-align: right;">Rp. {{number_format($pesanan->biaya)}}</td>
-							<td style="max-width: 200px; white-space: normal">
-								{{$pesanan->deskripsi}}
-							</td>
 							<td>
 								@foreach(json_decode($pesanan->jumlah) as $key => $value)
 								{{$key .' : '. $value}}<br>
@@ -56,13 +52,13 @@
 							<div class="modal-dialog" role="document">
 								<div class="modal-content">
 									<div class="modal-header">
-										<h5 class="modal-title">Form status pesanan #{{$pesanan->kode_pesanan}} ?</h5>
+										<h5 class="modal-title">Form status pesanan #{{$pesanan->kode_pesanan}}</h5>
 										<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
 									<form class="forms-sample" method="POST" action="/konfeksi/pesanan/{{$pesanan->id}}">
-											@csrf
+										@csrf
 										<div class="modal-body">
 											<div class="form-group">
 												<label>Keterangan Status</label>
