@@ -50,7 +50,7 @@
 	<div class="col-md-6 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Data Pesanan #{{$pesanan->kode_pesanan}} - <span style="color: red">{{$pesanan->tenggat_waktu ? 'Ekspres' : 'Reguler'}}</span> - <span style="color: blue;">{{$pesanan->alamat ? 'Barang Dikirim' : 'Barang Diambil'}}</span></h4>
+				<h4 class="card-title">Data Pesanan #{{$pesanan->kode_pesanan}} - <span style="color: blue;">{{$pesanan->alamat ? 'Barang Dikirim' : 'Barang Diambil'}}</span></h4>
 				<div class="form-group row">
 					<label class="col-form-label col-sm-3">Pemesan</label>
 					<div class="col-sm-9">

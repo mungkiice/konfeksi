@@ -67,6 +67,7 @@ Route::prefix('konfeksi')->group(function(){
 	Route::get('/produk/{produkId}/edit', 'ProdukController@edit')->middleware('role:konfeksi');
 
 	Route::get('/pesanan', 'PesananController@index')->middleware('role:konfeksi');
+	Route::get('/pesanan/{pesananId}', 'PesananController@show')->middleware('role:konfeksi');
 	Route::post('/pesanan/{pesananId}', 'PesananController@updateStatus')->middleware('role:konfeksi');
 
 	Route::get('/penawaran/{pesananId}/create', 'PenawaranController@create')->middleware('role:konfeksi');

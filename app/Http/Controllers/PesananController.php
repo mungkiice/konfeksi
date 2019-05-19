@@ -25,6 +25,12 @@ class PesananController extends Controller
 		return view('pesanan', compact('pesanans'));
 	}
 
+	public function show($pesananId)
+	{
+		$pesanan = Pesanan::temukan($pesananId);
+		return view('detail-pesanan', compact('pesanan'));	
+	}
+
 	public function create($produkId)
 	{
 		$produk = Produk::temukan($produkId);

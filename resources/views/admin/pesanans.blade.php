@@ -46,6 +46,7 @@
 							<td style="white-space: normal;">{{ucwords(optional($pesanan->statusPesanans()->latest()->first())->keterangan)}}</td>
 							<td>
 								<a class="btn btn-primary mb-1" href="/konfeksi/penawaran/{{$pesanan->id}}/create" style="padding: 0.5rem;">Buat Penawaran</a><br>
+								<a class="btn btn-info mb-1" href="/konfeksi/pesanan/{{$pesanan->id}}" style="padding: 0.5rem;">Detail Pesanan</a><br>
 								@if($pesanan->statusPesanans()->count() > 1)
 								<button type="button" class="btn btn-success" data-toggle="modal" data-target="#statusModal-{{$pesanan->id}}" style="padding: 0.5rem;">Perbarui Status</button>
 								@endif

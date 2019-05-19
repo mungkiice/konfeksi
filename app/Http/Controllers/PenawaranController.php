@@ -59,10 +59,12 @@ class PenawaranController extends Controller
         $penawaran = Penawaran::temukan($penawaranId);
         $penawaran->perbarui($request->status);
         $pesanan = Pesanan::temukan($penawaran->pesanan_id);
+        $totalBiaya = $penawaran->biaya + $this->ongkir($pesanan->produk->konfeksi->kota_id, $pesanan->kota_id, 10, $pesanan->kurir);
         if ($request->status == 'diterima') {
             $statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu pembayaran DP');
             $transaction_details = array(
                 'order_id' => $pesanan->kode_pesanan,
+                'gross_amount' => $totalBiaya
             );
             $item_details = array();
             foreach (json_decode($pesanan->jumlah, true) as $key => $value) {
@@ -115,7 +117,7 @@ class PenawaranController extends Controller
 
             $snapToken = Veritrans_Snap::getSnapToken($transaction);
 
-            $pesanan->perbarui($penawaran->biaya, $penawaran->tenggat_waktu, $penawaran->deskripsi, $snapToken);
+            $pesanan->perbarui($totalBiaya, $penawaran->tenggat_waktu, $penawaran->deskripsi, $snapToken);
             // return view('invoice', compact('pesanan'))->with('flash', 'Penawaran berhasil disetujui');
             return response()->json(['snap_token' => $snapToken]);
         }else{
