@@ -17,6 +17,7 @@
   <!-- End plugin css for this page -->
   <!-- inject:css -->
   <link rel="stylesheet" href="{{ asset('assets/css/shared/style.css') }}">
+  <link rel="stylesheet" href="{{asset('css/admin-chat.css')}}">
   <!-- endinject -->
   <!-- Layout styles -->
   <link rel="stylesheet" href="{{ asset('assets/css/demo_1/style.css') }}">
@@ -41,6 +42,8 @@
         <div class="content-wrapper">
           @yield('content')
         </div>
+        @include('admin.layouts.chat')
+        <button class="btn btn-info" id="btn-chat" style="position: fixed;right: 15%;bottom: 5%;border-radius: 100px;padding: 15px 50px;font-weight: bold;z-index: 5"><i class="mdi mdi-chat-processing"></i>Chat</button>
         <!-- content-wrapper ends -->
         <!-- partial:partials/_footer.html -->
         <footer class="footer">
@@ -132,6 +135,9 @@
       }
 
     })(jQuery);
+    $('#btn-chat').click(function(){
+      $('#chat-box').toggle();
+    });
   </script>
   @if(session("flash"))
   <script type="text/javascript">

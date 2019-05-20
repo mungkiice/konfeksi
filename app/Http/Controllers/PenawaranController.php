@@ -30,7 +30,7 @@ class PenawaranController extends Controller
     public function show($kodePesanan)
     {
         $pesanan = Pesanan::filter($kodePesanan)->first();
-        $penawarans = $pesanan->penawaran()->latest()->get();
+        $penawarans = $pesanan->penawarans()->latest()->get();
         return view('penawaran', compact('penawarans', 'pesanan'));
     }
 
