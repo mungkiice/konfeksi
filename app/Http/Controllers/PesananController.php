@@ -9,6 +9,7 @@ use App\Pesanan;
 use App\Produk;
 use App\RajaOngkirAPI;
 use App\StatusPesanan;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
 
 class PesananController extends Controller
@@ -71,5 +72,12 @@ class PesananController extends Controller
 			AfterShipAPI::addTracking($pesanan->kurir, $request->nomor_resi);
 		}
 		return back()->with('flash', 'Status Pesanan berhasil disimpan');
+	}
+
+	public function cetakBukti($kodePesanan)
+	{
+		$pesanan = Pesanan::filter($kodePesanan);
+		$pdf = PDF::loadView('mail.bukti-pemesanan', compact('pesanan'));
+		return $pdf->download("Bukti Pesanan #{$pesanan->kode_pesanan}.pdf");
 	}
 }

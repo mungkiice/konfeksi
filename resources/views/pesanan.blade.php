@@ -45,8 +45,8 @@
 								</div>
 							</td>
 							<td>
-								@if($pesanan->tenggat_waktu)
-								<h5>{{date('d M Y', strtotime($pesanan->tenggat_waktu))}}</h5>
+								@if($pesanan->tanggal_selesai)
+								<h5>{{date('d M Y', strtotime($pesanan->tanggal_selesai))}}</h5>
 								@endif
 							</td>
 							<td id="status-pesanan-{{$key}}">
@@ -55,8 +55,9 @@
 								@endforeach
 							</td>
 							<td style="width: 200px;">
+								<a href="/pesanansaya/{{$pesanan->kode_pesanan}}/cetak" class="gray_btn custom-btn">Cetak Bukti Pemesanan</a>
 								<a href="/penawaran/{{ $pesanan->kode_pesanan }}" class="primary-btn custom-btn">Lihat Penawaran</a>
-								<a href="/pembayaran/{{ $pesanan->id }}" class="gray_btn custom-btn">Konfirmasi Pembayaran</a>
+								<a href="/pembayaran/{{ $pesanan->id }}" class="gray_btn custom-btn">Pembayaran</a>
 							</td>
 						</tr>
 						@endforeach

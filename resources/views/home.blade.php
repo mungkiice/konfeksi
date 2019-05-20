@@ -89,7 +89,7 @@
                 <div class="f-icon">
                   <img src="img/features/f-icon1.png" alt="">
                 </div>
-                <h6>Free Delivery</h6>
+                <h6>Pilih Konfeksi</h6>
                 <p>Free Shipping on all order</p>
               </div>
             </div>
@@ -99,7 +99,7 @@
                 <div class="f-icon">
                   <img src="img/features/f-icon2.png" alt="">
                 </div>
-                <h6>Return Policy</h6>
+                <h6>Pilih Produk</h6>
                 <p>Free Shipping on all order</p>
               </div>
             </div>
@@ -108,6 +108,7 @@
               <div class="single-features">
                 <div class="f-icon">
                   <img src="img/features/f-icon3.png" alt="">
+                  <i class="fa fa-chat"></i>
                 </div>
                 <h6>24/7 Support</h6>
                 <p>Free Shipping on all order</p>

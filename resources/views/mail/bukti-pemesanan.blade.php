@@ -16,7 +16,7 @@
     <div id="project">
       <div><span>PEMESAN</span> {{ $pesanan->user->nama }}</div>
       <div><span>EMAIL</span> {{ $pesanan->user->email }}</div>
-      <div><span>SELESAI</span> {{ date('d M Y', strtotime($pesanan->tenggat_waktu)) }}</div>
+      <div><span>SELESAI</span> {{ date('d M Y', strtotime($pesanan->tanggal_selesai)) }}</div>
       @if($pesanan->alamat != '')
       <div><span>KETERANGAN</span> Barang dikirim ke alamat pemesan</div>
       <div><span>ALAMAT PENERIMA</span> {{ $pesanan->alamat }}</div>
@@ -66,7 +66,7 @@
         </tr>
       </tbody>
     </table>
-    <div id="notices">
+<!--     <div id="notices">
       <div>SELANJUTNYA :</div>
       <div class="notice">
         <ol>
@@ -86,11 +86,11 @@
           </li>
         </ol>
       </div>
-    </div>
+    </div> -->
   </main>
   <footer>
     <!-- Invoice was created on a computer and is valid without the signature and seal. -->
-    Invoice dibuat oleh komputer dan valid tanpa menggunakan cap atau tanda tangan.
+    Bukti Pemesanan dibuat oleh sistem dan valid tanpa menggunakan cap atau tanda tangan.
   </footer>
 </body>
 </html>
