@@ -1,71 +1,135 @@
-<p align="center"><img src="https://laravel.com/assets/img/components/logo-laravel.svg"></p>
+# Marketplace Konfeksi
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/v/stable.svg" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://poser.pugx.org/laravel/framework/license.svg" alt="License"></a>
-</p>
+Marketplace Konfeksi merupakan platform yang menyediakan proses bisnis khusus untuk jasa konfeksi.
 
-## About Laravel
+<!-- ## Getting Started
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system. -->
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Prasyarat
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Untuk menjalankan website secara dikomputer anda, dibutuhkan :
+1. [Composer](https://getcomposer.org/download/)
+2. Apache2
+3. MySql
+4. PHP
+5. SQLite3
 
-## Learning Laravel
+### Instalasi
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Step - step untuk menjalankan website di workspace secara lokal
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1100 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost you and your team's skills by digging into our comprehensive video library.
+Clone projek
 
-## Laravel Sponsors
+```
+git clone https://github.com/mungkiice/konveksi.git konfeksi
+```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+Pindah ke direktori projek
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[British Software Development](https://www.britishsoftware.co)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- [UserInsights](https://userinsights.com)
-- [Fragrantica](https://www.fragrantica.com)
-- [SOFTonSOFA](https://softonsofa.com/)
-- [User10](https://user10.com)
-- [Soumettre.fr](https://soumettre.fr/)
-- [CodeBrisk](https://codebrisk.com)
-- [1Forge](https://1forge.com)
-- [TECPRESSO](https://tecpresso.co.jp/)
-- [Runtime Converter](http://runtimeconverter.com/)
-- [WebL'Agence](https://weblagence.com/)
-- [Invoice Ninja](https://www.invoiceninja.com)
-- [iMi digital](https://www.imi-digital.de/)
-- [Earthlink](https://www.earthlink.ro/)
-- [Steadfast Collective](https://steadfastcollective.com/)
-- [We Are The Robots Inc.](https://watr.mx/)
-- [Understand.io](https://www.understand.io/)
-- [Abdel Elrafa](https://abdelelrafa.com)
+```
+cd konfeksi
+```
 
-## Contributing
+Install dependencies
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+composer install
+```
 
-## Security Vulnerabilities
+Buat file .env dengan isi template seperti file .env.example, Kemudian isi informasi database
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+DB_DATABASE=(NAMA_DATABASE)
+DB_USERNAME=(USERNAME_DATABASE)
+DB_PASSWORD=(PASSWORD_DATABASE)
+MIDTRANS_SERVERKEY=(SERVER KEY DARI AKUN MERCHANT MIDTRANS)
+MIDTRANS_CLIENTKEY=(CLIENT KEY DARI AKUN MERCHANT MIDTRANS)
+```
 
-## License
+Generate Key
 
-The Laravel framework is open-source software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+php artisan key:generate
+```
+
+Generate tabel beserta data bawaan
+
+```
+php artisan migrate --seed
+```
+
+Projek sudah siap untuk dijalankan
+
+```
+php artisan serve
+```
+
+Kemudian akses website menggunakan browser dengan URL
+
+```
+localhost:8000
+```
+
+## Menjalankan pengujian
+
+Clear konfigurasi lama
+
+```
+php artisan config:clear
+```
+
+Menjalankan PHPUnit
+
+```
+vendor/bin/phpunit
+```
+
+<!-- ### Break down into end to end tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+### And coding style tests
+
+Explain what these tests test and why
+
+```
+Give an example
+```
+
+## Deployment
+
+Add additional notes about how to deploy this on a live system -->
+
+## Dikembangkan menggunakan library
+
+* [Laravel 5.8](https://laravel.com/docs/5.8) - PHP Website Framework
+* [Veritrans/Midtrans](https://docs.midtrans.com/en/welcome/index.html) - Payment Gateway
+
+<!-- ## Contributing
+
+Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+
+## Versioning
+
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags).  -->
+
+## Pengembang
+
+* **Muhammad Iqbal Kurniawan** - *Developer* - [Account Page](https://github.com/mungkiice)
+
+Daftar [kontributor](https://github.com/mungkiice/konveksi/graphs/contributors) yang berpartisipasi dalam projek.
+
+<!-- ## Lisensi
+
+Projek ini dibawah lisensi MIT - lihat di [LICENSE](LICENSE) file untuk lebih jelas -->
+
+<!-- ## Acknowledgments
+
+* Hat tip to anyone whose code was used
+* Inspiration
+* etc -->
