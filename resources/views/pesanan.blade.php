@@ -57,7 +57,7 @@
 							<td style="width: 200px;">
 								<a href="/pesanansaya/{{$pesanan->kode_pesanan}}/cetak" class="gray_btn custom-btn">Cetak Bukti Pemesanan</a>
 								<a href="/penawaran/{{ $pesanan->kode_pesanan }}" class="primary-btn custom-btn">Lihat Penawaran</a>
-								<a href="/pembayaran/{{ $pesanan->id }}" class="gray_btn custom-btn">Pembayaran</a>
+								<a href="#" onclick="return bayar('{{$pesanan->kode_pesanan}}')" class="gray_btn custom-btn">Pembayaran</a>
 							</td>
 						</tr>
 						@endforeach
@@ -70,6 +70,7 @@
 @endsection
 
 @section('custom-js')
+<script src="{{ !config('services.midtrans.isProduction') ? 'https://app.sandbox.midtrans.com/snap/snap.js' : 'https://app.midtrans.com/snap/snap.js' }}" data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
 <script>
 	$(document).ready(function(){
 		$('.kode-pesanan').each(function(){
@@ -83,5 +84,32 @@
 			})
 		});
 	});
+</script>
+<script>
+	function bayar(kodePesanan){
+		$.get('/pembayaran/'+kodePesanan, function (data, status) {
+            snap.pay(data.snap_token, {
+                onSuccess: function (result) {
+                	showSwal('flash', 'Transaksi berhasil');
+                	setTimeOut(function(){
+                		window.location.reload();
+                	}, 2000);
+                },
+                onPending: function (result) {
+                    showSwal('flash', 'Transaksi pending');
+                	setTimeOut(function(){
+                		window.location.reload();
+                	}, 2000);
+                },
+                onError: function (result) {
+                    showSwal('confirmation', 'Transaksi error');
+                	setTimeOut(function(){
+                		window.location.reload();
+                	}, 2000);
+                }
+            });
+        });
+        return false;
+	}
 </script>
 @endsection

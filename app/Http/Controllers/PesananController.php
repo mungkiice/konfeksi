@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\AfterShipAPI;
+use App\MidtransAPI;
 use App\Notifications\PesananBaru;
 use App\Notifications\ProgresPesanan;
 use App\Pesanan;
@@ -79,6 +80,14 @@ class PesananController extends Controller
 		$pesanan = Pesanan::filter($kodePesanan);
 		$pdf = PDF::loadView('mail.bukti-pemesanan', compact('pesanan'));
 		return $pdf->download("Bukti Pesanan #{$pesanan->kode_pesanan}.pdf");
+	}
+
+	public function pembayaranLunas($kodePesanan)
+	{
+		$pesanan = Pesanan::filter($kodePesanan);
+		$ongkosKirim = RajaOngkirAPI::ongkir($pesanan->produk->konfeksi->kota_id, $pesanan->kota_id, $pesanan->kurir);
+		$snapToken = MidtransAPI::getRepaymentSnapToken($pesanan, $ongkosKirim);
+		return response()->json(['snap_token' => $snapToken]);	
 	}
 
 	public function notificationHandler(Request $request)

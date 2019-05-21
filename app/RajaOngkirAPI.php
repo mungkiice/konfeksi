@@ -40,4 +40,20 @@ class RajaOngkirAPI
 		]);
 		return json_decode($response->getBody(), true)['rajaongkir']['results'];
 	}
+
+    public static function ongkir($kotaAsal, $kotaTujuan, $ekspedisi)
+    {
+        if ($ekspedisi != null) {
+            $arr = explode(' ', trim($ekspedisi));
+            $kurir = array_shift($arr);
+            $jenis = implode(' ', $arr);
+            $result = self::getCost($kotaAsal, $kotaTujuan, 10, $kurir);
+            foreach ($result[0]['costs'] as $item) {
+                if ($item['service'] == $jenis) {
+                    return $item['cost'][0]['value'];
+                }
+            }
+        }
+        return 0;
+    }
 }
