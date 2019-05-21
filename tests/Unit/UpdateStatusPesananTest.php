@@ -11,7 +11,7 @@ use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
 
-class EditStatusPesananTest extends TestCase
+class UpdateStatusPesananTest extends TestCase
 {
 	protected $pesanan;
 

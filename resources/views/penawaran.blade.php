@@ -55,15 +55,15 @@
 								<div class="col-md-6 col-lg-6">
 									<div class="form-group">
 										<label for="inputNama">Tanggal Selesai</label>
-										<input id="inputNama" type="text" name="first_name" class="form-control" value="{{ date('d M Y', strtotime($penawaran->tenggat_waktu)) }}">
+										<input id="inputNama" type="text" name="first_name" class="form-control" value="{{ date('d M Y', strtotime($penawaran->tanggal_selesai)) }}">
 									</div>
 									<div class="form-group">
 										<label for="inputNama">Biaya</label>
 										<input id="inputNama" type="text" name="first_name" class="form-control" value="Rp. {{ number_format($penawaran->biaya,0) }}">
 									</div>
 									<div class="form-group">
-										<label for="inputDeskripsi">Deskripsi</label>
-										<textarea id="inputDeskripsi" class="form-control" rows="4" name="deskripsi">{{ $penawaran->deskripsi }}</textarea>
+										<label for="inputcatatan">Catatan</label>
+										<textarea id="inputcatatan" class="form-control" rows="4" name="catatan">{{ $penawaran->catatan }}</textarea>
 									</div>
 								</div>
 								<div class="col-md-12 col-lg-12">

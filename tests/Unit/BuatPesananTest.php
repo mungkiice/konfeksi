@@ -22,13 +22,13 @@ class BuatPesananTest extends TestCase
     $this->actingAs($this->user);
     $response = $this->post('/pesan', [
       'produk_id' => 1,
-      'deskripsi' => null,
+      'catatan' => null,
       'file_desain' => $file = UploadedFile::fake()->image('random.jpg'),
       'small' => 2,
       'medium' => 10,
     ]);
     $this->assertEquals(0, Pesanan::count());
-    $response->assertSessionHasErrors('deskripsi');
+    $response->assertSessionHasErrors('catatan');
   }
 
   /** @test */
@@ -37,7 +37,7 @@ class BuatPesananTest extends TestCase
     $this->actingAs($this->user);
     $response = $this->post('/pesan', [
       'produk_id' => 1,
-      'deskripsi' => 'Jaket dengan bahan denim',
+      'catatan' => 'Jaket dengan bahan denim',
       'file_desain' => null,
       'small' => 2,
       'medium' => 10,
@@ -53,7 +53,7 @@ class BuatPesananTest extends TestCase
     $this->actingAs($this->user);
     $response = $this->post('/pesan', [
       'produk_id' => $this->produk->id,
-      'deskripsi' => 'Jaket dengan bahan denim',
+      'catatan' => 'Jaket dengan bahan denim',
       'file_desain' => $file = UploadedFile::fake()->image('random.jpg'),
       'small' => 2,
       'medium' => 10,

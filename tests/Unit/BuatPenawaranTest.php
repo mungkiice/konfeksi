@@ -27,7 +27,7 @@ class BuatPenawaranTest extends TestCase
 			'user_id' => $this->user->id,
 			'produk_id' => $this->produk->id,
 			'kode_pesanan' => rand(1000000, 9999999),
-			'deskripsi' => 'Jaket dengan bahan denim',
+			'catatan' => 'Jaket dengan bahan denim',
 			'file_desain' => $file = UploadedFile::fake()->image('random.jpg'),
 			'jumlah' => '{"S":"12","M":"2","L":0,"XL":0}',
 		]);
@@ -39,13 +39,13 @@ class BuatPenawaranTest extends TestCase
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/konfeksi/penawaran/'.$this->pesanan->id.'/create', [
 			'biaya' => 10000000,
-			'tenggat_waktu' => null,
+			'tanggal_selesai' => null,
 			'gambar' => null,
-			'deskripsi' => 'deskripsi tambahan'
+			'catatan' => 'catatan tambahan'
 		]);
 		$this->assertEquals(0, Penawaran::count());
 		$this->assertEquals(0, StatusPesanan::count());
-		$response->assertSessionHasErrors('tenggat_waktu');
+		$response->assertSessionHasErrors('tanggal_selesai');
 	}
 
 	/** @test */
@@ -54,9 +54,9 @@ class BuatPenawaranTest extends TestCase
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/konfeksi/penawaran/'.$this->pesanan->id.'/create', [
 			'biaya' => null,
-			'tenggat_waktu' => Carbon::now(),
+			'tanggal_selesai' => Carbon::now(),
 			'gambar' => null,
-			'deskripsi' => 'deskripsi tambahan'
+			'catatan' => 'catatan tambahan'
 		]);
 		$this->assertEquals(0, Penawaran::count());
 		$this->assertEquals(0, StatusPesanan::count());
@@ -69,9 +69,9 @@ class BuatPenawaranTest extends TestCase
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/konfeksi/penawaran/'.$this->pesanan->id.'/create', [
 			'biaya' => 10000000,
-			'tenggat_waktu' => Carbon::now(),
+			'tanggal_selesai' => Carbon::now(),
 			'gambar' => null,
-			'deskripsi' => 'deskripsi tambahan'
+			'catatan' => 'catatan tambahan'
 		]);
 		$this->assertEquals(1, Penawaran::count());
 		$this->assertEquals(1, StatusPesanan::count());
@@ -86,9 +86,9 @@ class BuatPenawaranTest extends TestCase
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/konfeksi/penawaran/'.$this->pesanan->id.'/create', [
 			'biaya' => 10000000,
-			'tenggat_waktu' => Carbon::now(),
+			'tanggal_selesai' => Carbon::now(),
 			'gambar' => $file = UploadedFile::fake()->image('penawaran.jpg'),
-			'deskripsi' => 'deskripsi tambahan'
+			'catatan' => 'catatan tambahan'
 		]);
 		Storage::disk('public')->assertExists('pesanan/'.$file->hashName());
 		$this->assertEquals(1, Penawaran::count());

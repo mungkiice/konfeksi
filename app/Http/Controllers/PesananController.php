@@ -80,4 +80,33 @@ class PesananController extends Controller
 		$pdf = PDF::loadView('mail.bukti-pemesanan', compact('pesanan'));
 		return $pdf->download("Bukti Pesanan #{$pesanan->kode_pesanan}.pdf");
 	}
+
+	public function notificationHandler(Request $request)
+	{
+		$notif = new Veritrans_Notification();
+		\DB::transaction(function() use($notif) {
+			$transaction = $notif->transaction_status;
+			$type = $notif->payment_type;
+			$orderId = $notif->order_id;
+			$fraud = $notif->fraud_status;
+			$pesanan = Pesanan::filter($orderId);
+			if ($transaction == 'capture') {
+				if ($type == 'credit_card') {
+					StatusPesanan::buat($pesanan->id, 'Pembayaran sukses');
+					$pesanan->produk->konfeksi->user->notify(new Konfirmasi($pesanan));
+				}
+			} elseif ($transaction == 'settlement') {
+
+			} elseif($transaction == 'pending'){
+
+			} elseif ($transaction == 'deny') {
+
+			} elseif ($transaction == 'expire') {
+
+			} elseif ($transaction == 'cancel') {
+
+			}
+		});
+		return;
+	}
 }

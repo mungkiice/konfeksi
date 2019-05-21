@@ -59,7 +59,7 @@ class PenawaranController extends Controller
         $penawaran = Penawaran::temukan($penawaranId);
         $penawaran->perbarui($request->status);
         $pesanan = Pesanan::temukan($penawaran->pesanan_id);
-        $totalBiaya = $penawaran->biaya + $this->ongkir($pesanan->produk->konfeksi->kota_id, $pesanan->kota_id, 10, $pesanan->kurir);
+        $totalBiaya = $penawaran->biaya + $this->ongkir($pesanan->produk->konfeksi->kota_id, $pesanan->kota_id, $pesanan->kurir);
         if ($request->status == 'diterima') {
             $statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu pembayaran DP');
             $transaction_details = array(
@@ -118,8 +118,8 @@ class PenawaranController extends Controller
             $snapToken = Veritrans_Snap::getSnapToken($transaction);
 
             $pesanan->perbarui($totalBiaya, $penawaran->tanggal_selesai, $penawaran->catatan, $snapToken);
-            // return view('invoice', compact('pesanan'))->with('flash', 'Penawaran berhasil disetujui');
             return response()->json(['snap_token' => $snapToken]);
+
         }else{
             // return back()->with('flash', 'Penawaran berhasil ditolak');
         }
@@ -139,69 +139,6 @@ class PenawaranController extends Controller
         return 0;
     }
     
-    public function notificationHandler(Request $request)
-    {
-        $notif = new Veritrans_Notification();
-        \DB::transaction(function() use($notif) {
 
-          $transaction = $notif->transaction_status;
-          $type = $notif->payment_type;
-          $orderId = $notif->order_id;
-          $fraud = $notif->fraud_status;
-          $donation = Donation::findOrFail($orderId);
-
-          if ($transaction == 'capture') {
-            // For credit card transaction, we need to check whether transaction is challenge by FDS or not
-            if ($type == 'credit_card') {
-
-              if($fraud == 'challenge') {
-                // TODO set payment status in merchant's database to 'Challenge by FDS'
-                // TODO merchant should decide whether this transaction is authorized or not in MAP
-                // $donation->addUpdate("Transaction order_id: " . $orderId ." is challenged by FDS");
-                $donation->setPending();
-            } else {
-                // TODO set payment status in merchant's database to 'Success'
-                // $donation->addUpdate("Transaction order_id: " . $orderId ." successfully captured using " . $type);
-                $donation->setSuccess();
-            }
-
-        }
-
-    } elseif ($transaction == 'settlement') {
-
-            // TODO set payment status in merchant's database to 'Settlement'
-            // $donation->addUpdate("Transaction order_id: " . $orderId ." successfully transfered using " . $type);
-        $donation->setSuccess();
-
-    } elseif($transaction == 'pending'){
-
-            // TODO set payment status in merchant's database to 'Pending'
-            // $donation->addUpdate("Waiting customer to finish transaction order_id: " . $orderId . " using " . $type);
-        $donation->setPending();
-
-    } elseif ($transaction == 'deny') {
-
-            // TODO set payment status in merchant's database to 'Failed'
-            // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is Failed.");
-        $donation->setFailed();
-
-    } elseif ($transaction == 'expire') {
-
-            // TODO set payment status in merchant's database to 'expire'
-            // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is expired.");
-        $donation->setExpired();
-
-    } elseif ($transaction == 'cancel') {
-
-            // TODO set payment status in merchant's database to 'Failed'
-            // $donation->addUpdate("Payment using " . $type . " for transaction order_id: " . $orderId . " is canceled.");
-        $donation->setFailed();
-
-    }
-
-});
-
-        return;
-    }
 
 }

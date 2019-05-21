@@ -19,7 +19,7 @@ class UserController extends Controller
 	{
 		Validator::extend('old_password', function ($attribute, $value, $parameters, $validator) {
 			return Hash::check($value, current($parameters));
-		}, 'The old password is wrong');
+		}, 'Password lama salah.');
 		$user = Auth::user();
 		$this->validate($request, [
 			'old_password' => 'required|old_password:' . $user->password,
@@ -28,10 +28,9 @@ class UserController extends Controller
 		$user->update([
 			'password' => bcrypt($request->new_password)
 		]);
-
 		if ($user->isKonfeksi()) {
-			return redirect('/konfeksi')->with('flash', 'password berhasil diubah');
+			return redirect('/konfeksi')->with('flash', 'Password Berhasil Diubah');
 		}
-		return redirect('/')->with('flash', 'password berhasil diubah');
+		return redirect('/')->with('flash', 'Password Berhasil Diubah');
 	}
 }
