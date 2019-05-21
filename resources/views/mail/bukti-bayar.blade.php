@@ -4,6 +4,6 @@
 Pembayaran telah dilakukan oleh {{$pesanan->user->nama}}
 
 @component('mail::button', ['url' => $url])
-Buka Aplikasi
+Buka Website
 @endcomponent
 @endcomponent

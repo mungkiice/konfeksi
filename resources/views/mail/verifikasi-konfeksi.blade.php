@@ -6,6 +6,6 @@ Selamat {{$konfeksi->user->nama}}, Anda telah resmi terdaftar sebagai penyedia j
 @endcomponent
 
 @component('mail::button', ['url' => $url])
-Buka Aplikasi
+Buka Website
 @endcomponent
 @endcomponent
