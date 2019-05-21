@@ -37,9 +37,9 @@ class AfterShipAPI
 		return json_decode($response->getBody(), true)['data']['tracking']['checkpoints'];
 	}
 
-	public static function addTracking($courier, $tracking_number)
+	public static function addTracking($courier, $trackingNumber)
 	{
-		$response = self::getClient()->post('trackings/'.self::getSlug($courier).'/'.$receipt, [
+		$response = self::getClient()->post('trackings', [
 			'headers' => [
 				'aftership-api-key' => self::$apiKey,
 				'Content-Type' => 'application/json'
@@ -54,9 +54,9 @@ class AfterShipAPI
 		return json_decode($response->getBody(), true);		
 	}
 
-	public static function getLastCheckPont($courier, $trackingNumber)
+	public static function getLastCheckPoint($courier, $trackingNumber)
 	{
-		$response = self::getClient()->get('last_checkpoint/'.$courier.'/'.$trackingNumber, [
+		$response = self::getClient()->get('last_checkpoint/'.self::getSlug($courier).'/'.$trackingNumber, [
 			'headers' => [
 				'aftership-api-key' => self::$apiKey,
 				'Content-Type' => 'application/json'

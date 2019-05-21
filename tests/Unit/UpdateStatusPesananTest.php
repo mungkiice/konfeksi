@@ -10,6 +10,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Notification;
 use Tests\TestCase;
+use App\AfterShipAPI;
 
 class UpdateStatusPesananTest extends TestCase
 {
@@ -25,6 +26,7 @@ class UpdateStatusPesananTest extends TestCase
 			'catatan' => 'Jaket dengan bahan denim',
 			'file_desain' => $file = UploadedFile::fake()->image('random.jpg'),
 			'jumlah' => '{"S":"12","M":"2","L":0,"XL":0}',
+			'kurir' => 'jne REG'
 		]);
 	}
 
@@ -44,10 +46,26 @@ class UpdateStatusPesananTest extends TestCase
 	{
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/konfeksi/pesanan/'.$this->pesanan->id, [
-			'keterangan' => 'Pesanan sudah selesai'
+			'keterangan' => 'Proses penjahitan',
 		]);
 		$this->assertEquals(1, StatusPesanan::count());
 		Notification::assertSentTo([$this->user], ProgresPesanan::class);
 		$response->assertSessionHas('flash', 'Status Pesanan berhasil disimpan');
+	}
+
+	/** @test */
+	public function jalur_3()
+	{
+		$this->actingAs($this->konfeksiUser);
+		$response = $this->post('/konfeksi/pesanan/'.$this->pesanan->id, [
+			'keterangan' => 'Pesanan telah dikirim',
+			'nomor_resi' => '021500038275719'
+		]);
+		$this->assertEquals(1, StatusPesanan::count());
+		Notification::assertSentTo([$this->user], ProgresPesanan::class);
+		$responseAfterShip = AfterShipAPI::getLastCheckPoint($this->pesanan->kurir, '021500038275719');
+		$this->assertEquals(200, $responseAfterShip['meta']['code']);
+		// gabisa di flash karena error nomor resi sudah terdaftar
+		// $response->assertSessionHas('flash', 'Status Pesanan berhasil disimpan');
 	}
 }

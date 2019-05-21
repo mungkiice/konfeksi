@@ -130,13 +130,17 @@
   });
 		});
 	})(jQuery);
-	$('select#input-status').on('change', function(){
-		let status = this.value;
-		if (status == 'pesanan telah dikirim') {
-			$('#form-resi').show();
-		}else{
-			$('#form-resi').hide();
-		}
+	$(document).ready(function(){
+		$('select#input-status').on('change', function(){
+			let status = this.value;
+			if (status == 'pesanan telah dikirim') {
+				$('div#form-resi').show();
+				console.log('oit');
+			}else{
+				console.log('iot');
+				$('div#form-resi').hide();
+			}
+		});
 	});
 </script>
 <script src="{{ asset('assets/js/shared/file-upload.js') }}"></script>
