@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
 use App\Konfeksi;
+use App\Notifications\KonfeksiVerification;
+use App\User;
 use Illuminate\Http\Request;
 
 class KonfeksiController extends Controller
@@ -29,12 +30,10 @@ class KonfeksiController extends Controller
     public function verify($konfeksiId)
     {
         $konfeksi = Konfeksi::find($konfeksiId);
-
-        if ($konfeksi != null) {
-            $konfeksi->update([
-                'diverifikasi' => true
-            ]);
-        }
+        $konfeksi->update([
+            'diverifikasi' => true
+        ]);
+        $konfeksi->user->notify(new KonfeksiVerification($konfeksi));
         return back()->with('flash', 'Konfeksi berhasil diverifikasi');
     }
 }
