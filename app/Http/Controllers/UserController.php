@@ -19,11 +19,11 @@ class UserController extends Controller
 	{
 		$user = Auth::user();
 		$this->validate($request, [
-			'old_password' => 'required|old_password:' . $user->password,
-			'new_password' => 'required|confirmed'
+			'password_lama' => 'required|valid_password:' . $user->password,
+			'password_baru' => 'required|confirmed'
 		]);
 		$user->update([
-			'password' => bcrypt($request->new_password)
+			'password' => bcrypt($request->password_baru)
 		]);
 		if ($user->isKonfeksi()) {
 			return redirect('/konfeksi')->with('flash', 'Password Berhasil Diubah');
