@@ -91,10 +91,7 @@ class RegisterController extends Controller
             'alamat' => 'required',
             'kota' => 'required',
             'deskripsi' => 'required',
-            'gambar' => 'required|image|mimes:png,jpg,jpeg',
-            'bank_nama' => 'required',
-            'bank_nomor' => 'required',
-            'bank_pemilik' => 'required'
+            'gambar' => 'required',
         ]);
         $cityName = '';
         foreach ((new RajaOngkirAPI())->getCities() as $city) {
@@ -120,9 +117,6 @@ class RegisterController extends Controller
             'kota_id' => $request->kota,
             'deskripsi' => $request->deskripsi,
             'gambar' => $path,
-            'bank_nama' => strtoupper($request->bank_nama),
-            'bank_nomor' => $request->bank_nomor,
-            'bank_pemilik' => $request->bank_pemilik
         ]);
         $this->guard()->login($user);
         return redirect('/konfeksi');

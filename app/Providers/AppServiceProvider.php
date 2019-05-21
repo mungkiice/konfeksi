@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Validator::extend('old_password', function ($attribute, $value, $parameters, $validator) {
+        Validator::extend('valid_password', function ($attribute, $value, $parameters, $validator) {
             return Hash::check($value, current($parameters));
         }, 'Password lama salah.');
     }

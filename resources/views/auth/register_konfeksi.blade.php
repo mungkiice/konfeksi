@@ -137,43 +137,6 @@
                                 <p style="color: red;">{{ $errors->first('deskripsi') }}</p>
                                 @endif
                             </div>  
-                            <div class="form-group">
-                                <div class="row">
-                                    <div class="col-md-4">
-                                        <label>Nama Bank</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Bank" name="bank_nama">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <!-- <i class="mdi mdi-check-circle-outline"></i> -->
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-8">
-                                        <label>Nomor Rekening</label>
-                                        <div class="input-group">
-                                            <input type="text" class="form-control" placeholder="Nomor Rek" name="bank_nomor">
-                                            <div class="input-group-append">
-                                                <span class="input-group-text">
-                                                    <!-- <i class="mdi mdi-check-circle-outline"></i> -->
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Nama Pemilik Rekening</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" placeholder="Atas Nama Rekening" name="bank_pemilik">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <!-- <i class="mdi mdi-check-circle-outline"></i> -->
-                                        </span>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="form-group">        
                                 <label style="display: block;">Gambar Konfeksi</label>         
                                 <input type="file" class="dropify" name="gambar" />
