@@ -171,13 +171,22 @@
         function (data, status) {
             snap.pay(data.snap_token, {
                 onSuccess: function (result) {
-                    showSwal('flash', 'Transaksi berhasil');
+                	showSwal('flash', 'Transaksi berhasil');
+                	setTimeOut(function(){
+                		location.reload();
+                	}, 2000);
                 },
                 onPending: function (result) {
                     showSwal('flash', 'Transaksi pending');
+                	setTimeOut(function(){
+                		location.reload();
+                	}, 2000);
                 },
                 onError: function (result) {
                     showSwal('confirmation', 'Transaksi error');
+                	setTimeOut(function(){
+                		location.reload();
+                	}, 2000);
                 }
             });
         });

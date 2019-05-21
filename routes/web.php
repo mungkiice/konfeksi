@@ -44,6 +44,8 @@ Route::get('/pesanansaya', 'PesananController@indexMember')->middleware('role:me
 Route::get('/pesanansaya/{kodePesanan}/cetak', 'PesananController@cetakBukti')->middleware('role:member');
 Route::get('/penawaran/{kodePesanan}', 'PenawaranController@show')->middleware('role:member');
 Route::post('/penawaran/{penawaranId}/konfirmasi', 'PenawaranController@konfirmasi')->middleware('role:member');
+
+Route::post('/ulasan', 'UlasanController@store')->middleware('role:member');
 Route::prefix('admin')->group(function(){
 	Route::get('/', 'DashboardController@adminDashboard')->middleware('role:admin');	
 	Route::get('/artikel', 'ArtikelController@index')->middleware('role:admin');	

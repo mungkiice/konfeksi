@@ -19,7 +19,6 @@ class CreateUlasansTable extends Migration
             $table->bigInteger('konfeksi_id')->unsigned();
             $table->integer('rating');
             $table->string('komentar')->nullable();
-            $table->string('gambar')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

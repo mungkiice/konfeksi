@@ -127,13 +127,15 @@ class PenawaranController extends Controller
 
     public function ongkir($kotaAsal, $kotaTujuan, $ekspedisi)
     {
-        $arr = explode(' ', trim($ekspedisi));
-        $kurir = array_shift($arr);
-        $jenis = implode(' ', $arr);
-        $result = RajaOngkirAPI::getCost($kotaAsal, $kotaTujuan, 10, $kurir);
-        foreach ($result[0]['costs'] as $item) {
-            if ($item['service'] == $jenis) {
-                return $item['cost'][0]['value'];
+        if ($ekspedisi != null) {
+            $arr = explode(' ', trim($ekspedisi));
+            $kurir = array_shift($arr);
+            $jenis = implode(' ', $arr);
+            $result = RajaOngkirAPI::getCost($kotaAsal, $kotaTujuan, 10, $kurir);
+            foreach ($result[0]['costs'] as $item) {
+                if ($item['service'] == $jenis) {
+                    return $item['cost'][0]['value'];
+                }
             }
         }
         return 0;

@@ -32,7 +32,12 @@
 							<td style="white-space: normal">
 								{{$pesanan->produk->nama}}
 							</td>
-							<td>{{ date('d M Y', strtotime($pesanan->tanggal_selesai)) }}</td>
+
+							<td>
+								@if($pesanan->tanggal_selesai)
+								{{date('d M Y', strtotime($pesanan->tanggal_selesai)) }}
+								@endif
+							</td>
 							<td style="text-align: right;">Rp. {{number_format($pesanan->biaya)}}</td>
 							<td>
 								@foreach(json_decode($pesanan->jumlah) as $key => $value)

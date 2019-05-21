@@ -17,9 +17,6 @@ class UserController extends Controller
 
 	public function changePassword(Request $request)
 	{
-		Validator::extend('old_password', function ($attribute, $value, $parameters, $validator) {
-			return Hash::check($value, current($parameters));
-		}, 'Password lama salah.');
 		$user = Auth::user();
 		$this->validate($request, [
 			'old_password' => 'required|old_password:' . $user->password,
