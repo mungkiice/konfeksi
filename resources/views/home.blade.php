@@ -21,6 +21,7 @@
     CSS
     ============================================= -->
     <link rel="stylesheet" href="css/linearicons.css">
+  <link rel="stylesheet" href="{{ asset('assets/vendors/iconfonts/mdi/css/materialdesignicons.min.css') }}">
     <link rel="stylesheet" href="css/font-awesome.min.css">
     <link rel="stylesheet" href="css/themify-icons.css">
     <link rel="stylesheet" href="css/bootstrap.css">
@@ -87,20 +88,10 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="single-features">
                 <div class="f-icon">
-                  <img src="img/features/f-icon1.png" alt="">
+                  <img src="img/features/f-icon4.png" alt="">
                 </div>
-                <h6>Pilih Konfeksi</h6>
-                <p>Free Shipping on all order</p>
-              </div>
-            </div>
-            <!-- single features -->
-            <div class="col-lg-3 col-md-6 col-sm-6">
-              <div class="single-features">
-                <div class="f-icon">
-                  <img src="img/features/f-icon2.png" alt="">
-                </div>
-                <h6>Pilih Produk</h6>
-                <p>Free Shipping on all order</p>
+                <h6>Pesan</h6>
+                <p>Pesan pakaian sesuai keinginan</p>
               </div>
             </div>
             <!-- single features -->
@@ -108,7 +99,17 @@
               <div class="single-features">
                 <div class="f-icon">
                   <img src="img/features/f-icon3.png" alt="">
+                </div>
+                <h6>Chat</h6>
+                <p>Diskusikan pesananmu dengan konfeksi</p>
+              </div>
+            </div>
+            <!-- single features -->
+            <div class="col-lg-3 col-md-6 col-sm-6">
+              <div class="single-features">
+                <div class="f-icon">
                   <i class="fa fa-chat"></i>
+                  <img src="img/features/f-icon2.png" alt="">
                 </div>
                 <h6>24/7 Support</h6>
                 <p>Free Shipping on all order</p>
@@ -118,10 +119,10 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="single-features">
                 <div class="f-icon">
-                  <img src="img/features/f-icon4.png" alt="">
+                  <img src="img/features/f-icon1.png" alt="">
                 </div>
-                <h6>Secure Payment</h6>
-                <p>Free Shipping on all order</p>
+                <h6>Distribusi</h6>
+                <p>Barang diambil/dikirim</p>
               </div>
             </div>
           </div>
