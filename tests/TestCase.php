@@ -51,9 +51,6 @@ abstract class TestCase extends BaseTestCase
 			'kota_id' => 256,
 			'diverifikasi' => true,
 			'gambar' => UploadedFile::fake()->image('konfeksi.png'),
-			'bank_nama' => 'BCA',
-			'bank_nomor' => '1237819237',
-			'bank_pemilik' => 'Konfeksi XYZ Inc'
 		]);
 		$this->produk = Produk::create([
 			'konfeksi_id' => $this->konfeksi->id,

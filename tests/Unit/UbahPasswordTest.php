@@ -13,11 +13,11 @@ class UbahPasswordTest extends TestCase
 	{
 		$this->actingAs($this->user);
 		$response = $this->post('/user/password/edit', [
-			'old_password' => null,
-			'new_password' => 'newsecret',
-			'new_password_confirmation' => 'newsecret'
+			'password_lama' => null,
+			'password_baru' => 'newsecret',
+			'password_baru_confirmation' => 'newsecret'
 		]);
-		$response->assertSessionHasErrors('old_password');
+		$response->assertSessionHasErrors('password_lama');
 	}
 
 
@@ -26,10 +26,10 @@ class UbahPasswordTest extends TestCase
 	{
 		$this->actingAs($this->user);
 		$response = $this->post('/user/password/edit', [
-			'old_password' => 'wrongsecret',
-			'new_password' => 'newsecret',
+			'password_lama' => 'wrongsecret',
+			'password_baru' => 'newsecret',
 		]);
-		$response->assertSessionHasErrors('old_password');
+		$response->assertSessionHasErrors('password_lama');
 	}
 
 	/** @test */
@@ -37,10 +37,10 @@ class UbahPasswordTest extends TestCase
 	{
 		$this->actingAs($this->user);
 		$response = $this->post('/user/password/edit', [
-			'old_password' => 'secret',
-			'new_password' => null,
+			'password_lama' => 'secret',
+			'password_baru' => null,
 		]);
-		$response->assertSessionHasErrors('new_password');
+		$response->assertSessionHasErrors('password_baru');
 	}
 
 	/** @test */
@@ -48,11 +48,11 @@ class UbahPasswordTest extends TestCase
 	{
 		$this->actingAs($this->user);
 		$response = $this->post('/user/password/edit', [
-			'old_password' => 'secret',
-			'new_password' => 'newsecret',
-			'new_password_confirmation' => 'unmatchedsecret'
+			'password_lama' => 'secret',
+			'password_baru' => 'newsecret',
+			'password_baru_confirmation' => 'unmatchedsecret'
 		]);
-		$response->assertSessionHasErrors('new_password');
+		$response->assertSessionHasErrors('password_baru');
 	}
 
 	/** @test */
@@ -60,9 +60,9 @@ class UbahPasswordTest extends TestCase
 	{
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/user/password/edit', [
-			'old_password' => 'secret',
-			'new_password' => 'newsecret',
-			'new_password_confirmation' => 'newsecret'
+			'password_lama' => 'secret',
+			'password_baru' => 'newsecret',
+			'password_baru_confirmation' => 'newsecret'
 		]);
 		$response->assertRedirect('/konfeksi');
 		$response->assertSessionHas('flash', 'Password Berhasil Diubah');
@@ -73,9 +73,9 @@ class UbahPasswordTest extends TestCase
 	{
 		$this->actingAs($this->user);
 		$response = $this->post('/user/password/edit', [
-			'old_password' => 'secret',
-			'new_password' => 'newsecret',
-			'new_password_confirmation' => 'newsecret'
+			'password_lama' => 'secret',
+			'password_baru' => 'newsecret',
+			'password_baru_confirmation' => 'newsecret'
 		]);
 		$response->assertSessionHas('flash', 'Password Berhasil Diubah');
 	}
