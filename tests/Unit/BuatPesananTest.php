@@ -26,6 +26,9 @@ class BuatPesananTest extends TestCase
       'file_desain' => $file = UploadedFile::fake()->image('random.jpg'),
       'small' => 2,
       'medium' => 10,
+      'alamat' => 'Jalan Sumbersari 2',
+      'kota_id' => 1,
+      'kurir' => 'jne REG'
     ]);
     $this->assertEquals(0, Pesanan::count());
     $response->assertSessionHasErrors('catatan');
@@ -41,6 +44,8 @@ class BuatPesananTest extends TestCase
       'file_desain' => null,
       'small' => 2,
       'medium' => 10,
+      'alamat' => 'Jalan Sumbersari 2',
+      'kota_id' => 1,
       'kurir' => 'jne REG'
     ]);
     $this->assertEquals(0, Pesanan::count());
@@ -57,6 +62,9 @@ class BuatPesananTest extends TestCase
       'file_desain' => $file = UploadedFile::fake()->image('random.jpg'),
       'small' => 2,
       'medium' => 10,
+      'alamat' => 'Jalan Sumbersari 2',
+      'kota_id' => 1,
+      'kurir' => 'jne REG'
     ]);
     Storage::disk('public')->assertExists('pesanan/' . $file->hashName());
     $this->assertEquals(1, Pesanan::count());
