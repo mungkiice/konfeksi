@@ -28,6 +28,7 @@
 <div class="container" style="margin: 20px auto;">
 	<input type="text" id="search-form" class="form-control mb-4" placeholder="Cari Konfeksi" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Cari Konfeksi'" onkeyup="filter()">
 	<div class="row" id="daftar-konfeksi" style="clear: both">
+		<div id="error-teks" class="col-md-12" style="text-align: center;display: none"><h3>Konfeksi tidak ditemukan</h3></div>	
 		@foreach($konfeksis as $konfeksi)
 		<div class="col-lg-3 col-md-4 item-konfeksi">
 			<div class="single-product" style="overflow: hidden;">
@@ -74,6 +75,9 @@
     				li[i].style.display = "none";
     			}
     		}
+    		if ($('.item-konfeksi:visible').length == 0) {
+    			$('#error-teks').show();
+    		}else{$('#error-teks').hide();}
     	}
     </script>
     @endsection

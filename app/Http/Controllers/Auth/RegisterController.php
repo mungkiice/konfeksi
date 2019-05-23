@@ -119,6 +119,6 @@ class RegisterController extends Controller
             'gambar' => $path,
         ]);
         $this->guard()->login($user);
-        return redirect('/konfeksi')->with('flash', 'Tunggu verifikasi oleh admin');
+        return redirect('/konfeksi')->with('flash', 'Konfeksi berhasil terdaftar dan menunggu verifikasi oleh admin');
     }
 }

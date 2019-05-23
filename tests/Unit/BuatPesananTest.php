@@ -4,6 +4,7 @@ namespace Tests\Unit;
 
 use App\Notifications\PesananBaru;
 use App\Pesanan;
+use App\StatusPesanan;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -27,11 +28,14 @@ class BuatPesananTest extends TestCase
       'small' => 2,
       'medium' => 10,
       'alamat' => 'Jalan Sumbersari 2',
-      'kota_id' => 1,
+      'kota' => 1,
       'kurir' => 'jne REG'
     ]);
-    $this->assertEquals(0, Pesanan::count());
     $response->assertSessionHasErrors('catatan');
+    $this->assertEquals(0, Pesanan::count());
+    $this->assertEquals(0, StatusPesanan::count());
+    Notification::assertNotSentTo($this->konfeksiUser, PesananBaru::class);
+    $response->assertSessionMissing('flash');
   }
 
   /** @test */
@@ -45,11 +49,14 @@ class BuatPesananTest extends TestCase
       'small' => 2,
       'medium' => 10,
       'alamat' => 'Jalan Sumbersari 2',
-      'kota_id' => 1,
+      'kota' => 1,
       'kurir' => 'jne REG'
     ]);
-    $this->assertEquals(0, Pesanan::count());
     $response->assertSessionHasErrors('file_desain');
+    $this->assertEquals(0, Pesanan::count());
+    $this->assertEquals(0, StatusPesanan::count());
+    Notification::assertNotSentTo($this->konfeksiUser, PesananBaru::class);
+    $response->assertSessionMissing('flash');
   }
 
   /** @test */
@@ -63,13 +70,16 @@ class BuatPesananTest extends TestCase
       'small' => 2,
       'medium' => 10,
       'alamat' => 'Jalan Sumbersari 2',
-      'kota_id' => 1,
+      'kota' => 1,
       'kurir' => 'jne REG'
     ]);
     Storage::disk('public')->assertExists('pesanan/' . $file->hashName());
     $this->assertEquals(1, Pesanan::count());
+    $this->assertEquals(1, StatusPesanan::count());
     Notification::assertSentTo([$this->konfeksiUser], PesananBaru::class);
     $response->assertRedirect('/');
     $response->assertSessionHas('flash', 'Pesanan berhasil dikirim');
+    $response->assertSessionMissing('catatan');
+    $response->assertSessionMissing('file_desain');
   }
 }

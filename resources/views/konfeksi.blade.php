@@ -148,7 +148,10 @@
 								<input type="hidden" name="konfeksi_id" value="{{$konfeksi->id}}">
 								<div class="col-md-12">
 									<div class="form-group">
-										<input type="number" class="form-control" id="rating" name="rating" placeholder="Rating" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Rating'" min="1" max="5">
+										<input type="number" class="form-control" id="rating" name="rating" placeholder="Rating" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Rating'" min="1" max="5">		
+										@if ($errors->has('rating'))
+										<p style="color: red;">{{ $errors->first('rating') }}</p>
+										@endif
 									</div>
 								</div>
 								<div class="col-md-12">

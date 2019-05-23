@@ -44,8 +44,8 @@ class KonfirmasiPenawaranTest extends TestCase
     		'status' => 'diterima'
     	]);
     	$this->assertEquals('diterima', $this->penawaran->fresh()->status);
-    	// $this->assertEquals(1, StatusPesanan::count());
-    	// $response->assertSessionHas('flash', 'Penawaran berhasil disetujui');
+    	$this->assertEquals(1, StatusPesanan::count());
+    	$response->assertJson(['flash' => 'Penawaran berhasil disetujui']);
     }
 
 	/** @test */
@@ -56,7 +56,7 @@ class KonfirmasiPenawaranTest extends TestCase
     		'status' => 'ditolak'
     	]);
     	$this->assertEquals('ditolak', $this->penawaran->fresh()->status);
-    	// $this->assertEquals(0, StatusPesanan::count());
-    	// $response->assertSessionHas('flash', 'Penawaran berhasil ditolak');
+    	$this->assertEquals(0, StatusPesanan::count());
+    	$response->assertJson(['flash' => 'Penawaran berhasil ditolak']);
     }
 }

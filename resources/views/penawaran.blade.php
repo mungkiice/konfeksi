@@ -58,7 +58,7 @@
 										<input id="inputNama" type="text" name="first_name" class="form-control" value="{{ date('d M Y', strtotime($penawaran->tanggal_selesai)) }}">
 									</div>
 									<div class="form-group">
-										<label for="inputNama">Biaya</label>
+										<label for="inputNama">Biaya Tambahan</label>
 										<input id="inputNama" type="text" name="first_name" class="form-control" value="Rp. {{ number_format($penawaran->biaya,0) }}">
 									</div>
 									<div class="form-group">
@@ -70,7 +70,7 @@
 									@if($penawaran->status == 'terkirim' && $key == $penawarans->keys()->first())
 									<form style="display: inline-block;" onsubmit="return submitForm('{{$penawaran->id}}', 'diterima')">
 										@csrf
-										<button class="genric-btn primary circle ">Terima</button>
+										<button class="genric-btn primary circle ">Setuju</button>
 									</form>
 									<form style="display: inline-block;" onsubmit="return submitForm('{{$penawaran->id}}', 'ditolak')">
 										@csrf
@@ -159,38 +159,45 @@
 
 @section('custom-js')
 <script src="{{ !config('services.midtrans.isProduction') ? 'https://app.sandbox.midtrans.com/snap/snap.js' : 'https://app.midtrans.com/snap/snap.js' }}" data-client-key="{{ config('services.midtrans.clientKey') }}"></script>
-    <script>
-    function submitForm(penawaranId, status) {
+<script>
+	function submitForm(penawaranId, status) {
         // Kirim request ajax
         $.post("/penawaran/"+penawaranId+'/konfirmasi',
         {
-            _method: 'POST',
-            _token: '{{ csrf_token() }}',
-            status: status
+        	_method: 'POST',
+        	_token: '{{ csrf_token() }}',
+        	status: status
         },
         function (data, status) {
-            snap.pay(data.snap_token, {
-                onSuccess: function (result) {
-                	showSwal('flash', 'Transaksi berhasil');
-                	setTimeOut(function(){
-                		window.location.reload();
-                	}, 2000);
-                },
-                onPending: function (result) {
-                    showSwal('flash', 'Transaksi pending');
-                	setTimeOut(function(){
-                		window.location.reload();
-                	}, 2000);
-                },
-                onError: function (result) {
-                    showSwal('confirmation', 'Transaksi error');
-                	setTimeOut(function(){
-                		window.location.reload();
-                	}, 2000);
-                }
-            });
+        	if (data.snap_token != null) {
+        		snap.pay(data.snap_token, {
+        			onSuccess: function (result) {
+        				showSwal('flash', 'Penawaran berhasil disetujui');
+        				setTimeOut(function(){
+        					window.location.reload();
+        				}, 2000);
+        			},
+        			onPending: function (result) {
+        				showSwal('flash', 'Penawaran berhasil disetujui');
+        				setTimeOut(function(){
+        					window.location.reload();
+        				}, 2000);
+        			},
+        			onError: function (result) {
+        				showSwal('confirmation', 'Transaksi error');
+        				setTimeOut(function(){
+        					window.location.reload();
+        				}, 2000);
+        			}
+        		});
+        	}else{
+        		showSwal('flash', 'Penawaran berhasil ditolak');
+        		setTimeOut(function(){
+        			window.location.reload();
+        		}, 2000);
+        	}
         });
         return false;
     }
-    </script>
+</script>
 @endsection

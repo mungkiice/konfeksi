@@ -35,17 +35,6 @@ class UpdateStatusPesananTest extends TestCase
 	{
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/konfeksi/pesanan/'.$this->pesanan->id, [
-			'keterangan' => null,
-		]);
-		$this->assertEquals(0, StatusPesanan::count());
-		$response->assertSessionHasErrors('keterangan');	
-	}
-
-	/** @test */
-	public function jalur_2()
-	{
-		$this->actingAs($this->konfeksiUser);
-		$response = $this->post('/konfeksi/pesanan/'.$this->pesanan->id, [
 			'keterangan' => 'Proses penjahitan',
 		]);
 		$this->assertEquals(1, StatusPesanan::count());
@@ -54,7 +43,7 @@ class UpdateStatusPesananTest extends TestCase
 	}
 
 	/** @test */
-	public function jalur_3()
+	public function jalur_2()
 	{
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/konfeksi/pesanan/'.$this->pesanan->id, [

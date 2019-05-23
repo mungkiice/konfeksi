@@ -4,18 +4,26 @@ namespace App;
 
 class Pesanan extends Model
 {
-	public static function buat($userId, $produkId, $tanggalSelesai, $catatan, $fileDesain, $alamat, $kota, $jumlah, $kurir)
+	public static function buat($userId, $produkId, $catatan, $fileDesain, $alamat, $kota, $arrJumlah, $kurir)
 	{
+		$totalBiaya = 0;
+		$produk = Produk::temukan($produkId);
+		foreach ($arrJumlah as $ukuran => $jumlah) {
+			$totalBiaya += $jumlah * $produk->harga;
+		}
+		if ($alamat != null) {
+			$totalBiaya += RajaOngkirAPI::ongkir($produk->konfeksi->kota_id, $kota, $kurir);
+		}
 		$pesanan = static::query()->create([
 			'user_id' => $userId,
 			'kode_pesanan' => rand(1000000, 9999999),
 			'produk_id' => $produkId,
-			'tanggal_selesai' => $tanggalSelesai,
 			'catatan' => $catatan,
 			'file_desain' => $fileDesain,
 			'alamat' => $alamat,
+			'biaya' => $totalBiaya,
 			'kota_id' => $kota,
-			'jumlah' => json_encode($jumlah),
+			'jumlah' => json_encode($arrJumlah),
 			'kurir' => $kurir
 		]);
 		return $pesanan;

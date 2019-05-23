@@ -30,7 +30,6 @@ class PenawaranController extends Controller
     public function store(Request $request, $pesananId)
     {
     	$this->validate($request, [
-    		'biaya' => 'required',
             'tanggal_selesai' => 'required',
         ]);
 
@@ -41,7 +40,7 @@ class PenawaranController extends Controller
 
         $pesanan = Pesanan::temukan($pesananId);
         
-        $penawaran = Penawaran::buat($pesanan->id,$request->tanggal_selesai,$request->biaya,$request->catatan,$path);
+        $penawaran = Penawaran::buat($pesanan->id,$request->tanggal_selesai,$pesanan->biaya + $request->biaya,$request->catatan,$path);
         $statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu konfirmasi penawaran');
         $pesanan->user->notify(new PenawaranBaru($penawaran));
         return redirect('/konfeksi')->with('flash', 'Penawaran berhasil dikirim');
@@ -56,9 +55,14 @@ class PenawaranController extends Controller
         $totalBiaya = $penawaran->biaya + $ongkosKirim;
         if ($request->status == 'diterima') {
             $statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu pembayaran DP');
-            $snapToken = MidtransAPI::getAdvanceSnapToken($pesanan, $ongkosKirim);
+            $snapToken = MidtransAPI::getAdvanceSnapToken($pesanan, $ongkosKirim, $penawaran->biaya);
             $pesanan->perbarui($totalBiaya, $penawaran->tanggal_selesai, $penawaran->catatan, $snapToken);
-            return response()->json(['snap_token' => $snapToken]);
+            return response()->json([
+                'snap_token' => $snapToken,
+                'flash' => 'Penawaran berhasil disetujui'
+            ]);
         }
-        return null;
+        return response()->json([
+            'flash' => 'Penawaran berhasil ditolak'
+        ]);;
     }}

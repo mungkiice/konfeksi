@@ -55,7 +55,7 @@
 								@endforeach
 							</td>
 							<td style="width: 200px;">
-								<a href="/pesanansaya/{{$pesanan->kode_pesanan}}/cetak" class="gray_btn custom-btn">Cetak Bukti Pemesanan</a>
+								<a href="/pesanansaya/{{$pesanan->kode_pesanan}}/cetak" class="gray_btn custom-btn">Unduh Bukti Pemesanan</a>
 								<a href="/penawaran/{{ $pesanan->kode_pesanan }}" class="primary-btn custom-btn">Lihat Penawaran</a>
 								<a href="#" onclick="return bayar('{{$pesanan->kode_pesanan}}')" class="gray_btn custom-btn">Pembayaran</a>
 							</td>

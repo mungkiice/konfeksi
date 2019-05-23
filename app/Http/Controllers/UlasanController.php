@@ -15,6 +15,9 @@ class UlasanController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'rating' => 'required'
+        ]);
     	Ulasan::create([
     		'user_id' => auth()->user()->id,
     		'konfeksi_id' => $request->konfeksi_id,

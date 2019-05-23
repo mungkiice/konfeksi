@@ -16,7 +16,7 @@ class MidtransAPI
 		Veritrans_Config::$is3ds = config('services.midtrans.is3ds');
 	}
 
-	public static function getAdvanceSnapToken(Pesanan $pesanan, $ongkir)
+	public static function getAdvanceSnapToken(Pesanan $pesanan, $ongkir, $biayaTambahan)
 	{
 		self::init();
 		$transaction_details = array(
@@ -34,12 +34,20 @@ class MidtransAPI
                     ]);
                 }
             }
-            if ($pesanan->alamat) {
+            if ($pesanan->alamat != null) {
                 array_push($item_details, [
                     'id' => 'kurir',
                     'price' => .5 * $ongkir,
                     'quantity' => 1,
                     'name' => $pesanan->kurir .' (DP 50%)'
+                ]);
+            }
+            if ($biayaTambahan != null) {
+                array_push($item_details, [
+                    'id' => 'bt',
+                    'price' => .5 * $biayaTambahan,
+                    'quantity' => 1,
+                    'name' => 'biaya tambahan (DP 50%)'
                 ]);
             }
 
@@ -76,7 +84,7 @@ class MidtransAPI
             return $snapToken;
 	}
 
-	public static function getRepaymentSnapToken(Pesanan $pesanan, $ongkir)
+	public static function getRepaymentSnapToken(Pesanan $pesanan, $ongkir, $biayaTambahan)
 	{
 		self::init();
 		$transaction_details = array(
@@ -100,6 +108,14 @@ class MidtransAPI
                     'price' => .5 * $ongkir,
                     'quantity' => 1,
                     'name' => $pesanan->kurir . ' (LUNAS)'
+                ]);
+            }
+            if ($biayaTambahan != null) {
+                array_push($item_details, [
+                    'id' => 'bt',
+                    'price' => .5 * $biayaTambahan,
+                    'quantity' => 1,
+                    'name' => 'biaya tambahan (DP 50%)'
                 ]);
             }
 

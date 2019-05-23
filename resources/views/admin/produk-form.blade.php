@@ -20,7 +20,7 @@
 						@endif
 					</div>
 					<div class="form-group">
-						<label for="hargaInput">Harga Produk per piece</label>
+						<label for="hargaInput">Harga Produk</label>
 						<input type="number" class="form-control" name="harga">
 						@if ($errors->has('harga'))
 						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('harga') }}</label>

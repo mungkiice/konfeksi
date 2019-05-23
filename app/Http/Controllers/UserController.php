@@ -25,9 +25,6 @@ class UserController extends Controller
 		$user->update([
 			'password' => bcrypt($request->password_baru)
 		]);
-		if ($user->isKonfeksi()) {
-			return redirect('/konfeksi')->with('flash', 'Password Berhasil Diubah');
-		}
-		return redirect('/')->with('flash', 'Password Berhasil Diubah');
+		return back()->with('flash', 'Password Berhasil Diubah');
 	}
 }

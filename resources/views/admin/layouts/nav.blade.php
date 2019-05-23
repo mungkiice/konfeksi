@@ -132,7 +132,9 @@
                   </div>
                 </a> -->
                 <!-- <a class="dropdown-item mt-2"> Manage Accounts </a> -->
+                @if(Auth::user()->isKonfeksi())
                 <a class="dropdown-item" href="/user/password/edit"> Ubah Password </a>
+                @endif
                 <!-- <a class="dropdown-item"> Check Inbox </a> -->
                 <a class="dropdown-item" onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();"> Logout </a>

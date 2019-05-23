@@ -21,21 +21,21 @@
 						@endif
 					</div>
 					<div class="form-group">
-						<label for="namaInput">Biaya</label>
+						<label for="namaInput">Biaya Tambahan (optional)</label>
 						<input type="number" class="form-control" id="namaINput" name="biaya" style="text-align: right;"> 
 						@if ($errors->has('biaya'))
 						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('biaya') }}</label>
 						@endif
 					</div>
 					<div class="form-group">
-						<label for="catatanInput">Catatan</label> 
+						<label for="catatanInput">Catatan (optional)</label> 
 						<textarea class="form-control" id="catatanInput" rows="4" name="catatan"></textarea> 
 						@if ($errors->has('catatan'))
 						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('catatan') }}</label>
 						@endif
 					</div>
 					<div class="form-group">		
-						<label style="display: block;">Gambar Desain</label>			
+						<label style="display: block;">Gambar Desain (optional)</label>			
 						<input type="file" class="dropify" name="gambar" />
 						@if ($errors->has('gambar'))
 						<label id="firstname-error" class="error mt-2 text-danger" for="firstname">{{ $errors->first('gambar') }}</label>

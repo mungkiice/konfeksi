@@ -58,19 +58,6 @@ class UbahPasswordTest extends TestCase
 	/** @test */
 	public function jalur_5()
 	{
-		$this->actingAs($this->konfeksiUser);
-		$response = $this->post('/user/password/edit', [
-			'password_lama' => 'secret',
-			'password_baru' => 'newsecret',
-			'password_baru_confirmation' => 'newsecret'
-		]);
-		$response->assertRedirect('/konfeksi');
-		$response->assertSessionHas('flash', 'Password Berhasil Diubah');
-	}
-
-	/** @test */
-	public function jalur_6()
-	{
 		$this->actingAs($this->user);
 		$response = $this->post('/user/password/edit', [
 			'password_lama' => 'secret',

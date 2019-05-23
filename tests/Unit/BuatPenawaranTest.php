@@ -40,12 +40,15 @@ class BuatPenawaranTest extends TestCase
 		$response = $this->post('/konfeksi/penawaran/'.$this->pesanan->id.'/create', [
 			'biaya' => 10000000,
 			'tanggal_selesai' => null,
-			'gambar' => null,
+			'gambar' => $file = UploadedFile::fake()->image('penawaran.jpg'),
 			'catatan' => 'catatan tambahan'
 		]);
+		$response->assertSessionHasErrors('tanggal_selesai');
+		Storage::disk('public')->assertMissing('pesanan/'.$file->hashName());
 		$this->assertEquals(0, Penawaran::count());
 		$this->assertEquals(0, StatusPesanan::count());
-		$response->assertSessionHasErrors('tanggal_selesai');
+		Notification::assertNotSentTo($this->user, PenawaranBaru::class);
+		$response->assertSessionMissing('flash');
 	}
 
 	/** @test */
@@ -53,24 +56,9 @@ class BuatPenawaranTest extends TestCase
 	{
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/konfeksi/penawaran/'.$this->pesanan->id.'/create', [
-			'biaya' => null,
-			'tanggal_selesai' => Carbon::now(),
-			'gambar' => null,
-			'catatan' => 'catatan tambahan'
-		]);
-		$this->assertEquals(0, Penawaran::count());
-		$this->assertEquals(0, StatusPesanan::count());
-		$response->assertSessionHasErrors('biaya');
-	}
-
-	/** @test */
-	public function jalur_3()
-	{
-		$this->actingAs($this->konfeksiUser);
-		$response = $this->post('/konfeksi/penawaran/'.$this->pesanan->id.'/create', [
 			'biaya' => 10000000,
 			'tanggal_selesai' => Carbon::now(),
-			'gambar' => null,
+			'gambar' => $file = UploadedFile::fake()->image('penawaran.jpg'),
 			'catatan' => 'catatan tambahan'
 		]);
 		$this->assertEquals(1, Penawaran::count());
@@ -78,10 +66,12 @@ class BuatPenawaranTest extends TestCase
 		Notification::assertSentTo([$this->user], PenawaranBaru::class);
 		$response->assertRedirect('/konfeksi');
 		$response->assertSessionHas('flash', 'Penawaran berhasil dikirim');
+		$response->assertSessionMissing('tanggal_selesai');
+		$response->assertSessionMissing('biaya');
 	}
 
 	/** @test */
-	public function jalur_4()
+	public function jalur_3()
 	{
 		$this->actingAs($this->konfeksiUser);
 		$response = $this->post('/konfeksi/penawaran/'.$this->pesanan->id.'/create', [

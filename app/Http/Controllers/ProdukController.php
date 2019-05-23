@@ -69,7 +69,7 @@ class ProdukController extends Controller
                 'harga' => $request->harga ?: $produk->harga
             ]);
         }
-    	return redirect('/konfeksi/produk')->with('flash', 'Produk hasil diperbarui');
+    	return redirect('/konfeksi/produk')->with('flash', 'Produk berhasil diperbarui');
     }
 
     public function destroy($produkId)
