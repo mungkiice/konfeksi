@@ -46,13 +46,16 @@ class PesananController extends Controller
 			'catatan' => 'required',
 			'file_desain' => 'required'
 		]);
-		$path = $request->file_desain->store('pesanan', 'public');
 		$jumlah = [
 			'S' => $request->small ?: 0,
 			'M' => $request->medium ?: 0,
 			'L' => $request->large ?: 0,
 			'XL' => $request->extra_large ?: 0
 		];
+		if (array_sum($jumlah) == 0) {
+			return back()->withErrors(['jumlah' => 'jumlah tidak boleh kosong']);
+		}
+		$path = $request->file_desain->store('pesanan', 'public');
 		$pesanan = Pesanan::buat(auth()->user()->id, $request->produk_id, $request->catatan, $path, $request->alamat, $request->kota, $jumlah, $request->kurir);
 		$statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu respon dari konfeksi');
 		$pesanan->produk->konfeksi->user->notify(new PesananBaru($pesanan));

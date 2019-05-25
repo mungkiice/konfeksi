@@ -102,6 +102,9 @@
 										</div>
 									</div>
 								</div>
+								@if ($errors->has('jumlah'))
+								<p style="color: red;">{{ $errors->first('jumlah') }}</p>
+								@endif
 							</div>
 							<div class="form-group">
 								<label for="inputcatatan">Catatan </label>
