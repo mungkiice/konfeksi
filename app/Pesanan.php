@@ -8,7 +8,7 @@ class Pesanan extends Model
 	{
 		$totalBiaya = 0;
 		$produk = Produk::temukan($produkId);
-		foreach ($arrJumlah as $ukuran => $jumlah) {
+		foreach ((array) $arrJumlah as $ukuran => $jumlah) {
 			$totalBiaya += $jumlah * $produk->harga;
 		}
 		if ($alamat != null) {

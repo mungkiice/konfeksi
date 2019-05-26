@@ -319,8 +319,8 @@ table {
   border-collapse: collapse; }
 
 caption {
-  padding-top: 18px 15px;
-  padding-bottom: 18px 15px;
+  padding-top: 18px;
+  padding-bottom: 18px;
   color: #6c757d;
   text-align: left;
   caption-side: bottom; }
