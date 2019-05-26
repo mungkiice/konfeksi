@@ -28,6 +28,8 @@ Route::post('/register', 'Auth\RegisterController@register');
 Route::get('/register/konfeksi', 'Auth\RegisterController@showKonfeksiRegistrationForm');
 Route::post('/register/konfeksi', 'Auth\RegisterController@konfeksiRegister');
 
+Route::get('messages', 'PesanController@fetchMessages');
+Route::post('messages', 'PesanController@sendMessage');
 
 Route::get('/kurir/{asal}/{tujuan}', 'KurirController@infoEkspedisi');
 Route::get('/checkpoint/{kodePesanan}', 'KurirController@checkpoints');
@@ -45,6 +47,10 @@ Route::get('/penawaran/{kodePesanan}', 'PenawaranController@show')->middleware('
 Route::post('/penawaran/{penawaranId}/konfirmasi', 'PenawaranController@konfirmasi')->middleware('role:member');
 
 Route::post('/ulasan', 'UlasanController@store')->middleware('role:member');
+
+Route::get('/diskusi/{kodePesanan}', 'PesanController@listPesan');
+Route::post('/diskusi/{kodePesanan}', 'PesanController@kirimPesan');
+
 Route::prefix('admin')->group(function(){
 	Route::get('/', 'DashboardController@adminDashboard')->middleware('role:admin');	
 	Route::get('/artikel', 'ArtikelController@index')->middleware('role:admin');	

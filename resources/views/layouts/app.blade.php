@@ -28,38 +28,47 @@
     <link rel="stylesheet" href="/css/main.css">
     <link rel="stylesheet" href="{{ asset('assets/vendors/css/vendor.bundle.addons.css') }}">
     @yield('custom-css')
+        <script>
+        window.Laravel = {!! json_encode([
+            'csrfToken' => csrf_token(),
+            'pusherKey' => config('broadcasting.connections.pusher.key'),
+            'pusherCluster' => config('broadcasting.connections.pusher.options.cluster')
+        ]) !!};
+    </script>
 </head>
 
 <body>
-    <!-- Start Header Area -->
-    @include('layouts.nav')
-    <!-- End Header Area -->
+    <div id="app">
+        <!-- Start Header Area -->
+        @include('layouts.nav')
+        <!-- End Header Area -->
 
-    <!-- Start Banner Area -->
-    <section class="banner-area organic-breadcrumb">
-        <div class="container">
-            <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
-                <div class="col-first">
-                    <h1>Halaman @yield('page')</h1>
-                    <nav class="d-flex align-items-center" style="float: right;">
-                        <a href="/">Beranda<span class="lnr lnr-arrow-right"></span></a>
-                        <a href="category.html">@yield('page')</a>
-                    </nav>
+        <!-- Start Banner Area -->
+        <section class="banner-area organic-breadcrumb">
+            <div class="container">
+                <div class="breadcrumb-banner d-flex flex-wrap align-items-center justify-content-end">
+                    <div class="col-first">
+                        <h1>Halaman @yield('page')</h1>
+                        <nav class="d-flex align-items-center" style="float: right;">
+                            <a href="/">Beranda<span class="lnr lnr-arrow-right"></span></a>
+                            <a href="category.html">@yield('page')</a>
+                        </nav>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <!-- End Banner Area -->
-    @yield('content')
-    <!-- start footer Area -->
-    @include('layouts.footer')
-    <!-- End footer Area -->
+        </section>
+        <!-- End Banner Area -->
+        @yield('content')
+        <!-- start footer Area -->
+        @include('layouts.footer')
+        <!-- End footer Area -->
+    </div>
+    <script src="/js/app.js"></script>
 
-
-    <script src="/js/vendor/jquery-2.2.4.min.js"></script>
+    <!-- <script src="/js/vendor/jquery-2.2.4.min.js"></script> -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js" integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
     crossorigin="anonymous"></script>
-    <script src="/js/vendor/bootstrap.min.js"></script>
+    <!-- <script src="/js/vendor/bootstrap.min.js"></script> -->
     <script src="/js/jquery.ajaxchimp.min.js"></script>
     <script src="/js/jquery.nice-select.min.js"></script>
     <script src="/js/jquery.sticky.js"></script>
