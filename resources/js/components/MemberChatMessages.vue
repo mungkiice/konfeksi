@@ -7,7 +7,7 @@
 					<div class="incoming_msg" v-for="message in messages">
 						<div class="received_msg" v-if="message.user.role == 'Konfeksi'">
 							<div class="received_withd_msg">
-								<strong>Penitishop</strong>
+								<strong>{{message.user.nama}}</strong>
 								<p>{{message.teks}}</p>
 								<span class="time_date"> 11:01 AM    |    June 9</span>
 							</div>

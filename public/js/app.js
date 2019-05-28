@@ -47106,7 +47106,7 @@ var render = function() {
               message.user.role == "Konfeksi"
                 ? _c("div", { staticClass: "received_msg" }, [
                     _c("div", { staticClass: "received_withd_msg" }, [
-                      _c("strong", [_vm._v("Penitishop")]),
+                      _c("strong", [_vm._v(_vm._s(message.user.nama))]),
                       _vm._v(" "),
                       _c("p", [_vm._v(_vm._s(message.teks))]),
                       _vm._v(" "),
