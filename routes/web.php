@@ -28,8 +28,8 @@ Route::post('/register', 'Auth\RegisterController@register');
 Route::get('/register/konfeksi', 'Auth\RegisterController@showKonfeksiRegistrationForm');
 Route::post('/register/konfeksi', 'Auth\RegisterController@konfeksiRegister');
 
-Route::get('messages', 'PesanController@fetchMessages');
-Route::post('messages', 'PesanController@sendMessage');
+Route::get('messages/{kodePesanan}', 'PesanController@fetchMessages');
+Route::post('messages/{kodePesanan}', 'PesanController@sendMessage');
 
 Route::get('/kurir/{asal}/{tujuan}', 'KurirController@infoEkspedisi');
 Route::get('/checkpoint/{kodePesanan}', 'KurirController@checkpoints');

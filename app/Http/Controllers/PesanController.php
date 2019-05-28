@@ -36,9 +36,11 @@ class PesanController extends Controller
      *
      * @return Message
      */
-    public function fetchMessages()
+    public function fetchMessages($kodePesanan)
     {
-        return Pesan::with('user')->get();
+        $pesanan = Pesanan::filter($kodePesanan);
+        return $pesanan->pesans()->with('user')->get();
+        // return Pesan::with('user')->get();
     }
 
     /**
@@ -47,12 +49,13 @@ class PesanController extends Controller
      * @param  Request $request
      * @return Response
      */
-    public function sendMessage(Request $request)
+    public function sendMessage(Request $request, $kodePesanan)
     {
         $user = Auth::user();
-
+        $pesanan = Pesanan::filter($kodePesanan);
         $message = $user->pesans()->create([
-            'message' => $request->input('message')
+            'pesanan_id' => $pesanan->id,
+            'teks' => $request->teks
         ]);
 
         broadcast(new PesanTerkirim($user, $message))->toOthers();

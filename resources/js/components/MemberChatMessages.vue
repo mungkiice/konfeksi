@@ -4,17 +4,17 @@
 			<h3 class="text-center" style="background-color: #FAF9FF;padding: 20px;">Diskusi</h3>
 			<div class="mesgs">
 				<div class="msg_history">
-					<div class="incoming_msg" v-for="messages in message">
+					<div class="incoming_msg" v-for="message in messages">
 						<div class="received_msg" v-if="message.user.role == 'Konfeksi'">
 							<div class="received_withd_msg">
 								<strong>Penitishop</strong>
-								<p>{{message.message}}</p>
+								<p>{{message.teks}}</p>
 								<span class="time_date"> 11:01 AM    |    June 9</span>
 							</div>
 						</div>
 						<div class="outgoing_msg" v-else>
 							<div class="sent_msg">
-								<p>{{message.message}}</p>
+								<p>{{message.teks}}</p>
 								<span class="time_date"> 11:01 AM    |    June 9</span> 
 							</div>
 						</div>
@@ -22,8 +22,8 @@
 				</div>
 				<div class="type_msg">
 					<div class="input_msg_write">
-						<button class="msg_send_btn" type="button"><i class="fa fa-paper-plane-o" aria-hidden="true" @click="sendMessage"></i></button>
-						<input type="text" class="write_msg" placeholder="Type a message" v-model="newMessage" @keyup.enter="sendMessage"/>
+						<button class="msg_send_btn" type="button" @click="sendMessage"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+						<input type="text" class="write_msg" placeholder="Type a message" name="teks" v-model="teks" @keyup.enter="sendMessage"/>
 					</div>
 				</div>
 			</div>
@@ -32,11 +32,11 @@
 </template>
 <script>
 	export default{
-		props:['messages', 'user'],
+		props:['user', 'messages'],
 
 		data() {
 			return {
-				newMessage: ''
+				teks: ''
 			}
 		},
 
@@ -44,9 +44,9 @@
 			sendMessage() {
 				this.$emit('messagesent', {
 					user: this.user,
-					message: this.newMessage
+					teks: this.teks
 				});
-				this.newMessage = ''
+				this.teks = ''
 			}
 		}    
 	};

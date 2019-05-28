@@ -1829,19 +1829,19 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
-  props: ['messages', 'user'],
+  props: ['user', 'messages'],
   data: function data() {
     return {
-      newMessage: ''
+      teks: ''
     };
   },
   methods: {
     sendMessage: function sendMessage() {
       this.$emit('messagesent', {
         user: this.user,
-        message: this.newMessage
+        teks: this.teks
       });
-      this.newMessage = '';
+      this.teks = '';
     }
   }
 });
@@ -47101,14 +47101,14 @@ var render = function() {
         _c(
           "div",
           { staticClass: "msg_history" },
-          _vm._l(_vm.message, function(messages) {
+          _vm._l(_vm.messages, function(message) {
             return _c("div", { staticClass: "incoming_msg" }, [
-              _vm.message.user.role == "Konfeksi"
+              message.user.role == "Konfeksi"
                 ? _c("div", { staticClass: "received_msg" }, [
                     _c("div", { staticClass: "received_withd_msg" }, [
                       _c("strong", [_vm._v("Penitishop")]),
                       _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(_vm.message.message))]),
+                      _c("p", [_vm._v(_vm._s(message.teks))]),
                       _vm._v(" "),
                       _c("span", { staticClass: "time_date" }, [
                         _vm._v(" 11:01 AM    |    June 9")
@@ -47117,7 +47117,7 @@ var render = function() {
                   ])
                 : _c("div", { staticClass: "outgoing_msg" }, [
                     _c("div", { staticClass: "sent_msg" }, [
-                      _c("p", [_vm._v(_vm._s(_vm.message.message))]),
+                      _c("p", [_vm._v(_vm._s(message.teks))]),
                       _vm._v(" "),
                       _c("span", { staticClass: "time_date" }, [
                         _vm._v(" 11:01 AM    |    June 9")
@@ -47133,12 +47133,15 @@ var render = function() {
           _c("div", { staticClass: "input_msg_write" }, [
             _c(
               "button",
-              { staticClass: "msg_send_btn", attrs: { type: "button" } },
+              {
+                staticClass: "msg_send_btn",
+                attrs: { type: "button" },
+                on: { click: _vm.sendMessage }
+              },
               [
                 _c("i", {
                   staticClass: "fa fa-paper-plane-o",
-                  attrs: { "aria-hidden": "true" },
-                  on: { click: _vm.sendMessage }
+                  attrs: { "aria-hidden": "true" }
                 })
               ]
             ),
@@ -47148,13 +47151,17 @@ var render = function() {
                 {
                   name: "model",
                   rawName: "v-model",
-                  value: _vm.newMessage,
-                  expression: "newMessage"
+                  value: _vm.teks,
+                  expression: "teks"
                 }
               ],
               staticClass: "write_msg",
-              attrs: { type: "text", placeholder: "Type a message" },
-              domProps: { value: _vm.newMessage },
+              attrs: {
+                type: "text",
+                placeholder: "Type a message",
+                name: "teks"
+              },
+              domProps: { value: _vm.teks },
               on: {
                 keyup: function($event) {
                   if (
@@ -47169,7 +47176,7 @@ var render = function() {
                   if ($event.target.composing) {
                     return
                   }
-                  _vm.newMessage = $event.target.value
+                  _vm.teks = $event.target.value
                 }
               }
             })
@@ -59349,45 +59356,11 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 
 Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
 Vue.component('member-chat-box', __webpack_require__(/*! ./components/MemberChatMessages.vue */ "./resources/js/components/MemberChatMessages.vue").default);
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
-//  const app = new Vue({
-//     el: '#app',
-//     data: {
-//         messages: []
-//     },
-//     created() {
-//         this.fetchMessages(window.location.href.substring(window.location.href.lastIndexOf('/') + 1));
-//         Echo.private('chat')
-//         .listen('messagesent', (e) => {
-//             this.messages.push({
-//               message: e.message.message,
-//               user: e.user
-//           });
-//         });
-//     },
-//     methods: {
-//         fetchMessages(kodePesanan) {
-//             axios.get('/diskusi/'+kodePesanan).then(response => {
-//                 this.messages = response.data;
-//             });
-//         },
-//         addMessage(kodePesanan, message) {
-//             this.messages.push(message);
-//             axios.post('/diskusi/'+kodePesanan, message).then(response => {
-//               console.log(response.data);
-//           });
-//         }
-//     }
-// });
-
 var app = new Vue({
   el: '#app',
   data: {
-    messages: []
+    messages: [],
+    kodePesanan: window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
   },
   created: function created() {
     var _this = this;
@@ -59395,7 +59368,7 @@ var app = new Vue({
     this.fetchMessages();
     Echo.private('chat').listen('MessageSent', function (e) {
       _this.messages.push({
-        message: e.message.message,
+        teks: e.teks,
         user: e.user
       });
     });
@@ -59404,13 +59377,13 @@ var app = new Vue({
     fetchMessages: function fetchMessages() {
       var _this2 = this;
 
-      axios.get('/messages').then(function (response) {
+      axios.get('/messages/' + this.kodePesanan).then(function (response) {
         _this2.messages = response.data;
       });
     },
-    addMessage: function addMessage(message) {
-      this.messages.push(message);
-      axios.post('/messages', message).then(function (response) {});
+    addMessage: function addMessage(teks) {
+      this.messages.push(teks);
+      axios.post('/messages/' + this.kodePesanan, teks).then(function (response) {});
     }
   }
 });
