@@ -88,7 +88,7 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="single-features">
                 <div class="f-icon">
-                  <img src="img/features/f-icon4.png" alt="">
+                  <img src="img/tshirt.svg" alt="" style="max-width: 25%">
                 </div>
                 <h6>Pesan</h6>
                 <p>Pesan pakaian sesuai keinginan</p>
@@ -98,10 +98,10 @@
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="single-features">
                 <div class="f-icon">
-                  <img src="img/features/f-icon3.png" alt="">
+                  <img src="img/comment.svg" alt="" style="max-width: 25%">
                 </div>
                 <h6>Chat</h6>
-                <p>Diskusikan pesananmu dengan konfeksi</p>
+                <p>Diskusi dengan konfeksi</p>
               </div>
             </div>
             <!-- single features -->
@@ -109,20 +109,20 @@
               <div class="single-features">
                 <div class="f-icon">
                   <i class="fa fa-chat"></i>
-                  <img src="img/features/f-icon2.png" alt="">
+                  <img src="img/money.svg" alt="" style="max-width: 25%">
                 </div>
-                <h6>24/7 Support</h6>
-                <p>Free Shipping on all order</p>
+                <h6>Bayar</h6>
+                <p>Pembayaran mudah</p>
               </div>
             </div>
             <!-- single features -->
             <div class="col-lg-3 col-md-6 col-sm-6">
               <div class="single-features">
                 <div class="f-icon">
-                  <img src="img/features/f-icon1.png" alt="">
+                  <img src="img/shipping.svg" alt="" style="max-width: 25%">
                 </div>
-                <h6>Distribusi</h6>
-                <p>Barang diambil/dikirim</p>
+                <h6>Terima Barang</h6>
+                <p>Ambil ditempat atau dikirim</p>
               </div>
             </div>
           </div>
