@@ -6,7 +6,7 @@ use GuzzleHttp\Client;
 
 class AfterShipAPI
 {
-	protected static $apiKey = 'e0f76661-bd3e-4fd4-bab2-810fa6edc3f7';
+	protected static $apiKey = '625c07d0-29b7-42ab-9420-674e87eeeef6';
 
 	public static function getClient()
 	{

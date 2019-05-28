@@ -3,6 +3,7 @@
 namespace App;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
 
 class RajaOngkirAPI
 {
@@ -11,7 +12,8 @@ class RajaOngkirAPI
 	public static function getClient()
 	{
 		return new Client([
-			'base_uri' => 'https://api.rajaongkir.com/starter/'
+			'base_uri' => 'https://api.rajaongkir.com/starter/',
+			'http_errors' => false
 		]);
 	}
 
@@ -38,22 +40,25 @@ class RajaOngkirAPI
 				'courier' => $courier
 			]
 		]);
-		return json_decode($response->getBody(), true)['rajaongkir']['results'];
+		if ($response->getStatusCode() == 200) {
+			return json_decode($response->getBody(), true)['rajaongkir']['results'][0]['costs'];	
+		}
+		return null;		
 	}
 
-    public static function ongkir($kotaAsal, $kotaTujuan, $ekspedisi)
-    {
-        if ($ekspedisi != null) {
-            $arr = explode(' ', trim($ekspedisi));
-            $kurir = array_shift($arr);
-            $jenis = implode(' ', $arr);
-            $result = self::getCost($kotaAsal, $kotaTujuan, 10, $kurir);
-            foreach ($result[0]['costs'] as $item) {
-                if ($item['service'] == $jenis) {
-                    return $item['cost'][0]['value'];
-                }
-            }
-        }
-        return 0;
-    }
+	public static function ongkir($kotaAsal, $kotaTujuan, $ekspedisi)
+	{
+		if ($ekspedisi != null) {
+			$arr = explode(' ', trim($ekspedisi));
+			$kurir = array_shift($arr);
+			$jenis = implode(' ', $arr);
+			$result = self::getCost($kotaAsal, $kotaTujuan, 10, $kurir);
+			foreach ((array) $result as $item) {
+				if ($item['service'] == $jenis) {
+					return $item['cost'][0]['value'];
+				}
+			}
+		}
+		return 0;
+	}
 }
