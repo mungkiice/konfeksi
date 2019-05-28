@@ -12,6 +12,7 @@ use App\RajaOngkirAPI;
 use App\StatusPesanan;
 use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Http\Request;
+use Veritrans_Notification;
 
 class PesananController extends Controller
 {

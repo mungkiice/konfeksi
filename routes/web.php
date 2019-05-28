@@ -37,7 +37,7 @@ Route::get('/produks/{produkId}', 'ProdukController@show');
 Route::get('/pembayaran/{kodePesanan}', 'PesananController@pembayaranLunas')->middleware('role:member');
 Route::post('/pesan', 'PesananController@store')->middleware('role:member');
 Route::post('/pesan/finish', 'PenawaranController@finish');
-Route::post('/notification/handler', 'PesananController@midtransHandler');
+Route::post('/notification/handler', 'PesananController@notificationHandler');
 Route::get('/pesan/{produkId}', 'PesananController@create')->middleware('role:member');
 Route::get('/pesanansaya', 'PesananController@indexMember')->middleware('role:member');
 Route::get('/pesanansaya/{kodePesanan}/cetak', 'PesananController@cetakBukti')->middleware('role:member');

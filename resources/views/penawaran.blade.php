@@ -173,18 +173,24 @@
         		snap.pay(data.snap_token, {
         			onSuccess: function (result) {
         				showSwal('flash', 'Penawaran berhasil disetujui');
+        				// $.post('/notification/handler', {result}, function(data){
+        				// 	showSwal('flash', 'Penawaran berhasil disetujui');
+        				// });
+        				// console.log(result);
         				setTimeOut(function(){
         					window.location.reload();
         				}, 2000);
         			},
         			onPending: function (result) {
         				showSwal('flash', 'Penawaran berhasil disetujui');
+        				// console.log(result);
         				setTimeOut(function(){
         					window.location.reload();
         				}, 2000);
         			},
         			onError: function (result) {
         				showSwal('confirmation', 'Transaksi error');
+        				// console.log(result);
         				setTimeOut(function(){
         					window.location.reload();
         				}, 2000);
