@@ -37,13 +37,13 @@ strong{
 						<div class="received_withd_msg">
 							<strong>{{message.user.nama}}</strong>
 							<p>{{message.teks}}</p>
-							<span class="time_date"> 11:01 AM    |    June 9</span>
+							<span class="time_date"> {{messageTime(message.created_at)}} </span>
 						</div>
 					</div>
 					<div class="outgoing_msg" v-else>
 						<div class="sent_msg">
 							<p>{{message.teks}}</p>
-							<span class="time_date"> 11:01 AM    |    June 9</span> 
+							<span class="time_date"> {{messageTime(message.created_at)}} </span> 
 						</div>
 					</div>
 				</div>
@@ -58,6 +58,7 @@ strong{
 	</div>      
 </template>
 <script>
+	import moment from 'moment';
 	export default{
 		props:['user'],
 
@@ -78,6 +79,9 @@ strong{
 			});
 		},
 		methods: {
+			messageTime(time){
+				return moment(time, 'YYYY-MM-DD HH:mm:ss').format('Do MMMM | h:mm A');
+			},
 			sendMessage() {
 				this.addMessage({
 					teks: this.teks,
