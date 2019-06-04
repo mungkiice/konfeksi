@@ -12,31 +12,20 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 
-class PesanTerkirim
+class PesanTerkirim implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
-    /**
-     * User that sent the pesan
-     *
-     * @var User
-     */
-    public $user;
 
-    /**
-     * pesan details
-     *
-     * @var pesan
-     */
     public $pesan;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(User $user, Pesan $pesan)
+    public function __construct(Pesan $pesan)
     {
-        $this->user = $user;
         $this->pesan = $pesan;
+        $this->dontBroadcastToCurrentUser();
     }
 
     /**
@@ -47,5 +36,14 @@ class PesanTerkirim
     public function broadcastOn()
     {
         return new PrivateChannel('chat');
+    }
+
+    /**
+     * Set the event name
+     *
+     * @return string
+     */
+    public function broadcastAs() {
+        return 'PesanTerkirim';
     }
 }

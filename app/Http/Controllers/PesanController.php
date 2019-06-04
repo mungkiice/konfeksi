@@ -58,8 +58,8 @@ class PesanController extends Controller
             'teks' => $request->teks
         ]);
 
-        broadcast(new PesanTerkirim($user, $message))->toOthers();
-
+        // broadcast(new PesanTerkirim($message->load('user')))->toOthers();
+        event(new PesanTerkirim($message->load('user')));
         return ['status' => 'Message Sent!'];
     }
 }

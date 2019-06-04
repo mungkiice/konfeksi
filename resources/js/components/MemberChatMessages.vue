@@ -3,8 +3,8 @@
 		<div class="inbox_msg">
 			<h3 class="text-center" style="background-color: #FAF9FF;padding: 20px;">Diskusi</h3>
 			<div class="mesgs">
-				<div class="msg_history">
-					<div class="incoming_msg" v-for="message in messages">
+				<div class="msg_history" v-chat-scroll>
+					<div class="incoming_msg" v-for="message,index in messages" :key="message.index">
 						<div class="received_msg" v-if="message.user.role == 'Konfeksi'">
 							<div class="received_withd_msg">
 								<strong>{{message.user.nama}}</strong>
@@ -42,9 +42,10 @@
 
 		methods: {
 			sendMessage() {
+				console.log('sendMessage '+this.teks)
 				this.$emit('messagesent', {
-					user: this.user,
-					teks: this.teks
+					teks: this.teks,
+					user: this.user
 				});
 				this.teks = ''
 			}

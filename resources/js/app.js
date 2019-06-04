@@ -8,7 +8,10 @@
  require('./bootstrap');
 
  window.Vue = require('vue');
+ import Vue from 'vue';
 
+ import VueChatScroll from 'vue-chat-scroll';
+ Vue.use(VueChatScroll);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -22,7 +25,7 @@
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('member-chat-box', require('./components/MemberChatMessages.vue').default);
- 
+
 const app = new Vue({
     el: '#app',
     
@@ -31,15 +34,14 @@ const app = new Vue({
         kodePesanan:window.location.href.substring(window.location.href.lastIndexOf('/') + 1),
     },
 
-    created() {
+    mounted() {
         this.fetchMessages();
-        Echo.private('chat')
-            .listen('MessageSent', (e) => {
-                this.messages.push({
-                    teks: e.teks,
-                    user: e.user
-                });
-            });
+        console.log('mounted bro');
+        window.Echo.private('chat')
+        .listen('.PesanTerkirim', (e) => {
+            console.log(e);
+            this.messages.push(e.pesan);
+        });
     },
 
     methods: {
@@ -49,6 +51,7 @@ const app = new Vue({
             });
         },
         addMessage(teks) {
+            console.log('addMessage '+teks);
             this.messages.push(teks);
 
             axios.post('/messages/'+this.kodePesanan, teks).then(response => {});

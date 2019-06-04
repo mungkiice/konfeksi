@@ -1837,9 +1837,10 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     sendMessage: function sendMessage() {
+      console.log('sendMessage ' + this.teks);
       this.$emit('messagesent', {
-        user: this.user,
-        teks: this.teks
+        teks: this.teks,
+        user: this.user
       });
       this.teks = '';
     }
@@ -47024,6 +47025,82 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 
 /***/ }),
 
+/***/ "./node_modules/vue-chat-scroll/dist/vue-chat-scroll.js":
+/*!**************************************************************!*\
+  !*** ./node_modules/vue-chat-scroll/dist/vue-chat-scroll.js ***!
+  \**************************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+(function (global, factory) {
+	 true ? module.exports = factory() :
+	undefined;
+}(this, (function () { 'use strict';
+
+/**
+* @name VueJS vChatScroll (vue-chat-scroll)
+* @description Monitors an element and scrolls to the bottom if a new child is added
+* @author Theodore Messinezis <theo@theomessin.com>
+* @file v-chat-scroll  directive definition
+*/
+
+var scrollToBottom = function scrollToBottom(el, smooth) {
+  if (typeof el.scroll === "function") {
+    el.scroll({
+      top: el.scrollHeight,
+      behavior: smooth ? 'smooth' : 'instant'
+    });
+  } else {
+    el.scrollTop = el.scrollHeight;
+  }
+};
+
+var vChatScroll = {
+  bind: function bind(el, binding) {
+    var scrolled = false;
+
+    el.addEventListener('scroll', function (e) {
+      scrolled = el.scrollTop + el.clientHeight + 1 < el.scrollHeight;
+    });
+
+    new MutationObserver(function (e) {
+      var config = binding.value || {};
+      var pause = config.always === false && scrolled;
+      if (config.scrollonremoved) {
+        if (pause || e[e.length - 1].addedNodes.length != 1 && e[e.length - 1].removedNodes.length != 1) return;
+      } else {
+        if (pause || e[e.length - 1].addedNodes.length != 1) return;
+      }
+      scrollToBottom(el, config.smooth);
+    }).observe(el, { childList: true, subtree: true });
+  },
+  inserted: scrollToBottom
+};
+
+/**
+* @name VueJS vChatScroll (vue-chat-scroll)
+* @description Monitors an element and scrolls to the bottom if a new child is added
+* @author Theodore Messinezis <theo@theomessin.com>
+* @file vue-chat-scroll plugin definition
+*/
+
+var VueChatScroll = {
+  install: function install(Vue, options) {
+    Vue.directive('chat-scroll', vChatScroll);
+  }
+};
+
+if (typeof window !== 'undefined' && window.Vue) {
+  window.Vue.use(VueChatScroll);
+}
+
+return VueChatScroll;
+
+})));
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e&":
 /*!*******************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/ExampleComponent.vue?vue&type=template&id=299e239e& ***!
@@ -47100,31 +47177,38 @@ var render = function() {
       _c("div", { staticClass: "mesgs" }, [
         _c(
           "div",
-          { staticClass: "msg_history" },
-          _vm._l(_vm.messages, function(message) {
-            return _c("div", { staticClass: "incoming_msg" }, [
-              message.user.role == "Konfeksi"
-                ? _c("div", { staticClass: "received_msg" }, [
-                    _c("div", { staticClass: "received_withd_msg" }, [
-                      _c("strong", [_vm._v(_vm._s(message.user.nama))]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(message.teks))]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "time_date" }, [
-                        _vm._v(" 11:01 AM    |    June 9")
+          {
+            directives: [{ name: "chat-scroll", rawName: "v-chat-scroll" }],
+            staticClass: "msg_history"
+          },
+          _vm._l(_vm.messages, function(message, index) {
+            return _c(
+              "div",
+              { key: message.index, staticClass: "incoming_msg" },
+              [
+                message.user.role == "Konfeksi"
+                  ? _c("div", { staticClass: "received_msg" }, [
+                      _c("div", { staticClass: "received_withd_msg" }, [
+                        _c("strong", [_vm._v(_vm._s(message.user.nama))]),
+                        _vm._v(" "),
+                        _c("p", [_vm._v(_vm._s(message.teks))]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "time_date" }, [
+                          _vm._v(" 11:01 AM    |    June 9")
+                        ])
                       ])
                     ])
-                  ])
-                : _c("div", { staticClass: "outgoing_msg" }, [
-                    _c("div", { staticClass: "sent_msg" }, [
-                      _c("p", [_vm._v(_vm._s(message.teks))]),
-                      _vm._v(" "),
-                      _c("span", { staticClass: "time_date" }, [
-                        _vm._v(" 11:01 AM    |    June 9")
+                  : _c("div", { staticClass: "outgoing_msg" }, [
+                      _c("div", { staticClass: "sent_msg" }, [
+                        _c("p", [_vm._v(_vm._s(message.teks))]),
+                        _vm._v(" "),
+                        _c("span", { staticClass: "time_date" }, [
+                          _vm._v(" 11:01 AM    |    June 9")
+                        ])
                       ])
                     ])
-                  ])
-            ])
+              ]
+            )
           }),
           0
         ),
@@ -59333,9 +59417,15 @@ module.exports = function(module) {
 /*!*****************************!*\
   !*** ./resources/js/app.js ***!
   \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
+/*! no exports provided */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_chat_scroll__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-chat-scroll */ "./node_modules/vue-chat-scroll/dist/vue-chat-scroll.js");
+/* harmony import */ var vue_chat_scroll__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_1__);
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -59344,6 +59434,9 @@ module.exports = function(module) {
 __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+
+
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_chat_scroll__WEBPACK_IMPORTED_MODULE_1___default.a);
 /**
  * The following block of code may be used to automatically register your
  * Vue components. It will recursively scan this directory for the Vue
@@ -59354,23 +59447,23 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
 // const files = require.context('./', true, /\.vue$/i);
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default));
 
-Vue.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
-Vue.component('member-chat-box', __webpack_require__(/*! ./components/MemberChatMessages.vue */ "./resources/js/components/MemberChatMessages.vue").default);
-var app = new Vue({
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('example-component', __webpack_require__(/*! ./components/ExampleComponent.vue */ "./resources/js/components/ExampleComponent.vue").default);
+vue__WEBPACK_IMPORTED_MODULE_0___default.a.component('member-chat-box', __webpack_require__(/*! ./components/MemberChatMessages.vue */ "./resources/js/components/MemberChatMessages.vue").default);
+var app = new vue__WEBPACK_IMPORTED_MODULE_0___default.a({
   el: '#app',
   data: {
     messages: [],
     kodePesanan: window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
   },
-  created: function created() {
+  mounted: function mounted() {
     var _this = this;
 
     this.fetchMessages();
-    Echo.private('chat').listen('MessageSent', function (e) {
-      _this.messages.push({
-        teks: e.teks,
-        user: e.user
-      });
+    console.log('mounted bro');
+    window.Echo.private('chat').listen('.PesanTerkirim', function (e) {
+      console.log(e);
+
+      _this.messages.push(e.pesan);
     });
   },
   methods: {
@@ -59382,6 +59475,7 @@ var app = new Vue({
       });
     },
     addMessage: function addMessage(teks) {
+      console.log('addMessage ' + teks);
       this.messages.push(teks);
       axios.post('/messages/' + this.kodePesanan, teks).then(function (response) {});
     }
@@ -59446,8 +59540,8 @@ if (token) {
 window.Pusher = __webpack_require__(/*! pusher-js */ "./node_modules/pusher-js/dist/web/pusher.js");
 window.Echo = new laravel_echo__WEBPACK_IMPORTED_MODULE_0__["default"]({
   broadcaster: 'pusher',
-  key: "e878585b9e068c2bac23",
-  cluster: "ap1",
+  key: 'e878585b9e068c2bac23',
+  cluster: 'ap1',
   encrypted: true
 });
 
