@@ -43,7 +43,6 @@
 		},
 		mounted() {
 			this.fetchMessages();
-			console.log('mounted bro');
 			window.Echo.private('chat')
 			.listen('.PesanTerkirim', (e) => {
 				console.log(e);

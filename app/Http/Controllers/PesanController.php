@@ -29,9 +29,4 @@ class PesanController extends Controller
         event(new PesanTerkirim($message->load('user')));
         return ['status' => 'Message Sent!'];
     }
-
-    public function listPesanKonfeksi()
-    {
-           
-    }
 }
