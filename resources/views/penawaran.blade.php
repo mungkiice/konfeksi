@@ -88,7 +88,7 @@
 					</div>
 				</div>
 				<div class="col-md-6 col-lg-6">
-					<member-chat-box :messages="messages" v-on:messagesent="addMessage" :user="{{Auth::user()}}"></member-chat-box>		
+					<member-chat-box :user="{{Auth::user()}}"></member-chat-box>		
 				</div>
 			</div>
 		</div>

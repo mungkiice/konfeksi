@@ -25,37 +25,9 @@
 
 Vue.component('example-component', require('./components/ExampleComponent.vue').default);
 Vue.component('member-chat-box', require('./components/MemberChatMessages.vue').default);
+Vue.component('konfeksi-chat-box', require('./components/KonfeksiChatMessages.vue').default);
 
 const app = new Vue({
-    el: '#app',
-    
-    data: {
-        messages: [],
-        kodePesanan:window.location.href.substring(window.location.href.lastIndexOf('/') + 1),
-    },
-
-    mounted() {
-        this.fetchMessages();
-        console.log('mounted bro');
-        window.Echo.private('chat')
-        .listen('.PesanTerkirim', (e) => {
-            console.log(e);
-            this.messages.push(e.pesan);
-        });
-    },
-
-    methods: {
-        fetchMessages() {
-            axios.get('/messages/'+this.kodePesanan).then(response => {
-                this.messages = response.data;
-            });
-        },
-        addMessage(teks) {
-            console.log('addMessage '+teks);
-            this.messages.push(teks);
-
-            axios.post('/messages/'+this.kodePesanan, teks).then(response => {});
-        }
-    }
+    el: '#app'
 });
 

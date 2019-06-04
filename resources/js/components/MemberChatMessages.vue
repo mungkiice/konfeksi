@@ -32,22 +32,41 @@
 </template>
 <script>
 	export default{
-		props:['user', 'messages'],
+		props:['user'],
 
 		data() {
 			return {
-				teks: ''
+				teks: '',
+				messages: [],
+				kodePesanan:window.location.href.substring(window.location.href.lastIndexOf('/') + 1),
 			}
 		},
-
+		mounted() {
+			this.fetchMessages();
+			console.log('mounted bro');
+			window.Echo.private('chat')
+			.listen('.PesanTerkirim', (e) => {
+				console.log(e);
+				this.messages.push(e.pesan);
+			});
+		},
 		methods: {
 			sendMessage() {
-				console.log('sendMessage '+this.teks)
-				this.$emit('messagesent', {
+				this.addMessage({
 					teks: this.teks,
 					user: this.user
 				});
-				this.teks = ''
+				this.teks = '';
+			},
+			fetchMessages() {
+				axios.get('/messages/'+this.kodePesanan).then(response => {
+					this.messages = response.data;
+				});
+			},
+			addMessage(teks) {
+				this.messages.push(teks);
+
+				axios.post('/messages/'+this.kodePesanan, teks).then(response => {});
 			}
 		}    
 	};
