@@ -41,7 +41,7 @@
 					<p style="color: #ffba00;margin: 0;">{{$konfeksi->kota}}</p>
 					<p style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden;">{{$konfeksi->deskripsi}}</p>
 					<div class="prd-bottom">
-						@for ($i = 0; $i < 5; $i++)
+						@for ($i = 0; $i < floor($konfeksi->ulasans()->avg('rating')); $i++)
 						<div class="social-info">
 							<span class="fa fa-star"></span>
 						</div>
