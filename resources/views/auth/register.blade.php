@@ -30,6 +30,7 @@
                     <div class="col-lg-4 mx-auto">
                       <h2 class="text-center mb-4">Register</h2>
                       <div class="auto-form-wrapper">
+                    <a class="navbar-brand logo_h" href="/" style="display: block;"><img src="/img/logo.png" alt="" style="margin: auto;display: block;"></a>
                         <form action="/register" method="post">
                             @csrf
                             <div class="form-group">
