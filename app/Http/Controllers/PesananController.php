@@ -44,36 +44,37 @@ class PesananController extends Controller
 		return view('pesan', compact('produk', 'kotas'));
 	}
 
-	public function store(Request $request)
+	public function store()
 	{
-		$this->validate($request, [
+		$this->validate(request(), [
 			'catatan' => 'required',
 			'file_desain' => 'required'
 		]);
 		$jumlah = [
-			'S' => $request->small ?: 0,
-			'M' => $request->medium ?: 0,
-			'L' => $request->large ?: 0,
-			'XL' => $request->extra_large ?: 0
+			'S' => request('small') ?: 0,
+			'M' => request('medium') ?: 0,
+			'L' => request('large') ?: 0,
+			'XL' => request('extra_large') ?: 0
 		];
 		if (array_sum($jumlah) == 0) {
 			return back()->withErrors(['jumlah' => 'jumlah tidak boleh kosong']);
 		}
-		$path = $request->file_desain->store('pesanan', 'public');
-		$pesanan = Pesanan::buat(auth()->user()->id, $request->produk_id, $request->catatan, $path, $request->alamat, $request->kota, $jumlah, $request->kurir);
+		$path = request('file_desain')->store('pesanan', 'public');
+		$pesanan = Pesanan::buat(auth()->user()->id, request('produk_id'), request('catatan'), $path, request('alamat'), request('kota'), $jumlah, request('kurir'));
 		$statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu respon dari konfeksi');
 		$pesanan->produk->konfeksi->user->notify(new PesananBaru($pesanan));
 		return redirect('/')->with('flash', 'Pesanan berhasil dikirim');
 	}
 
-	public function updateStatus(Request $request, $pesananId)
+	public function updateStatus($pesananId)
 	{
+		$request = new Request;
 		$pesanan = Pesanan::temukan($pesananId);
-		$statusPesanan = StatusPesanan::buat($pesanan->id, $request->keterangan);
+		$statusPesanan = StatusPesanan::buat($pesanan->id, request('keterangan'));
 		$pesanan->user->notify(new ProgresPesanan($statusPesanan));
-		if ($request->nomor_resi != null) {
-			$pesanan->isiNomorResi($request->nomor_resi);
-			AfterShipAPI::addTracking($pesanan->kurir, $request->nomor_resi);
+		if (request('nomor_resi') != null) {
+			$pesanan->isiNomorResi(request('nomor_resi'));
+			AfterShipAPI::addTracking($pesanan->kurir, request('nomor_resi'));
 		}
 		return back()->with('flash', 'Status Pesanan berhasil disimpan');
 	}
@@ -93,7 +94,7 @@ class PesananController extends Controller
 		return response()->json(['snap_token' => $snapToken]);	
 	}
 
-	public function notificationHandler(Request $request)
+	public function notificationHandler()
 	{
 		$notif = new Veritrans_Notification();
 		\DB::transaction(function() use($notif) {

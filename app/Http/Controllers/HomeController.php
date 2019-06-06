@@ -15,31 +15,22 @@ use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
-    /**
-     * Show the application dashboard.
-     *
-     * @return \Illuminate\Contracts\Support\Renderable
-     */
+    // verified
     public function index()
     {
     	$artikels = Artikel::semua();
         return view('home', compact('artikels'))->with('flash', 'Flash di member');
     }
-
-    public function email()
-    {
-        $pesanan = auth()->user()->pesanans()->latest()->first();
-        $pdf = PDF::loadView('mail.bukti-pemesanan', compact('pesanan'));
-        auth()->user()->notify(new BuktiPemesananMail()); 
-        Mail::to(auth()->user())->send(new BuktiPemesananMail($pesanan, $pdf));
-        Mail::to(auth()->user())->send(new PenawaranMail());
-        Mail::to(auth()->user())->send(new PesananMail());
-        Mail::to(auth()->user())->send(new ProgresMail());
+    
+    // verified
+    public function adminDashboard()
+    {   
+        return view('admin.admin-dashboard');
     }
 
-    public function showInvoice()
+    // verified
+    public function konfeksiDashboard()
     {
-        $pesanan = Pesanan::first();
-        return view('invoice', compact('pesanan'));
+        return view('admin.dashboard');
     }
 }

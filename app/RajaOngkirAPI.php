@@ -9,7 +9,7 @@ class RajaOngkirAPI
 {
 	protected static $apiKey = '6051f010f4d02b46d5a7d703f03c68d0';
 
-	public static function getClient()
+	public static function client()
 	{
 		return new Client([
 			'base_uri' => 'https://api.rajaongkir.com/starter/',
@@ -17,9 +17,10 @@ class RajaOngkirAPI
 		]);
 	}
 
-	public static function getCities()
+    // verified
+	public static function daftarKota()
 	{
-		$response = self::getClient()->get('city', [
+		$response = self::client()->get('city', [
 			'headers' => [
 				'key' => self::$apiKey
 			]
@@ -29,7 +30,7 @@ class RajaOngkirAPI
 
 	public static function getCost($origin, $destination, $weight, $courier)
 	{
-		$response = self::getClient()->post('cost', [
+		$response = self::client()->post('cost', [
 			'headers' => [
 				'key' => self::$apiKey
 			],
