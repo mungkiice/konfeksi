@@ -141,6 +141,12 @@
     $('#btn-chat').click(function(){
       $('#chat-box').toggle();
     });
+    $('#UserDropdown').click(function(){
+      $('#UserDropdownMenu').toggle();
+    });
+    $('#UserSettingsDropdown').click(function(){
+      $('#UserSettingsDropdownMenu').toggle();
+    })
   </script>
   @if(session("flash"))
   <script type="text/javascript">

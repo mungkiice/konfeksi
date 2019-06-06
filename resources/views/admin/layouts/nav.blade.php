@@ -52,10 +52,11 @@
         </div>
       </li> -->
       <li class="nav-item dropdown d-none d-xl-inline-block">
-        <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+        <a class="nav-link dropdown-toggle" role="button" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false" aria-haspopup="true">
           <span class="profile-text">{{ Auth::user()->nama }}</span>
-          <img class="img-xs rounded-circle" src="{{ asset('assets/images/faces/face8.jpg') }}" alt="Profile image"> </a>
-          <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+          <img class="img-xs rounded-circle" src="{{ asset('assets/images/faces/face8.jpg') }}" alt="Profile image"> 
+        </a>
+        <div class="dropdown-menu dropdown-menu-right navbar-dropdown" id="UserDropdownMenu" aria-labelledby="UserDropdown" style="display: none;">
           @if(Auth::user()->isKonfeksi())
           <a class="dropdown-item" href="/user/password/edit"> Ubah Password </a>
           @endif

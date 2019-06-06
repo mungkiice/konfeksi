@@ -10,11 +10,11 @@
             <p class="profile-name">{{ Auth::user()->nama }}</p>
             <ul class="nav navbar-nav">
               <li class="nav-item dropdown">
-                <a href="#" class="nav-link d-flex user-switch-dropdown-toggler" id="UsersettingsDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+                <a href="#" class="nav-link d-flex user-switch-dropdown-toggler" id="UserSettingsDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
                   <small class="designation text-muted">{{ Auth::user()->role }}</small>
                   <span class="status-indicator online"></span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-left navbar-dropdown" aria-labelledby="UsersettingsDropdown">
+                <div class="dropdown-menu dropdown-menu-left navbar-dropdown" aria-labelledby="UsersettingsDropdown" id="UserSettingsDropdownMenu" style="display: none;">
                   @if(Auth::user()->isKonfeksi())
                   <a class="dropdown-item" href="/user/password/edit"> Ubah Password </a>
                   @endif
