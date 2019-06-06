@@ -11,14 +11,17 @@ use App\Produk;
 use App\RajaOngkirAPI;
 use App\StatusPesanan;
 use Barryvdh\DomPDF\Facade as PDF;
-use Illuminate\Http\Request;
 use Veritrans_Notification;
-
+use Illuminate\Support\Facades\Request;
+	
 class PesananController extends Controller
 {
 	public function index()
 	{
 		$pesanans = auth()->user()->konfeksi->pesanans;
+		if (Request::wantsJson()) {
+			return response()->json($pesanans->load(['user','pesans']));
+		}
 		return view('admin.pesanans', compact('pesanans'));
 	}
 

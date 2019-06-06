@@ -26,7 +26,7 @@
   @yield('custom-css')
 </head>
 <body>
-  <div class="container-scroller">
+  <div id="app" class="container-scroller">
     <!-- partial:partials/_navbar.html -->
     @include('admin.layouts.nav')
     <!-- partial -->
@@ -42,8 +42,8 @@
         <div class="content-wrapper">
           @yield('content')
         </div>
-        @include('admin.layouts.chat')
         @if(Auth::user()->isKonfeksi())
+        <konfeksi-chat-box :user="{{Auth::user()}}"></konfeksi-chat-box>
         <button class="btn btn-info" id="btn-chat" style="position: fixed;right: 15%;bottom: 5%;border-radius: 100px;padding: 15px 50px;font-weight: bold;z-index: 5"><i class="mdi mdi-chat-processing"></i>Chat</button>
         @endif
         <!-- content-wrapper ends -->
@@ -61,6 +61,7 @@
     </div>
     <!-- page-body-wrapper ends -->
   </div>
+  <script src="{{ asset('js/app.js') }}"></script>
   <!-- container-scroller -->
   <!-- plugins:js -->
   <script src="{{ asset('assets/vendors/js/vendor.bundle.base.js') }}"></script>
