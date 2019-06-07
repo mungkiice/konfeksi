@@ -28,7 +28,8 @@ class RajaOngkirAPI
 		return json_decode($response->getBody(), true)['rajaongkir']['results'];
 	}
 
-	public static function getCost($origin, $destination, $weight, $courier)
+	//verified
+	public static function ongkirEkspedisi($origin, $destination, $weight, $courier)
 	{
 		$response = self::client()->post('cost', [
 			'headers' => [
@@ -42,7 +43,7 @@ class RajaOngkirAPI
 			]
 		]);
 		if ($response->getStatusCode() == 200) {
-			return json_decode($response->getBody(), true)['rajaongkir']['results'][0]['costs'];	
+			return json_decode($response->getBody(), true)['rajaongkir']['results'];	
 		}
 		return null;		
 	}
