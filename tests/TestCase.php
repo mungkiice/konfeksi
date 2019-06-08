@@ -34,7 +34,7 @@ abstract class TestCase extends BaseTestCase
 			'email' => 'm.kurniawanibal@gmail.com',
 			'password' => Hash::make('secret'),
 			'nomor_telepon' => '081289594061',
-			'role' => 'Member'
+			'role' => 'Pelanggan'
 		]);
 		$this->konfeksiUser = User::create([
 			'nama' => 'Konfeksi XYZ',
