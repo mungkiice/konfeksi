@@ -73,15 +73,15 @@ class PesananController extends Controller
 		return redirect('/')->with('flash', 'Pesanan berhasil dikirim');
 	}
 
-	public function updateStatus($pesananId)
+	//verified
+	public function updateStatus($pesananId, $keterangan, $nomorResi)
 	{
-		$request = new Request;
 		$pesanan = Pesanan::temukan($pesananId);
-		$statusPesanan = StatusPesanan::buat($pesanan->id, request('keterangan'));
+		$statusPesanan = StatusPesanan::buat($pesanan->id, $keterangan);
 		$pesanan->user->notify(new ProgresPesanan($statusPesanan));
-		if (request('nomor_resi') != null) {
-			$pesanan->isiNomorResi(request('nomor_resi'));
-			AfterShipAPI::addTracking($pesanan->kurir, request('nomor_resi'));
+		if ($nomorResi != 'kosong') {
+			$pesanan->isiNomorResi($nomorResi);
+			AfterShipAPI::addTracking($pesanan->kurir, $nomorResi);
 		}
 		return back()->with('flash', 'Status Pesanan berhasil disimpan');
 	}

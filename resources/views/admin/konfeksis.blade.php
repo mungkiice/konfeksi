@@ -59,10 +59,11 @@
 										</button>
 									</div>
 									<div class="modal-footer">
-										<form class="forms-sample" method="POST" action="/admin/konfeksi/{{$konfeksi->id}}">
-											@csrf
+										<form method="post" action="/admin/konfeksi/{{$konfeksi->id}}" id="form-konfeksi-{{$konfeksi->id}}">
+											<!-- @csrf -->
 											<button type="button" class="btn btn-outline-primary" data-dismiss="modal">Kembali</button>
-											<button type="submit" class="btn btn-primary" id="btn-update">Ya</button>
+											<button type="submit" name="button" class="btn btn-primary" onclick="$('#form-konfeksi-{{$konfeksi->id}}').submit();">Ya</button>
+											<a href="/admin/konfeksi/{{$konfeksi->id}}" style="color: white;" class="btn btn-primary">Ya</a>
 										</form>
 									</div>
 								</div>
@@ -96,12 +97,9 @@
 			});
 			$('#order-listing').each(function () {
 				var datatable = $(this);
-      // SEARCH - Add the placeholder for Search and Turn this into in-line form control
-      var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
-      search_input.attr('placeholder', 'Sort');
-      // search_input.removeClass('form-control-sm');
-      // var s = datatable.closest('.dataTables_wrapper').find(".dataTables_filter").append('<button type="button" class="btn btn-primary ml-2">New Record</button>');
-  });
+				var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+				search_input.attr('placeholder', 'Sort');
+			});
 		});
 	})(jQuery);
 </script>

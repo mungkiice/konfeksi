@@ -15,16 +15,16 @@ class AfterShipAPI
 		]);
 	}
 
-	public static function getCouriers()
-	{
-		$response = self::client()->get('couriers', [
-			'headers' => [
-				'aftership-api-key' => self::$apiKey,
-				'Content-Type' => 'application/json'
-			],
-		]);
-		return json_decode($response->getBody(), true)['data']['couriers'];
-	}
+	// public static function getCouriers()
+	// {
+	// 	$response = self::client()->get('couriers', [
+	// 		'headers' => [
+	// 			'aftership-api-key' => self::$apiKey,
+	// 			'Content-Type' => 'application/json'
+	// 		],
+	// 	]);
+	// 	return json_decode($response->getBody(), true)['data']['couriers'];
+	// }
 
 	public static function getCheckpoints($courier, $trackingNumber)
 	{
@@ -54,16 +54,16 @@ class AfterShipAPI
 		return json_decode($response->getBody(), true);		
 	}
 
-	public static function getLastCheckPoint($courier, $trackingNumber)
-	{
-		$response = self::client()->get('last_checkpoint/'.self::getSlug($courier).'/'.$trackingNumber, [
-			'headers' => [
-				'aftership-api-key' => self::$apiKey,
-				'Content-Type' => 'application/json'
-			],
-		]);
-		return json_decode($response->getBody(), true);
-	}
+	// public static function getLastCheckPoint($courier, $trackingNumber)
+	// {
+	// 	$response = self::client()->get('last_checkpoint/'.self::getSlug($courier).'/'.$trackingNumber, [
+	// 		'headers' => [
+	// 			'aftership-api-key' => self::$apiKey,
+	// 			'Content-Type' => 'application/json'
+	// 		],
+	// 	]);
+	// 	return json_decode($response->getBody(), true);
+	// }
 
 	public static function getSlug($courier)
 	{

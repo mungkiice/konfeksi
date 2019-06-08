@@ -47,12 +47,14 @@
 										</button>
 									</div>
 									<div class="modal-footer">
-										<form class="forms-sample" method="POST" action="/admin/artikel/{{$artikel->id}}">
-											@csrf
-											{{method_field('DELETE')}}
+										<!-- <form class="forms-sample" method="POST" action="/admin/artikel/{{$artikel->id}}"> -->
+											<!-- @csrf -->
+											<!-- {{method_field('DELETE')}} -->
 											<button type="button" class="btn btn-outline-danger" data-dismiss="modal">Tidak</button>
-											<button type="submit" class="btn btn-danger" id="btn-update">Ya</button>
-										</form>
+											<!-- <button type="submit" class="btn btn-danger" id="btn-update">Ya</button> -->
+											<a href="/admin/artikel/{{$artikel->id}}" style="color: white;" class="btn btn-danger">Ya</a>
+
+										<!-- </form> -->
 									</div>
 								</div>
 							</div>

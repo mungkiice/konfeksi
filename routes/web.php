@@ -62,12 +62,12 @@ Route::prefix('admin')->group(function(){
 	Route::get('/artikel', 'ArtikelController@index')->middleware('role:admin');	
 	Route::get('/artikel/create', 'ArtikelController@create')->middleware('role:admin');
 	Route::post('/artikel/create', 'ArtikelController@store')->middleware('role:admin');
-	Route::delete('/artikel/{artikelId}', 'ArtikelController@destroy')->middleware('role:admin');
+	Route::get('/artikel/{artikelId}', 'ArtikelController@destroy')->middleware('role:admin');
 	Route::get('/artikel/{artikelId}/edit', 'ArtikelController@edit')->middleware('role:admin');
 	Route::put('/artikel/{artikelId}/edit', 'ArtikelController@update')->middleware('role:admin');
 
 	Route::get('/konfeksi', 'KonfeksiController@listKonfeksi')->middleware('role:admin');
-	Route::post('/konfeksi/{konfeksiId}', 'KonfeksiController@verify')->middleware('role:admin');
+	Route::get('/konfeksi/{konfeksiId}', 'KonfeksiController@verify')->middleware('role:admin');
 });
 
 
@@ -77,13 +77,13 @@ Route::prefix('konfeksi')->group(function(){
 	Route::post('/produk', 'ProdukController@store')->middleware('role:konfeksi');
 	Route::get('/produk/create', 'ProdukController@create')->middleware('role:konfeksi');
 	Route::put('/produk/{produkId}', 'ProdukController@update')->middleware('role:konfeksi');
-	Route::delete('/produk/{produkId}', 'ProdukController@destroy')->middleware('role:konfeksi');
+	Route::get('/produk/{produkId}', 'ProdukController@destroy')->middleware('role:konfeksi');
 	Route::get('/produk/{produkId}/edit', 'ProdukController@edit')->middleware('role:konfeksi');
 
 	Route::get('/pesanan', 'PesananController@index')->middleware('role:konfeksi');
 	Route::get('/pesanan/json', 'PesananController@indexJson')->middleware('role:konfeksi');
 	Route::get('/pesanan/{pesananId}', 'PesananController@show')->middleware('role:konfeksi');
-	Route::post('/pesanan/{pesananId}', 'PesananController@updateStatus')->middleware('role:konfeksi');
+	Route::get('/pesanan/{pesananId}/{keterangan}/{nomorResi?}', 'PesananController@updateStatus')->middleware('role:konfeksi');
 
 	Route::get('/penawaran/{pesananId}/create', 'PenawaranController@create')->middleware('role:konfeksi');
 	Route::post('/penawaran/{pesananId}/create', 'PenawaranController@store')->middleware('role:konfeksi');

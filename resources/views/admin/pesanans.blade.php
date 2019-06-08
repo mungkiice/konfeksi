@@ -62,7 +62,7 @@
 											<span aria-hidden="true">&times;</span>
 										</button>
 									</div>
-									<form class="forms-sample" method="POST" action="/konfeksi/pesanan/{{$pesanan->id}}">
+									<form class="forms-sample" method="POST" action="/konfeksi/pesanan/{{$pesanan->id}}" id="formstatus-{{$pesanan->id}}">
 										@csrf
 										<div class="modal-body">
 											<div class="form-group">
@@ -83,12 +83,12 @@
 											</div>
 											<div class="form-group" id="form-resi" style="display: none;">
 												<label>No Resi</label>
-												<input class="form-control" type="text" name="nomor_resi"></input>
+												<input class="form-control" type="text" name="nomor_resi">
 											</div>
 										</div>
 										<div class="modal-footer">
 											<!-- <button type="button" class="btn btn-outline-danger" data-dismiss="modal">Kembali</button> -->
-											<button type="submit" class="btn btn-primary" id="btn-update">Simpan</button>
+											<button class="btn btn-primary" id="btn-update" onclick="submitStatus('{{$pesanan->id}}');">Simpan</button>
 										</div>
 									</form>
 								</div>
@@ -140,6 +140,14 @@
 			}
 		});
 	});
+	function submitStatus(pesananId){
+		let keterangan = $('#formstatus-'+pesananId).closest('.modal-content').find('#select2-input-status-container').attr('title');
+		var nomorResi = $('#formstatus-'+pesananId).closest('.modal-content').find('input[name="nomor_resi"]').val();
+		if (nomorResi == "") {
+			nomorResi = 'kosong';
+		}
+		window.location = '/konfeksi/pesanan/'+pesananId+'/'+keterangan.toLowerCase()+'/'+nomorResi;
+	}
 </script>
 <script src="{{ asset('assets/js/shared/file-upload.js') }}"></script>
 <script src="{{ asset('assets/js/shared/iCheck.js') }}"></script>
