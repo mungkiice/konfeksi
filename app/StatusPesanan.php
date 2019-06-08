@@ -4,6 +4,7 @@ namespace App;
 
 class StatusPesanan extends Model
 {
+	// verified
 	public static function buat($pesananId, $keterangan)
 	{
 		$pesanan = Pesanan::temukan($pesananId);

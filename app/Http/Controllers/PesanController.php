@@ -10,23 +10,22 @@ use Illuminate\Support\Facades\Auth;
 
 class PesanController extends Controller
 {
+    //verified
     public function listPesan($kodePesanan)
     {
         $pesanan = Pesanan::filter($kodePesanan);
         return $pesanan->pesans()->with('user')->get();
     }
 
-    public function kirimPesan(Request $request, $kodePesanan)
+    //verified
+    public function kirimPesan($kodePesanan)
     {
         $user = Auth::user();
         $pesanan = Pesanan::filter($kodePesanan);
-        $message = $user->pesans()->create([
-            'pesanan_id' => $pesanan->id,
-            'teks' => $request->teks
-        ]);
+        $pesan = Pesan::buat($user->id, $pesanan->id, request('teks'));
 
         // broadcast(new PesanTerkirim($message->load('user')))->toOthers();
-        event(new PesanTerkirim($message->load('user')));
+        event(new PesanTerkirim($pesan->denganDataUser()));
         return ['status' => 'Message Sent!'];
     }
 }

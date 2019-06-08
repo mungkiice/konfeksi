@@ -14,12 +14,14 @@ use Veritrans_Snap;
 
 class PenawaranController extends Controller
 {
+    //verified
     public function create($pesananId)
     {
     	$pesanan = Pesanan::temukan($pesananId);
     	return view('admin.penawaran-form', compact('pesanan'));
     }
 
+    //verified
     public function show($kodePesanan)
     {
         $pesanan = Pesanan::filter($kodePesanan);
@@ -27,35 +29,37 @@ class PenawaranController extends Controller
         return view('penawaran', compact('penawarans', 'pesanan'));
     }
 
-    public function store(Request $request, $pesananId)
+    // verified
+    public function store($pesananId)
     {
-    	$this->validate($request, [
+    	$this->validate(request(), [
             'tanggal_selesai' => 'required',
         ]);
 
         $path = '';
-        if ($request->gambar != null) {
-            $path = $request->gambar->store('pesanan', 'public');
+        if (request('gambar') != null) {
+            $path = request('gambar')->store('pesanan', 'public');
         }
 
         $pesanan = Pesanan::temukan($pesananId);
         
-        $penawaran = Penawaran::buat($pesanan->id,$request->tanggal_selesai,$pesanan->biaya + $request->biaya,$request->catatan,$path);
+        $penawaran = Penawaran::buat($pesanan->id,request('tanggal_selesai'),request('biaya'),request('catatan'),$path);
         $statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu konfirmasi penawaran');
         $pesanan->user->notify(new PenawaranBaru($penawaran));
         return redirect('/konfeksi')->with('flash', 'Penawaran berhasil dikirim');
     }
 
-    public function konfirmasi(Request $request, $penawaranId)
+    //verified
+    public function konfirmasi($penawaranId)
     {
         $penawaran = Penawaran::temukan($penawaranId);
-        $penawaran->perbarui($request->status);
+        $penawaran->perbarui(request('status'));
         $pesanan = Pesanan::temukan($penawaran->pesanan_id);
         $ongkosKirim = RajaOngkirAPI::ongkir($pesanan->produk->konfeksi->kota_id, $pesanan->kota_id, $pesanan->kurir);
         $totalBiaya = $penawaran->biaya + $ongkosKirim;
-        if ($request->status == 'diterima') {
+        if (request('status') == 'diterima') {
             $statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu pembayaran DP');
-            $snapToken = MidtransAPI::getAdvanceSnapToken($pesanan, $ongkosKirim, $penawaran->biaya);
+            $snapToken = MidtransAPI::tokenPembayaranUangMuka($pesanan, $ongkosKirim, $penawaran->biaya);
             $pesanan->perbarui($totalBiaya, $penawaran->tanggal_selesai, $penawaran->catatan, $snapToken);
             return response()->json([
                 'snap_token' => $snapToken,

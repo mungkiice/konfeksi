@@ -135,9 +135,7 @@
 			let status = this.value;
 			if (status == 'pesanan telah dikirim') {
 				$('div#form-resi').show();
-				console.log('oit');
 			}else{
-				console.log('iot');
 				$('div#form-resi').hide();
 			}
 		});

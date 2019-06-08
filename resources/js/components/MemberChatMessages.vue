@@ -60,6 +60,7 @@
 			sendMessage() {
 				this.addMessage({
 					teks: this.teks,
+					created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
 					user: this.user
 				});
 				this.teks = '';

@@ -16,7 +16,8 @@ class MidtransAPI
 		Veritrans_Config::$is3ds = config('services.midtrans.is3ds');
 	}
 
-	public static function getAdvanceSnapToken(Pesanan $pesanan, $ongkir, $biayaTambahan)
+    //verified
+	public static function tokenPembayaranUangMuka(Pesanan $pesanan, $ongkir, $biayaTambahan)
 	{
 		self::init();
 		$transaction_details = array(
@@ -84,7 +85,7 @@ class MidtransAPI
             return $snapToken;
 	}
 
-	public static function getRepaymentSnapToken(Pesanan $pesanan, $ongkir, $biayaTambahan)
+	public static function tokenPembayaranLunas(Pesanan $pesanan, $ongkir, $biayaTambahan)
 	{
 		self::init();
 		$transaction_details = array(

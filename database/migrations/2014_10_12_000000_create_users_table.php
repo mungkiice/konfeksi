@@ -20,10 +20,10 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->string('nomor_telepon');
             $table->enum('role', [
-                'Member',
+                'Pelanggan',
                 'Konfeksi',
                 'Admin'
-            ])->default('Member');
+            ])->default('Pelanggan');
             // $table->rememberToken();
             $table->timestamps();
         });

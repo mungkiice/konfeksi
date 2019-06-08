@@ -8,14 +8,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\ValidationException;
 
 class UserController extends Controller
 {
+    // verified
 	public function tampilHalamanUbahPassword()
 	{
 		return view('ubah-password');
 	}
 
+    // verified
 	public function ubahPassword()
 	{
 		$user = Auth::user();
@@ -23,9 +26,7 @@ class UserController extends Controller
 			'password_lama' => 'required|valid_password:' . $user->password,
 			'password_baru' => 'required|confirmed'
 		]);
-		$user->update([
-			'password' => bcrypt(request('password_baru'))
-		]);
+		$user->updatePassword(request('password_baru'));
 		return back()->with('flash', 'Password Berhasil Diubah');
 	}
 
@@ -36,7 +37,7 @@ class UserController extends Controller
 	}
 
     // verified
-	public function tampilHalamanRegisterMember()
+	public function tampilHalamanRegisterPelanggan()
 	{
 		return view('auth.register');	
 	}
@@ -59,6 +60,10 @@ class UserController extends Controller
 			}else{
 				return redirect('/');
 			}
+		}else{
+			throw ValidationException::withMessages([
+				'email' => [trans('auth.failed')],
+			]);
 		}	
 	}
 
@@ -71,7 +76,7 @@ class UserController extends Controller
 	}
 
     // verified
-	public function registerMember()
+	public function registerPelanggan()
 	{
 		$this->validate(request(), [
 			'nama' => 'required',
@@ -79,12 +84,7 @@ class UserController extends Controller
 			'password' => 'required|confirmed',
 			'nomor_telepon' => 'required',
 		]);	
-		$user = User::create([
-			'nama' => request('nama'),
-			'email' => request('email'),
-			'password' => Hash::make(request('password')),
-			'nomor_telepon' => request('nomor_telepon'),
-		]);
+		$user = User::buatPelanggan(request('nama'), request('email'), request('password'), request('nomor_telepon'));
 		Auth::guard()->login($user);
 		return redirect('/home');
 	}
@@ -102,31 +102,11 @@ class UserController extends Controller
 			'deskripsi' => 'required',
 			'gambar' => 'required',
 		]);
-		$cityName = '';
-		foreach (RajaOngkirAPI::daftarKota() as $city) {
-			if ($city['city_id'] == request('kota')) {
-				$cityName = $city['type'] . ' ' . $city['city_name'];
-				break;
-			}
-		}
-		$user = User::create([
-			'nama' => request('nama'),
-			'email' => request('email'),
-			'password' => Hash::make(request('password')),
-			'nomor_telepon' => request('nomor_telepon'),
-			'role' => 'Konfeksi'
-		]);
 		$path = '';
 		if (request('gambar')) {
 			$path = request('gambar')->store('konfeksi', 'public');
 		}
-		$user->konfeksi()->create([
-			'alamat' => request('alamat'),
-			'kota' => $cityName,
-			'kota_id' => request('kota'),
-			'deskripsi' => request('deskripsi'),
-			'gambar' => $path,
-		]);
+		$user = User::buatKonfeksi(request('nama'), request('email'), request('password'), request('nomor_telepon'), request('alamat'), request('kota'), request('deskripsi'), $path);
 		Auth::guard()->login($user);
 		return redirect('/konfeksi')->with('flash', 'Konfeksi berhasil terdaftar dan menunggu verifikasi oleh admin');	
 	}

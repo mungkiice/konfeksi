@@ -16,18 +16,21 @@ use Illuminate\Support\Facades\Request;
 
 class PesananController extends Controller
 {
+	//verified
 	public function index()
 	{
 		$pesanans = auth()->user()->konfeksi->pesanans;
 		return view('admin.pesanans', compact('pesanans'));
 	}
 
+	//verified
 	public function indexJson()
 	{
 		$pesanans = auth()->user()->konfeksi->pesanans;
 		return response()->json($pesanans->load(['user','pesans']));
 	}
 
+	//verified
 	public function indexPelanggan()
 	{
 		$pesanans = auth()->user()->pesanans;
@@ -83,6 +86,7 @@ class PesananController extends Controller
 		return back()->with('flash', 'Status Pesanan berhasil disimpan');
 	}
 
+	//verified
 	public function cetakBukti($kodePesanan)
 	{
 		$pesanan = Pesanan::filter($kodePesanan);
@@ -90,11 +94,12 @@ class PesananController extends Controller
 		return $pdf->download("Bukti Pesanan #{$pesanan->kode_pesanan}.pdf");
 	}
 
+	//verified
 	public function pembayaranLunas($kodePesanan)
 	{
 		$pesanan = Pesanan::filter($kodePesanan);
 		$ongkosKirim = RajaOngkirAPI::ongkir($pesanan->produk->konfeksi->kota_id, $pesanan->kota_id, $pesanan->kurir);
-		$snapToken = MidtransAPI::getRepaymentSnapToken($pesanan, $ongkosKirim, $pesanan->penawarans()->where('status', 'diterima')->first()->biaya);
+		$snapToken = MidtransAPI::tokenPembayaranLunas($pesanan, $ongkosKirim, $pesanan->penawarans()->where('status', 'diterima')->first()->biaya);
 		return response()->json(['snap_token' => $snapToken]);	
 	}
 

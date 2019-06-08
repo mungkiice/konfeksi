@@ -7,70 +7,61 @@ use Illuminate\Http\Request;
 
 class ArtikelController extends Controller
 {
+	//verified
 	public function index()
 	{
-		$artikels = Artikel::all();
+		$artikels = Artikel::semua();
 		return view('admin.artikels', compact('artikels'));
 	}
 
+	//verified
 	public function create()
 	{
 		return view('admin.artikel-form');
 	}
 
+	//verified
 	public function edit($artikelId)
 	{
-		$artikel = Artikel::find($artikelId);
+		$artikel = Artikel::temukan($artikelId);
 		return view('admin.artikel-edit-form', compact('artikel'));
 	}
 
-	public function store(Request $request)
+	//verified
+	public function store()
 	{
-		$this->validate($request, [
+		$this->validate(request(), [
 			'judul' => 'required',
 			'deskripsi' => 'required',
-			'gambar' => 'required|image|mimes:jpeg,jpg,png'
+			'gambar' => 'required'
 		]);
+		$path = request('gambar')->store('artikel', 'public');
 
-		$path = '';
-		if ($request->hasFile('gambar')) {
-			$path = $request->gambar->store('artikel', 'public');
-		}
-
-		Artikel::create([
-			'judul' => $request->judul,
-			'deskripsi' => $request->deskripsi,
-			'gambar' => $path 
-		]);
-		return redirect('/admin/artikel')->with('flash', ' artikel jenis kain berhasil ditambahkan');
+		Artikel::buat(request('judul'), request('deskripsi'),$path);
+		return redirect('/admin/artikel')->with('flash', ' artikel berhasil ditambahkan');
 	}
 	
-	public function update(Request $request, $artikelId)
+	//verified
+	public function update($artikelId)
 	{
-		$this->validate($request, [
-			'gambar' => 'image|mimes:jpeg,jpg,png'
-		]);
-		$artikel = Artikel::find($artikelId);
+		$artikel = Artikel::temukan($artikelId);
 		if($artikel != null){
 			$path = null;
-			if ($request->hasFile('gambar')) {
-				$path = $request->gambar->store('artikel', 'public');
+			if (request('gambar')) {
+				$path = request('gambar')->store('artikel', 'public');
 			}
-			$artikel->update([
-				'judul' => $request->judul ?: $artikel->judul,
-				'deskripsi' => $request->deskripsi ?: $artikel->deskripsi,
-				'gambar' => $path ?: $artikel->gambar
-			]);
+			$artikel->perbarui(request('judul'),request('deskripsi'),$path);
 		}
-		return redirect('/admin/artikel')->with('flash', 'artikel jenis kain berhasil diperbarui');
+		return redirect('/admin/artikel')->with('flash', 'artikel berhasil diperbarui');
 	}
 
+	//verified
 	public function destroy($artikelId)
 	{
-		$artikel = Artikel::find($artikelId);
+		$artikel = Artikel::temukan($artikelId);
 		if($artikel != null){
-			$artikel->delete();	
+			$artikel->hapus();	
 		}
-		return back()->with('flash', 'artikel jenis kain berhasil dihapus');
+		return back()->with('flash', 'artikel berhasil dihapus');
 	}
 }

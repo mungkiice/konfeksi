@@ -4,6 +4,7 @@ namespace App;
 
 class Pesanan extends Model
 {
+	// verified
 	public static function buat($userId, $produkId, $catatan, $fileDesain, $alamat, $kota, $arrJumlah, $kurir)
 	{
 		$totalBiaya = 0;
@@ -29,22 +30,23 @@ class Pesanan extends Model
 		return $pesanan;
 	}
 
+	// verified
 	public static function temukan($pesananId)
 	{
-		$pesanan = static::query()->find($pesananId);
-		return $pesanan;
+		return static::query()->find($pesananId);
 	}
 
+	//verified
 	public static function filter($kodePesanan)
 	{
-		$pesanan = static::query()->where('kode_pesanan', $kodePesanan)->first();
-		return $pesanan;
+		return static::query()->where('kode_pesanan', $kodePesanan)->first();
 	}
 
+	//verified
 	public function perbarui($biaya, $tanggalSelesai, $catatan, $snapToken)
 	{
 		parent::update([
-			'biaya' => $biaya,
+			'biaya' => $this->biaya + $biaya,
 			'tanggal_selesai' => $tanggalSelesai,
 			'catatan' => $this->catatan . '. - ' . $catatan,
 			'snap_token' => $snapToken

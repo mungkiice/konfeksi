@@ -1885,6 +1885,7 @@ __webpack_require__.r(__webpack_exports__);
     sendMessage: function sendMessage() {
       this.addMessage({
         teks: this.teks,
+        created_at: moment__WEBPACK_IMPORTED_MODULE_0___default()().format('YYYY-MM-DD HH:mm:ss'),
         user: this.user
       });
       this.teks = '';
@@ -1892,7 +1893,7 @@ __webpack_require__.r(__webpack_exports__);
     fetchPesanans: function fetchPesanans() {
       var _this2 = this;
 
-      axios.get('/konfeksi/pesanan').then(function (response) {
+      axios.get('/konfeksi/pesanan/json').then(function (response) {
         _this2.pesanans = response.data;
       });
     },
@@ -1986,6 +1987,7 @@ __webpack_require__.r(__webpack_exports__);
     sendMessage: function sendMessage() {
       this.addMessage({
         teks: this.teks,
+        created_at: moment__WEBPACK_IMPORTED_MODULE_0___default()().format('YYYY-MM-DD HH:mm:ss'),
         user: this.user
       });
       this.teks = '';
@@ -65628,7 +65630,7 @@ var render = function() {
               "div",
               { key: message.index, staticClass: "incoming_msg" },
               [
-                message.user.role == "Member"
+                message.user.role == "Pelanggan"
                   ? _c("div", { staticClass: "received_msg" }, [
                       _c("div", { staticClass: "received_withd_msg" }, [
                         _c("strong", [_vm._v(_vm._s(message.user.nama))]),

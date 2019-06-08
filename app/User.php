@@ -2,38 +2,21 @@
 
 namespace App;
 
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Hash;
 
 class User extends Authenticatable
 {
     use Notifiable, CanResetPassword;
-
-    /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
-     */
     protected $fillable = [
         'nama', 'email', 'password', 'nomor_telepon', 'role'
     ];
-
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 
     ];
-
-    /**
-     * The attributes that should be cast to native types.
-     *
-     * @var array
-     */
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
@@ -66,5 +49,39 @@ class User extends Authenticatable
     public function pesans()
     {
         return $this->hasMany(Pesan::class);
+    }
+
+    // verified
+    public static function buatPelanggan($nama, $email, $password, $nomorTelepon)
+    {
+        $user = static::query()->create([
+            'nama' => $nama,
+            'email' => $email,
+            'password' => Hash::make($password),
+            'nomor_telepon' => $nomorTelepon,
+        ]);
+        return $user;
+    }
+
+    // verified
+    public static function buatKonfeksi($nama, $email, $password, $nomorTelepon, $alamat, $kota, $deskripsi, $gambar)
+    {   
+        $user = static::query()->create([
+            'nama' => $nama,
+            'email' => $email,
+            'password' => Hash::make($password),
+            'nomor_telepon' => $nomorTelepon,
+            'role' => 'Konfeksi'
+        ]);
+        Konfeksi::buat($user->id, $alamat, $kota, $deskripsi, $gambar);
+        return $user;
+    }
+
+    // verified
+    public function updatePassword($passwordBaru)
+    {
+        $this->update([
+            'password' => bcrypt($passwordBaru)
+        ]);
     }
 }

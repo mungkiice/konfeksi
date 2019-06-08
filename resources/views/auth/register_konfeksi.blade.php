@@ -28,7 +28,7 @@
             <div class="content-wrapper d-flex align-items-center auth register-bg-1 theme-one">
                 <div class="row w-100">
                     <div class="col-lg-4 mx-auto">
-                      <h2 class="text-center mb-4">Register</h2>
+                      <h2 class="text-center mb-4">Register Konfeksi</h2>
                       <div class="auto-form-wrapper">
                     <a class="navbar-brand logo_h" href="/" style="display: block;"><img src="/img/logo.png" alt="" style="margin: auto;display: block;"></a>
                         <form action="/register/konfeksi" method="post" enctype="multipart/form-data">
@@ -149,8 +149,8 @@
                                 <button type="submit" class="btn submit-btn btn-block" style="background-color: #FFA100; color: white;">Register</button>
                             </div>
                             <div class="text-block text-center my-3">
-                                <span class="text-small font-weight-semibold">Ingin mendaftar sebagai member ?</span>
-                                <a href="/register" class="text-black text-small">Buat akun member</a>
+                                <span class="text-small font-weight-semibold">Ingin mendaftar sebagai pelanggan ?</span>
+                                <a href="/register" class="text-black text-small">Buat akun pelanggan</a>
                             </div>
                             <div class="text-block text-center my-3">
                                 <span class="text-small font-weight-semibold">Sudah punya akun ?</span>

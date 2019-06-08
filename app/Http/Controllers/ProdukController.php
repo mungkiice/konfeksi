@@ -7,76 +7,68 @@ use Illuminate\Http\Request;
 
 class ProdukController extends Controller
 {
+    //verified
     public function show($produkId)
     {
-        $produk = Produk::find($produkId);
+        $produk = Produk::temukan($produkId);
     	return view('produk', compact('produk'));
     }
 
+    //verified
     public function index()
     {
     	$produks = auth()->user()->konfeksi->produks;
     	return view('admin.produks', compact('produks'));
     }
 
+    //verified
     public function create()
     {
     	return view('admin.produk-form');
     }
 
+    //verified
     public function edit($produkId)
     {
-        $produk = Produk::find($produkId);
+        $produk = Produk::temukan($produkId);
         return view('admin.produk-edit-form', compact('produk'));
     }
 
-    public function store(Request $request)
+    //verified
+    public function store()
     {
-    	$this->validate($request, [
+    	$this->validate(request(), [
             'nama' => 'required',
             'deskripsi' => 'required',
-            'gambar' => 'required|mimes:jpg,jpeg,png',
+            'gambar' => 'required',
             'harga' => 'required'
         ]);
-        $path = '';
-        if($request->hasFile('gambar')){
-            $path = $request->gambar->store('image', 'public');
-        }
-
-        $produk = Produk::create([
-            'konfeksi_id' => auth()->user()->konfeksi->id,
-            'nama' => $request->nama,
-            'deskripsi' => $request->deskripsi,
-            'gambar' => $path,
-            'harga' => $request->harga
-        ]);
+            $path = request('gambar')->store('image', 'public');
+        $produk = Produk::buat(auth()->user()->konfeksi->id, request('nama'), request('deskripsi'),$path,request('harga'));
 
         return redirect('/konfeksi/produk')->with('flash', 'produk berhasil ditambahkan');
     }
 
-    public function update(Request $request, $produkId)
+    //verified
+    public function update($produkId)
     {
-        $produk = Produk::find($produkId);
+        $produk = Produk::temukan($produkId);
         if($produk != null){
             $path = null;
-            if ($request->hasFile('gambar')) {
-                $path = $request->gambar->store('produk', 'public');
+            if (request('gambar')) {
+                $path = request('gambar')->store('produk', 'public');
             }
-            $produk->update([
-                'nama' => $request->nama ?: $produk->nama,
-                'deskripsi' => $request->deskripsi ?: $produk->deskripsi,
-                'gambar' => $path ?: $produk->gambar,
-                'harga' => $request->harga ?: $produk->harga
-            ]);
+            $produk->perbarui(request('nama'), request('deskripsi'), $path, request('harga'));
         }
     	return redirect('/konfeksi/produk')->with('flash', 'Produk berhasil diperbarui');
     }
 
+    //verified
     public function destroy($produkId)
     {
-        $produk = Produk::find($produkId);
+        $produk = Produk::temukan($produkId);
         if($produk != null){
-            $produk->delete();
+            $produk->hapus();
         }
         return back()->with('flash', 'Produk berhasil dihapus');
     }

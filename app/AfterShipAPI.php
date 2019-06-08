@@ -8,7 +8,7 @@ class AfterShipAPI
 {
 	protected static $apiKey = '625c07d0-29b7-42ab-9420-674e87eeeef6';
 
-	public static function getClient()
+	public static function client()
 	{
 		return new Client([
 			'base_uri' => 'https://api.aftership.com/v4/'

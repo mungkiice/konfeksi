@@ -153,5 +153,6 @@
     showSwal('flash', "{{session('flash')}}");
   </script>
   @endif
+  
 </body>
 </html>

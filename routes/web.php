@@ -52,7 +52,7 @@ Route::get('/pesanansaya/{kodePesanan}/cetak', 'PesananController@cetakBukti')->
 Route::get('/penawaran/{kodePesanan}', 'PenawaranController@show')->middleware('role:pelanggan');
 Route::post('/penawaran/{penawaranId}/konfirmasi', 'PenawaranController@konfirmasi')->middleware('role:pelanggan');
 
-Route::post('/ulasan', 'UlasanController@store')->middleware('role:pelanggan');
+Route::post('/ulasan', 'KonfeksiController@tambahUlasan')->middleware('role:pelanggan');
 
 Route::get('/diskusi/{kodePesanan}', 'PesanController@listPesan');
 Route::post('/diskusi/{kodePesanan}', 'PesanController@kirimPesan');

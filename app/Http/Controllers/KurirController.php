@@ -9,12 +9,13 @@ use Illuminate\Http\Request;
 
 class KurirController extends Controller
 {
+	//verified
 	public function infoEkspedisi($asal, $tujuan)
 	{
 		$couriers = ['jne', 'tiki', 'pos'];
 		$result = [];
 		foreach ($couriers as $courier) {
-			$cost = RajaOngkirAPI::getCost($asal, $tujuan, 10, $courier);
+			$cost = RajaOngkirAPI::ongkirEkspedisi($asal, $tujuan, 10, $courier);
 			$result = array_merge($result, $cost);
 		}
 		return response()->json($result, 200);
