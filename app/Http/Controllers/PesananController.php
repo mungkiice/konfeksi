@@ -13,19 +13,22 @@ use App\StatusPesanan;
 use Barryvdh\DomPDF\Facade as PDF;
 use Veritrans_Notification;
 use Illuminate\Support\Facades\Request;
-	
+
 class PesananController extends Controller
 {
 	public function index()
 	{
 		$pesanans = auth()->user()->konfeksi->pesanans;
-		if (Request::wantsJson()) {
-			return response()->json($pesanans->load(['user','pesans']));
-		}
 		return view('admin.pesanans', compact('pesanans'));
 	}
 
-	public function indexMember()
+	public function indexJson()
+	{
+		$pesanans = auth()->user()->konfeksi->pesanans;
+		return response()->json($pesanans->load(['user','pesans']));
+	}
+
+	public function indexPelanggan()
 	{
 		$pesanans = auth()->user()->pesanans;
 		return view('pesanan', compact('pesanans'));
@@ -40,10 +43,11 @@ class PesananController extends Controller
 	public function create($produkId)
 	{
 		$produk = Produk::temukan($produkId);
-		$kotas = RajaOngkirAPI::getCities();
+		$kotas = RajaOngkirAPI::daftarKota();
 		return view('pesan', compact('produk', 'kotas'));
 	}
 
+	//verified
 	public function store()
 	{
 		$this->validate(request(), [

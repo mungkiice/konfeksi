@@ -24,32 +24,35 @@ Route::get('/login', 'UserController@tampilHalamanLogin')->middleware('guest');
 Route::post('/login', 'UserController@login')->middleware('guest');
 Route::post('/logout', 'UserController@logout')->middleware('auth');
 
-Route::get('/user/password/edit', 'UserController@tampilHalamanUbahPassword')->middleware('role:member,konfeksi');
-Route::post('/user/password/edit', 'UserController@ubahPassword')->middleware('role:member,konfeksi');
-Route::get('/register', 'UserController@tampilHalamanRegisterMember')->middleware('guest');
-Route::post('/register', 'UserController@registerMember')->middleware('guest');
+Route::get('/user/password/edit', 'UserController@tampilHalamanUbahPassword')->middleware('role:pelanggan,konfeksi');
+Route::post('/user/password/edit', 'UserController@ubahPassword')->middleware('role:pelanggan,konfeksi');
+Route::get('/register', 'UserController@tampilHalamanRegisterPelanggan')->middleware('guest');
+Route::post('/register', 'UserController@registerPelanggan')->middleware('guest');
 Route::get('/register/konfeksi', 'UserController@tampilHalamanRegisterKonfeksi')->middleware('guest');
 Route::post('/register/konfeksi', 'UserController@registerKonfeksi')->middleware('guest');
+
+Route::get('/konfeksis', 'KonfeksiController@index');
+Route::get('/konfeksis/{konfeksiId}', 'KonfeksiController@show');
+
+Route::get('/pesan/{produkId}', 'PesananController@create')->middleware('role:pelanggan');
+
+Route::get('/kurir/{asal}/{tujuan}', 'KurirController@infoEkspedisi');
 
 Route::get('messages/{kodePesanan}', 'PesanController@listPesan');
 Route::post('messages/{kodePesanan}', 'PesanController@kirimPesan');
 
-Route::get('/kurir/{asal}/{tujuan}', 'KurirController@infoEkspedisi');
 Route::get('/checkpoint/{kodePesanan}', 'KurirController@checkpoints');
-Route::get('/konfeksis', 'KonfeksiController@index');
-Route::get('/konfeksis/{konfeksiId}', 'KonfeksiController@show');
 Route::get('/produks/{produkId}', 'ProdukController@show');
-Route::get('/pembayaran/{kodePesanan}', 'PesananController@pembayaranLunas')->middleware('role:member');
-Route::post('/pesan', 'PesananController@store')->middleware('role:member');
+Route::get('/pembayaran/{kodePesanan}', 'PesananController@pembayaranLunas')->middleware('role:pelanggan');
+Route::post('/pesan', 'PesananController@store')->middleware('role:pelanggan');
 Route::post('/pesan/finish', 'PenawaranController@finish');
 Route::post('/notification/handler', 'PesananController@notificationHandler');
-Route::get('/pesan/{produkId}', 'PesananController@create')->middleware('role:member');
-Route::get('/pesanansaya', 'PesananController@indexMember')->middleware('role:member');
-Route::get('/pesanansaya/{kodePesanan}/cetak', 'PesananController@cetakBukti')->middleware('role:member');
-Route::get('/penawaran/{kodePesanan}', 'PenawaranController@show')->middleware('role:member');
-Route::post('/penawaran/{penawaranId}/konfirmasi', 'PenawaranController@konfirmasi')->middleware('role:member');
+Route::get('/pesanansaya', 'PesananController@indexPelanggan')->middleware('role:pelanggan');
+Route::get('/pesanansaya/{kodePesanan}/cetak', 'PesananController@cetakBukti')->middleware('role:pelanggan');
+Route::get('/penawaran/{kodePesanan}', 'PenawaranController@show')->middleware('role:pelanggan');
+Route::post('/penawaran/{penawaranId}/konfirmasi', 'PenawaranController@konfirmasi')->middleware('role:pelanggan');
 
-Route::post('/ulasan', 'UlasanController@store')->middleware('role:member');
+Route::post('/ulasan', 'UlasanController@store')->middleware('role:pelanggan');
 
 Route::get('/diskusi/{kodePesanan}', 'PesanController@listPesan');
 Route::post('/diskusi/{kodePesanan}', 'PesanController@kirimPesan');
@@ -78,6 +81,7 @@ Route::prefix('konfeksi')->group(function(){
 	Route::get('/produk/{produkId}/edit', 'ProdukController@edit')->middleware('role:konfeksi');
 
 	Route::get('/pesanan', 'PesananController@index')->middleware('role:konfeksi');
+	Route::get('/pesanan/json', 'PesananController@indexJson')->middleware('role:konfeksi');
 	Route::get('/pesanan/{pesananId}', 'PesananController@show')->middleware('role:konfeksi');
 	Route::post('/pesanan/{pesananId}', 'PesananController@updateStatus')->middleware('role:konfeksi');
 

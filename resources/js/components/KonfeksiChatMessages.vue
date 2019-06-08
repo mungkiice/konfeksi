@@ -33,7 +33,7 @@ strong{
 			<hr>
 			<div class="msg_history" v-chat-scroll>
 				<div class="incoming_msg" v-for="message,index in messages" :key="message.index">
-					<div class="received_msg" v-if="message.user.role == 'Member'">
+					<div class="received_msg" v-if="message.user.role == 'Pelanggan'">
 						<div class="received_withd_msg">
 							<strong>{{message.user.nama}}</strong>
 							<p>{{message.teks}}</p>
@@ -85,12 +85,13 @@ strong{
 			sendMessage() {
 				this.addMessage({
 					teks: this.teks,
+					created_at: moment().format('YYYY-MM-DD HH:mm:ss'),
 					user: this.user
 				});
 				this.teks = '';
 			},
 			fetchPesanans(){
-				axios.get('/konfeksi/pesanan').then(response => {
+				axios.get('/konfeksi/pesanan/json').then(response => {
 					this.pesanans = response.data;
 				});
 			},
