@@ -34,9 +34,7 @@ class UpdateStatusPesananTest extends TestCase
 	public function jalur_1()
 	{
 		$this->actingAs($this->konfeksiUser);
-		$response = $this->post('/konfeksi/pesanan/'.$this->pesanan->id, [
-			'keterangan' => 'Proses penjahitan',
-		]);
+		$response = $this->get('/konfeksi/pesanan/'.$this->pesanan->id .'/proses%20penjahitan/kosong');
 		$this->assertEquals(1, StatusPesanan::count());
 		Notification::assertSentTo([$this->user], ProgresPesanan::class);
 		$response->assertSessionHas('flash', 'Status Pesanan berhasil disimpan');
@@ -46,10 +44,7 @@ class UpdateStatusPesananTest extends TestCase
 	public function jalur_2()
 	{
 		$this->actingAs($this->konfeksiUser);
-		$response = $this->post('/konfeksi/pesanan/'.$this->pesanan->id, [
-			'keterangan' => 'Pesanan telah dikirim',
-			'nomor_resi' => '021500038275719'
-		]);
+		$response = $this->get('/konfeksi/pesanan/'.$this->pesanan->id.'/pesanan%20telah%20dikirim/021500038275719');
 		$this->assertEquals(1, StatusPesanan::count());
 		Notification::assertSentTo([$this->user], ProgresPesanan::class);
 		$responseAfterShip = AfterShipAPI::getLastCheckPoint($this->pesanan->kurir, '021500038275719');

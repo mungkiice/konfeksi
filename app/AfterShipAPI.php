@@ -54,16 +54,16 @@ class AfterShipAPI
 		return json_decode($response->getBody(), true);		
 	}
 
-	// public static function getLastCheckPoint($courier, $trackingNumber)
-	// {
-	// 	$response = self::client()->get('last_checkpoint/'.self::getSlug($courier).'/'.$trackingNumber, [
-	// 		'headers' => [
-	// 			'aftership-api-key' => self::$apiKey,
-	// 			'Content-Type' => 'application/json'
-	// 		],
-	// 	]);
-	// 	return json_decode($response->getBody(), true);
-	// }
+	public static function getLastCheckPoint($courier, $trackingNumber)
+	{
+		$response = self::client()->get('last_checkpoint/'.self::getSlug($courier).'/'.$trackingNumber, [
+			'headers' => [
+				'aftership-api-key' => self::$apiKey,
+				'Content-Type' => 'application/json'
+			],
+		]);
+		return json_decode($response->getBody(), true);
+	}
 
 	public static function getSlug($courier)
 	{
