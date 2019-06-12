@@ -36,12 +36,12 @@ Route::get('/konfeksis/{konfeksiId}', 'KonfeksiController@show');
 
 Route::get('/pesan/{produkId}', 'PesananController@create')->middleware('role:pelanggan');
 
-Route::get('/kurir/{asal}/{tujuan}', 'KurirController@infoEkspedisi');
+Route::get('/kurir/{asal}/{tujuan}', 'PesananController@infoEkspedisi');
 
 Route::get('messages/{kodePesanan}', 'PesanController@listPesan');
 Route::post('messages/{kodePesanan}', 'PesanController@kirimPesan');
 
-Route::get('/checkpoint/{kodePesanan}', 'KurirController@checkpoints');
+Route::get('/checkpoint/{kodePesanan}', 'PesananController@checkpoints');
 Route::get('/produks/{produkId}', 'ProdukController@show');
 Route::get('/pembayaran/{kodePesanan}', 'PesananController@pembayaranLunas')->middleware('role:pelanggan');
 Route::post('/pesan', 'PesananController@store')->middleware('role:pelanggan');
