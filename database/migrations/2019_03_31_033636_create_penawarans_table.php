@@ -17,7 +17,7 @@ class CreatePenawaransTable extends Migration
             $table->bigIncrements('id');
             $table->bigInteger('pesanan_id')->unsigned();
             $table->date('tanggal_selesai')->nullable();
-            $table->decimal('biaya', 13, 0);
+            $table->decimal('biaya', 13, 0)->default(0);
             $table->text('catatan')->nullable();
             $table->enum('status', ['terkirim', 'ditolak', 'diterima'])->default('terkirim');
             $table->string('gambar')->nullable();
