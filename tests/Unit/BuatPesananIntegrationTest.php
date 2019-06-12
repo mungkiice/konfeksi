@@ -64,6 +64,25 @@ class BuatPesananIntegrationTest extends TestCase
   {
     $this->actingAs($this->user);
     $response = $this->post('/pesan', [
+      'produk_id' => 1,
+      'catatan' => 'Jaket dengan bahan denim',
+      'file_desain' => $file = UploadedFile::fake()->image('random.jpg'),
+      'alamat' => 'Jalan Sumbersari 2',
+      'kota' => 1,
+      'kurir' => 'jne REG'
+    ]);
+    $response->assertSessionHasErrors('jumlah');
+    $this->assertEquals(0, Pesanan::count());
+    $this->assertEquals(0, StatusPesanan::count());
+    Notification::assertNotSentTo($this->konfeksiUser, PesananBaru::class);
+    $response->assertSessionMissing('flash');
+  }
+
+  /** @test */
+  public function jalur_4()
+  {
+    $this->actingAs($this->user);
+    $response = $this->post('/pesan', [
       'produk_id' => $this->produk->id,
       'catatan' => 'Jaket dengan bahan denim',
       'file_desain' => $file = UploadedFile::fake()->image('random.jpg'),
