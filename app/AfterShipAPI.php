@@ -6,20 +6,14 @@ use GuzzleHttp\Client;
 
 class AfterShipAPI
 {
-	protected static $apiKey = '625c07d0-29b7-42ab-9420-674e87eeeef6';
-
-	public static function client()
-	{
-		return new Client([
-			'base_uri' => 'https://api.aftership.com/v4/'
-		]);
-	}
 
 	// public static function getCouriers()
 	// {
-	// 	$response = self::client()->get('couriers', [
+	// 	$response = new Client([
+			// 'base_uri' => 'https://api.aftership.com/v4/'
+		// ])->get('couriers', [
 	// 		'headers' => [
-	// 			'aftership-api-key' => self::$apiKey,
+	// 			'aftership-api-key' => env('AFTERSHIP_APIKEY'),
 	// 			'Content-Type' => 'application/json'
 	// 		],
 	// 	]);
@@ -28,9 +22,11 @@ class AfterShipAPI
 
 	public static function getCheckpoints($courier, $trackingNumber)
 	{
-		$response = self::client()->get('trackings/'.self::getSlug($courier).'/'.$trackingNumber, [
+		$response = (new Client([
+			'base_uri' => 'https://api.aftership.com/v4/'
+		]))->get('trackings/'.self::getSlug($courier).'/'.$trackingNumber, [
 			'headers' => [
-				'aftership-api-key' => self::$apiKey,
+				'aftership-api-key' => env('AFTERSHIP_APIKEY'),
 				'Content-Type' => 'application/json'
 			],
 		]);
@@ -39,9 +35,11 @@ class AfterShipAPI
 
 	public static function addTracking($courier, $trackingNumber)
 	{
-		$response = self::client()->post('trackings', [
+		$response = (new Client([
+			'base_uri' => 'https://api.aftership.com/v4/'
+		]))->post('trackings', [
 			'headers' => [
-				'aftership-api-key' => self::$apiKey,
+				'aftership-api-key' => env('AFTERSHIP_APIKEY'),
 				'Content-Type' => 'application/json'
 			],
 			'json' => [
@@ -56,9 +54,11 @@ class AfterShipAPI
 
 	public static function getLastCheckPoint($courier, $trackingNumber)
 	{
-		$response = self::client()->get('last_checkpoint/'.self::getSlug($courier).'/'.$trackingNumber, [
+		$response = (new Client([
+			'base_uri' => 'https://api.aftership.com/v4/'
+		]))->get('last_checkpoint/'.self::getSlug($courier).'/'.$trackingNumber, [
 			'headers' => [
-				'aftership-api-key' => self::$apiKey,
+				'aftership-api-key' => env('AFTERSHIP_APIKEY'),
 				'Content-Type' => 'application/json'
 			],
 		]);

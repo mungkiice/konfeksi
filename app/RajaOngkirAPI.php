@@ -7,22 +7,22 @@ use GuzzleHttp\Exception\ClientException;
 
 class RajaOngkirAPI
 {
-	protected static $apiKey = '6051f010f4d02b46d5a7d703f03c68d0';
+	// protected static $apiKey = '6051f010f4d02b46d5a7d703f03c68d0';
 
-	public static function client()
-	{
-		return new Client([
-			'base_uri' => 'https://api.rajaongkir.com/starter/',
-			'http_errors' => false
-		]);
-	}
+	// public static function client()
+	// {
+	// 	return new Client([
+	// 		'base_uri' => 'https://api.rajaongkir.com/starter/',
+	// 		'http_errors' => false
+	// 	]);
+	// }
 
     // verified
 	public static function daftarKota()
 	{
-		$response = self::client()->get('city', [
+		$response = (new Client(['base_uri' => 'https://api.rajaongkir.com/starter/','http_errors' => false]))->get('city', [
 			'headers' => [
-				'key' => self::$apiKey
+				'key' => env('RAJAONGKIR_APIKEY')
 			]
 		]);
 		return json_decode($response->getBody(), true)['rajaongkir']['results'];
@@ -31,9 +31,9 @@ class RajaOngkirAPI
 	//verified
 	public static function ongkirEkspedisi($origin, $destination, $weight, $courier)
 	{
-		$response = self::client()->post('cost', [
+		$response = (new Client(['base_uri' => 'https://api.rajaongkir.com/starter/','http_errors' => false]))->post('cost', [
 			'headers' => [
-				'key' => self::$apiKey
+				'key' => env('RAJAONGKIR_APIKEY')
 			],
 			'json' => [
 				'origin' => $origin,
