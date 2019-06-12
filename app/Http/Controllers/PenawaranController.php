@@ -54,10 +54,10 @@ class PenawaranController extends Controller
     {
         $penawaran = Penawaran::temukan($penawaranId);
         $penawaran->perbarui(request('status'));
-        $pesanan = Pesanan::temukan($penawaran->pesanan_id);
-        $ongkosKirim = RajaOngkirAPI::ongkir($pesanan->produk->konfeksi->kota_id, $pesanan->kota_id, $pesanan->kurir);
-        $totalBiaya = $penawaran->biaya + $ongkosKirim;
         if (request('status') == 'diterima') {
+            $pesanan = Pesanan::temukan($penawaran->pesanan_id);
+            $ongkosKirim = RajaOngkirAPI::ongkir($pesanan->produk->konfeksi->kota_id, $pesanan->kota_id, $pesanan->kurir);
+            $totalBiaya = $penawaran->biaya + $ongkosKirim;
             $statusPesanan = StatusPesanan::buat($pesanan->id, 'menunggu pembayaran DP');
             $snapToken = MidtransAPI::tokenPembayaranUangMuka($pesanan, $ongkosKirim, $penawaran->biaya);
             $pesanan->perbarui($totalBiaya, $penawaran->tanggal_selesai, $penawaran->catatan, $snapToken);
