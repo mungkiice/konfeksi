@@ -5,7 +5,7 @@
 	<div class="col-md-6 grid-margin stretch-card">
 		<div class="card">
 			<div class="card-body">
-				<h4 class="card-title">Form Jenis Kain</h4>
+				<h4 class="card-title">Form Edit Artikel</h4>
 				<form class="forms-sample" method="POST" accept="/admin/artikel/{{$artikel->id}}/edit" enctype="multipart/form-data">
 					@csrf
 					@method('PUT')

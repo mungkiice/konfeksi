@@ -3,9 +3,9 @@
 @section('content')
 <div class="card">
 	<div class="card-body">
-		<h4 class="card-title">Data Artikel Jenis Kain</h4>
+		<h4 class="card-title">Data Artikel</h4>
 		<div class="row">
-			<a class="btn btn-success" href="/admin/artikel/create">Tambah Artikel Jenis Kain</a>
+			<a class="btn btn-success" href="/admin/artikel/create">Tambah Artikel</a>
 			<div class="col-12">
 				<table id="order-listing" class="table">
 					<thead>
