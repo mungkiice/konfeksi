@@ -12,6 +12,8 @@ use App\RajaOngkirAPI;
 use App\StatusPesanan;
 use Barryvdh\DomPDF\Facade as PDF;
 use Veritrans_Notification;
+use Veritrans_Config;
+use App\Notifications\Konfirmasi;
 use Illuminate\Support\Facades\Request;
 
 class PesananController extends Controller
@@ -105,20 +107,28 @@ class PesananController extends Controller
 
 	public function notificationHandler()
 	{
+	    Veritrans_Config::$serverKey = env('MIDTRANS_SERVERKEY');
+		Veritrans_Config::$isProduction = false;
+		Veritrans_Config::$isSanitized = true;
+		Veritrans_Config::$is3ds = true;
 		$notif = new Veritrans_Notification();
 		\DB::transaction(function() use($notif) {
 			$transaction = $notif->transaction_status;
 			$type = $notif->payment_type;
 			$orderId = $notif->order_id;
 			$fraud = $notif->fraud_status;
-			$pesanan = Pesanan::filter($orderId);
+			$kodePesanan = preg_replace("/[^0-9]/", '', $orderId);
+			$tipe = preg_replace("/[^a-zA-Z]/", '', $orderId);
+			$keterangan = $tipe == 'DP' ? 'DP': 'LUNAS';
+			$pesanan = Pesanan::filter($kodePesanan);
 			if ($transaction == 'capture') {
-				if ($type == 'credit_card') {
-					StatusPesanan::buat($pesanan->id, 'Pembayaran sukses');
+				// if ($type == 'credit_card') {
+					StatusPesanan::buat($pesanan->id, 'Pembayaran '.$keterangan.' sukses');
 					$pesanan->produk->konfeksi->user->notify(new Konfirmasi($pesanan));
-				}
+				// }
 			} elseif ($transaction == 'settlement') {
-
+					StatusPesanan::buat($pesanan->id, 'Pembayaran '.$keterangan.' sukses');
+					$pesanan->produk->konfeksi->user->notify(new Konfirmasi($pesanan));
 			} elseif($transaction == 'pending'){
 
 			} elseif ($transaction == 'deny') {

@@ -8,19 +8,19 @@ use Veritrans_Snap;
 
 class MidtransAPI 
 {
-	static function init()
-	{
-		Veritrans_Config::$serverKey = config('services.midtrans.serverKey');
-		Veritrans_Config::$isProduction = config('services.midtrans.isProduction');
-		Veritrans_Config::$isSanitized = config('services.midtrans.isSanitized');
-		Veritrans_Config::$is3ds = config('services.midtrans.is3ds');
-	}
+    static function init()
+    {
+        Veritrans_Config::$serverKey = env('MIDTRANS_SERVERKEY');
+        Veritrans_Config::$isProduction = false;
+        Veritrans_Config::$isSanitized = true;
+        Veritrans_Config::$is3ds = true;
+    }
 
     //verified
-	public static function tokenPembayaranUangMuka(Pesanan $pesanan, $ongkir, $biayaTambahan)
-	{
-		self::init();
-		$transaction_details = array(
+    public static function tokenPembayaranUangMuka(Pesanan $pesanan, $ongkir, $biayaTambahan)
+    {
+        self::init();
+        $transaction_details = array(
                 'order_id' => 'DP' . $pesanan->kode_pesanan,
                 // 'gross_amount' => $totalBiaya
             );
@@ -83,12 +83,12 @@ class MidtransAPI
 
             $snapToken = Veritrans_Snap::getSnapToken($transaction);
             return $snapToken;
-	}
+    }
 
-	public static function tokenPembayaranLunas(Pesanan $pesanan, $ongkir, $biayaTambahan)
-	{
-		self::init();
-		$transaction_details = array(
+    public static function tokenPembayaranLunas(Pesanan $pesanan, $ongkir, $biayaTambahan)
+    {
+        self::init();
+        $transaction_details = array(
                 'order_id' => 'LN' . $pesanan->kode_pesanan,
                 // 'gross_amount' => $totalBiaya
             );
@@ -116,7 +116,7 @@ class MidtransAPI
                     'id' => 'bt',
                     'price' => .5 * $biayaTambahan,
                     'quantity' => 1,
-                    'name' => 'biaya tambahan (DP 50%)'
+                    'name' => 'biaya tambahan (LUNAS)'
                 ]);
             }
 
@@ -151,5 +151,5 @@ class MidtransAPI
 
             $snapToken = Veritrans_Snap::getSnapToken($transaction);
             return $snapToken;
-	}
+    }
 }
