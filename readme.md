@@ -45,6 +45,21 @@ DB_USERNAME=(USERNAME_DATABASE)
 DB_PASSWORD=(PASSWORD_DATABASE)
 MIDTRANS_SERVERKEY=(SERVER KEY DARI AKUN MERCHANT MIDTRANS)
 MIDTRANS_CLIENTKEY=(CLIENT KEY DARI AKUN MERCHANT MIDTRANS)
+
+MAIL_DRIVER=smtp
+MAIL_HOST=smtp.googlemail.com
+MAIL_PORT=465
+MAIL_USERNAME=(AKUN GOOGLE)
+MAIL_PASSWORD=(PASSWORD AKUN GOOGLE)
+MAIL_ENCRYPTION=ssl
+
+PUSHER_APP_ID=(ID_PUSHER)
+PUSHER_APP_KEY=(KEY_PUSHER)
+PUSHER_APP_SECRET=(SECRET_PUSHER)
+PUSHER_APP_CLUSTER=ap1
+
+AFTERSHIP_APIKEY=(AFTERSHIP_KEY)
+RAJAONGKIR_APIKEY=(RAJAONGKIR_KEY)
 ```
 
 Generate Key
@@ -109,6 +124,9 @@ Add additional notes about how to deploy this on a live system -->
 
 * [Laravel 5.8](https://laravel.com/docs/5.8) - PHP Website Framework
 * [Veritrans/Midtrans](https://docs.midtrans.com/en/welcome/index.html) - Payment Gateway
+* [RajaOngkir](https://rajaongkir.com/dokumentasi) - Courier Cost Web Service API
+* [AfterShip](https://www.aftership.com/) - Tracking Web Service API
+* [Pusher](https://pusher.com/) - Real-time Hosted Service
 
 <!-- ## Contributing
 
